@@ -84,6 +84,21 @@ export class AppPage {
                 }
             },
 
+            elementProperties: {
+                getTitleText() {
+                    return element(by.css('app-root .main #element-properties h2')).getText();
+                }
+            },
+
+            groups: {
+                getTitleText() {
+                    return element(by.css('app-root .main #groups h2')).getText();
+                },
+                addGroup() {
+                    return element(by.css('app-root .main #groups #add-group')).click();
+                }
+            },
+
             formName: {
                 edit(text: string) {
                     return guaranteedSendKeys(element(by.css('app-root .main input#form-name')), text);

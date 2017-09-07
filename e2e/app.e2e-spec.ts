@@ -94,6 +94,31 @@ describe('site App', () => {
                         );
                 });
             });
+
+            describe('element properties', () => {
+                it('should display the title', () => {
+                    page.navigateTo()
+                        .then(
+                            () => expect(editor.elementProperties.getTitleText()).toBeNonEmptyString()
+                        );
+                });
+            });
+
+            describe('groups', () => {
+                it('should display the title', () => {
+                    page.navigateTo()
+                        .then(
+                            () => expect(editor.groups.getTitleText()).toBeNonEmptyString()
+                        );
+                });
+
+                it('should display a button to add a group', () => {
+                    page.navigateTo()
+                        .then(
+                            () => editor.groups.addGroup()
+                        );
+                });
+            });
         });
 
         describe('export the form', () => {
