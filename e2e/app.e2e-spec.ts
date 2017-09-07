@@ -29,4 +29,24 @@ describe('site App', () => {
                 );
         });
     });
+
+    describe('editor', () => {
+
+        let editor;
+
+        beforeEach(() => {
+            editor = page.getEditor();
+        });
+
+        it('should display a list of forms as tabs', () => {
+            page.navigateTo()
+                .then(
+                    () => expect(editor.getTabsText()).toBeArrayOfStrings()
+                );
+        });
+
+        describe('should add a new tab', () => {
+
+        });
+    });
 });

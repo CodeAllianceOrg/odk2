@@ -13,6 +13,14 @@ export class AppPage {
             getLinksText() {
                 return element.all(by.css('app-root nav.navbar li.nav-item')).map(ef => ef.getText());
             }
-        }
+        };
+    }
+
+    getEditor() {
+        return {
+            getTabsText() {
+                return element.all(by.css('app-root .main .tabs .nav.nav-tabs li.nav-item')).map(ef => ef.getText());
+            }
+        };
     }
 }
