@@ -1,4 +1,4 @@
-<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-light mb-3" style="background-color: #e3f2fd;">
   <a class="navbar-brand" href="/">ODK 2.0 Form Builder</a>
   <ul class="nav justify-content-end">
     <li class="nav-item">
@@ -13,16 +13,12 @@
   </ul>
 </nav>
 
-<div class="container main">
-  <div class="row">
-
-  </div>
-
+<div class="container-fluid main">
   <div class="row tabs">
     <ngb-tabset>
       <ngb-tab title="Intake North">
         <ng-template ngbTabContent>
-          <div class="row">
+          <div class="row my-2">
             <div class="col-4">
               <div class="input-group">
                 <span class="input-group-addon">
@@ -32,7 +28,7 @@
               </div>
             </div>
             <div class="col-6"></div>
-            <div class="col-2">
+            <div class="col-2 d-flex flex-row-reverse">
               <button type="button" class="btn btn-primary" id="export">
                 Export <i class="fa fa-floppy-o" aria-hidden="true"></i>
               </button>
@@ -40,7 +36,7 @@
           </div>
 
           <div class="row">
-            <div class="col-3 text-center border" id="form-elements">
+            <div class="col-2 text-center p-3" id="form-elements">
               <h2>Form Elements</h2>
               <button type="button" class="btn btn-secondary btn-lg btn-block">Text</button>
               <button type="button" class="btn btn-secondary btn-lg btn-block">Numeric</button>
@@ -49,7 +45,7 @@
               <button type="button" class="btn btn-secondary btn-lg btn-block">Multi Select</button>
             </div>
 
-            <div class="col-6 text-center border" id="groups">
+            <div class="col-6 text-center p-3" id="groups">
               <h2>Groups</h2>
               <div class="d-flex justify-content-center">
                 <button type="button" class="btn btn-primary" id="add-group">
@@ -58,7 +54,7 @@
               </div>
             </div>
 
-            <div class="col-3 text-center border" id="element-properties">
+            <div class="col-4 text-center p-3" id="element-properties">
               <h2>Properties</h2>
             </div>
           </div>
