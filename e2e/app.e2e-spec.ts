@@ -45,8 +45,39 @@ describe('site App', () => {
                 );
         });
 
-        describe('should add a new tab', () => {
+        describe('add a new form', () => {
+            it('should display a button to add a form', () => {
+                page.navigateTo()
+                    .then(
+                        () => editor.openCreateDialog()
+                    );
+            });
 
+            xit('should open a dialog', () => {
+
+            });
         });
+
+        describe('controls', () => {
+            it('should manage the form name', () => {
+                const name = 'Example Name';
+                page.navigateTo()
+                    .then(
+                        () => editor.formName.edit(name)
+                    )
+                    .then(
+                        () => expect(editor.formName.get()).toEqual(name)
+                    );
+            });
+        });
+
+        describe('export the form', () => {
+            it('should display a button to export the form', () => {
+                page.navigateTo()
+                    .then(
+                        () => editor.openExportDialog()
+                    );
+            });
+        })
     });
 });
