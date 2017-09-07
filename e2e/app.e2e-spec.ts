@@ -23,7 +23,10 @@ describe('site App', () => {
         });
 
         it('should display a list of links', () => {
-
+            page.navigateTo()
+                .then(
+                    () => expect(header.getLinksText()).toBeArrayOfStrings()
+                );
         });
     });
 });

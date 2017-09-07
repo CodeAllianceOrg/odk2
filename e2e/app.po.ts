@@ -8,12 +8,11 @@ export class AppPage {
     getHeader() {
         return {
             getBrandText() {
-                return element(by.css('app-root .header .brand'));
+                return element(by.css('app-root nav.navbar .navbar-brand')).getText();
+            },
+            getLinksText() {
+                return element.all(by.css('app-root nav.navbar li.nav-item')).map(ef => ef.getText());
             }
         }
-    }
-
-    getParagraphText() {
-        return element(by.css('app-root h1')).getText();
     }
 }
