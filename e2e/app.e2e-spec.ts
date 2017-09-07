@@ -1,14 +1,32 @@
 import { AppPage } from './app.po';
 
 describe('site App', () => {
-  let page: AppPage;
+    let page: AppPage;
 
-  beforeEach(() => {
-    page = new AppPage();
-  });
+    beforeEach(() => {
+        page = new AppPage();
+    });
 
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
-  });
+    describe('header', () => {
+
+        let header;
+
+        beforeEach(() => {
+            header = page.getHeader();
+        });
+
+        it('should display the brand', () => {
+            page.navigateTo()
+                .then(
+                    () => expect(header.getBrandText()).toBeNonEmptyString()
+                );
+        });
+
+        it('should display a list of links', () => {
+            page.navigateTo()
+                .then(
+                    () => expect(header.getLinksText()).toBeArrayOfStrings()
+                );
+        });
+    });
 });

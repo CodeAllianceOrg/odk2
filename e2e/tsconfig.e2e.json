@@ -8,6 +8,7 @@
     "types": [
       "jasmine",
       "jasminewd2",
+      "jasmine-expect",
       "node"
     ]
   }
