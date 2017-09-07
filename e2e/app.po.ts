@@ -24,7 +24,7 @@ const guaranteedSendKeys = (elementFinder: ElementFinder, text: string) => {
                 if (insertedValue !== text) {
                     // Failed, must send characters one at a time
                     elementFinder.clear();
-                    for(let i = 0; i < text.length; i++){
+                    for (let i = 0; i < text.length; i++) {
                         elementFinder.sendKeys(text.charAt(i));
                     }
                 }
@@ -41,7 +41,7 @@ const guaranteedSendKeys = (elementFinder: ElementFinder, text: string) => {
                     )
                 )
         );
-}
+};
 
 /***********************
  ** App Page
@@ -73,6 +73,15 @@ export class AppPage {
             },
             openExportDialog() {
                 return element(by.css('app-root .main button#export')).click();
+            },
+
+            formElements: {
+                getTitleText() {
+                    return element(by.css('app-root .main #form-elements h2')).getText();
+                },
+                getAllText() {
+                    return element.all(by.css('app-root .main #form-elements button')).map(ef => ef.getText());
+                }
             },
 
             formName: {

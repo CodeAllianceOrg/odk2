@@ -26,6 +26,9 @@ describe('site App', () => {
             page.navigateTo()
                 .then(
                     () => expect(header.getLinksText()).toBeArrayOfStrings()
+                )
+                .then(
+                    () => expect(header.getLinksText()).toBeNonEmptyArray()
                 );
         });
     });
@@ -42,6 +45,9 @@ describe('site App', () => {
             page.navigateTo()
                 .then(
                     () => expect(editor.getTabsText()).toBeArrayOfStrings()
+                )
+                .then(
+                    () => expect(editor.getTabsText()).toBeNonEmptyArray()
                 );
         });
 
@@ -69,6 +75,25 @@ describe('site App', () => {
                         () => expect(editor.formName.get()).toEqual(name)
                     );
             });
+
+            describe('form elements', () => {
+                it('should display the title', () => {
+                    page.navigateTo()
+                        .then(
+                            () => expect(editor.formElements.getTitleText()).toBeNonEmptyString()
+                        );
+                });
+
+                it('should display a list of form elements', () => {
+                    page.navigateTo()
+                        .then(
+                            () => expect(editor.formElements.getAllText()).toBeArrayOfStrings()
+                        )
+                        .then(
+                            () => expect(editor.formElements.getAllText()).toBeNonEmptyArray()
+                        );
+                });
+            });
         });
 
         describe('export the form', () => {
@@ -78,6 +103,6 @@ describe('site App', () => {
                         () => editor.openExportDialog()
                     );
             });
-        })
+        });
     });
 });
