@@ -68,8 +68,8 @@ export class AppPage {
             getTabsText() {
                 return element.all(by.css('app-root .main .tabs .nav.nav-tabs li.nav-item')).map(ef => ef.getText());
             },
-            openCreateDialog() {
-                return element(by.css('app-root .main button#new-tab')).click();
+            openCreateTab() {
+                return element(by.cssContainingText('app-root .main a.nav-link', 'New Form')).click();
             },
             openExportDialog() {
                 return element(by.css('app-root .main button#export')).click();

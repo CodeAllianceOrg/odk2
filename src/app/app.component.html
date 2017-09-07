@@ -15,29 +15,32 @@
 
 <div class="container main">
   <div class="row">
-    <button type="button" class="btn btn-primary" id="new-tab">
-      New <i class="fa fa-plus-circle" aria-hidden="true"></i>
-    </button>
+
   </div>
 
   <div class="row tabs">
     <ngb-tabset>
       <ngb-tab title="Intake North">
         <ng-template ngbTabContent>
-          <div class="d-flex justify-content-between">
-            <div class="input-group">
-              <span class="input-group-addon">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-              </span>
-              <input type="text" class="form-control" placeholder="Form name" id="form-name">
+          <div class="row">
+            <div class="col-4">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="Form name" id="form-name">
+              </div>
             </div>
-            <button type="button" class="btn btn-primary" id="export">
-              Export <i class="fa fa-floppy-o" aria-hidden="true"></i>
-            </button>
+            <div class="col-6"></div>
+            <div class="col-2">
+              <button type="button" class="btn btn-primary" id="export">
+                Export <i class="fa fa-floppy-o" aria-hidden="true"></i>
+              </button>
+            </div>
           </div>
 
           <div class="row">
-            <div class="col-3 text-center" id="form-elements">
+            <div class="col-3 text-center border" id="form-elements">
               <h2>Form Elements</h2>
               <button type="button" class="btn btn-secondary btn-lg btn-block">Text</button>
               <button type="button" class="btn btn-secondary btn-lg btn-block">Numeric</button>
@@ -46,7 +49,7 @@
               <button type="button" class="btn btn-secondary btn-lg btn-block">Multi Select</button>
             </div>
 
-            <div class="col-6 text-center" id="groups">
+            <div class="col-6 text-center border" id="groups">
               <h2>Groups</h2>
               <div class="d-flex justify-content-center">
                 <button type="button" class="btn btn-primary" id="add-group">
@@ -55,20 +58,27 @@
               </div>
             </div>
 
-            <div class="col-3 text-center" id="element-properties">
+            <div class="col-3 text-center border" id="element-properties">
               <h2>Properties</h2>
             </div>
           </div>
         </ng-template>
       </ngb-tab>
-      <ngb-tab title="Intake South">
+      <ngb-tab title="New Form">
         <ng-template ngbTabContent>
-          I'm tab 2!
-        </ng-template>
-      </ngb-tab>
-      <ngb-tab title="Intake East">
-        <ng-template ngbTabContent>
-          I'm tab 3!
+          <h2>Create or Import</h2>
+          <div class="row">
+            <div class="col border border-dark border-top-0 border-left-0 border-bottom-0 d-flex justify-content-center my-flex">
+              <button type="button" class="btn btn-primary" id="new-tab">
+                <i class="fa fa-file-o" aria-hidden="true"></i> Blank Form
+              </button>
+            </div>
+            <div class="col d-flex justify-content-center">
+              <button type="button" class="btn btn-primary" id="new-tab">
+                <i class="fa fa-upload" aria-hidden="true"></i> Upload File
+              </button>
+            </div>
+          </div>
         </ng-template>
       </ngb-tab>
     </ngb-tabset>

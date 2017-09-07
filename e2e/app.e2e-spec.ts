@@ -52,14 +52,18 @@ describe('site App', () => {
         });
 
         describe('add a new form', () => {
-            it('should display a button to add a form', () => {
+            it('should display a tab to add a new form', () => {
                 page.navigateTo()
                     .then(
-                        () => editor.openCreateDialog()
+                        () => editor.openCreateTab()
                     );
             });
 
-            xit('should open a dialog', () => {
+            xit('should create a new, blank form', () => {
+
+            });
+
+            xit('should upload an existing form', () => {
 
             });
         });
