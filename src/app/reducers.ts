@@ -35,6 +35,11 @@ export const entityReducer: Reducer<IEntityStore> = (
             ...previousState,
             forms: previousState.forms.setIn([action.payload.formKey, 'name'], action.payload.name)
         };
+    case FormActions.UPDATE_GROUP_NAME:
+        return {
+            ...previousState,
+            groups: previousState.groups.setIn([action.payload.groupKey, 'name'], action.payload.name)
+        };
     case FormActions.ADD_GROUP:
         const groupId = Date.now();
         const group = new GroupRecord({id: groupId});

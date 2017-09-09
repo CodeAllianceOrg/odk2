@@ -16,7 +16,7 @@
 <div class="container-fluid main">
   <div class="row tabs">
     <ngb-tabset>
-      <ngb-tab *ngFor="let form of forms$ | async; trackBy: trackForms"
+      <ngb-tab *ngFor="let form of forms$ | async; trackBy: tracker"
                [title]="form.name">
         <ng-template ngbTabContent>
           <div class="row my-2">
@@ -30,7 +30,7 @@
                        placeholder="Form name"
                        id="form-name"
                        [ngModel]="form.name"
-                       (ngModelChange)="updateFormName(form, $event)">
+                       (ngModelChange)="onFormNameChange(form, $event)">
               </div>
             </div>
             <div class="col-6"></div>
@@ -54,9 +54,24 @@
             <div class="col-6 text-center p-3" id="groups">
               <h2>Groups</h2>
 
-              <div class="group-item"
-                   *ngFor="let group of form.groups">
-                <p>I'm group {{ group.id }}</p>
+              <div class="group-item border"
+                   *ngFor="let group of form.groups; trackBy: tracker">
+
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </span>
+                  <input type="text"
+                         class="form-control group-name"
+                         placeholder="Group name"
+                         [ngModel]="group.name"
+                         (ngModelChange)="onGroupNameChange(group, $event)">
+                </div>
+
+                <div>
+                  <p>I'm the questions!</p>
+                </div>
+
               </div>
 
               <div class="d-flex justify-content-center">

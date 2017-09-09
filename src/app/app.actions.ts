@@ -10,6 +10,8 @@ export class FormActions {
 
     static UPDATE_FORM_NAME = 'FORM_ACTIONS-UPDATE_FORM_NAME';
 
+    static UPDATE_GROUP_NAME = 'FORM_ACTIONS-UPDATE_GROUP_NAME';
+
     static ADD_GROUP = 'FORM_ACTIONS-ADD_GROUP';
 
     constructor(private ngRedux: NgRedux<IAppState>) {}
@@ -33,6 +35,16 @@ export class FormActions {
             type: FormActions.UPDATE_FORM_NAME,
             payload: {
                 formKey,
+                name
+            }
+        });
+    }
+
+    public updateGroupName(name: string, groupKey: number): void {
+        this.ngRedux.dispatch({
+            type: FormActions.UPDATE_GROUP_NAME,
+            payload: {
+                groupKey,
                 name
             }
         });

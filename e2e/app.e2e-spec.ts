@@ -153,6 +153,27 @@ describe('site App', () => {
                             () => expect(editor.groups.count()).toEqual(initialCount + 1)
                         );
                 });
+
+                it('should manage the name of the group', () => {
+                    const name = 'Example Group Name';
+
+                    page.navigateTo()
+                        .then(
+                            () => editor.groups.addGroup()
+                        )
+                        .then(
+                            () => editor.groups.controls.name.edit(0, name)
+                        )
+                        .then(
+                            () => editor.tabs.openCreateTab()
+                        )
+                        .then(
+                            () => editor.tabs.openTab(0)
+                        )
+                        .then(
+                            () => expect(editor.groups.controls.name.get(0)).toEqual(name)
+                        );
+                });
             });
         });
 

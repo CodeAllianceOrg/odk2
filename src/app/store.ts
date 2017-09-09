@@ -5,7 +5,8 @@ export interface IGroup {
 }
 
 export const GroupRecord = Record({
-    id: 0
+    id: 0,
+    name: 'Default Group Name'
 });
 
 export interface IElement {}
@@ -19,7 +20,7 @@ export interface IForm {
 
 export const FormRecord = Record({
     id: 0,
-    name: 'Default Name',
+    name: 'Default Form Name',
     groups: List()
 });
 

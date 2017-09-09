@@ -76,6 +76,11 @@ export class AppPage {
                 getNames() {
                     return element.all(by.css('app-root .main .tabs .nav.nav-tabs li.nav-item')).map(ef => ef.getText());
                 },
+
+                openTab(index: number) {
+                    return element.all(by.css('app-root .main a.nav-link')).get(index).click();
+                },
+
                 openCreateTab() {
                     return element(by.cssContainingText('app-root .main a.nav-link', 'New Form')).click();
                 },
@@ -117,6 +122,20 @@ export class AppPage {
                 },
                 count() {
                     return element.all(by.css('app-root .main #groups .group-item')).count();
+                },
+
+                controls: {
+                    name: {
+                        edit(index: number, text: string) {
+                            return guaranteedSendKeys(
+                                element.all(by.css('app-root .main #groups .group-item input.group-name')).get(index),
+                                text
+                            );
+                        },
+                        get(index: number) {
+                            return element.all(by.css('app-root .main #groups .group-item input.group-name')).get(index).getAttribute('value');
+                        }
+                    }
                 }
             },
 
