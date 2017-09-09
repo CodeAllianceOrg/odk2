@@ -13,7 +13,9 @@ export interface IEntityStore {
 export const ENTITIES_STORE_INITIAL_STATE: IEntityStore = {
     groups: Map<number, IGroup>(),
     elements: Map<number, IElement>(),
-    forms: Map<number, IForm>()
+    forms: Map<number, IForm>({
+        0: {}
+    })
 };
 
 export interface ISelectedStore {

@@ -2,14 +2,19 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { SelectionsService } from './selections.service';
 
-describe('SelectionsService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [SelectionsService]
-    });
-  });
+import { NgReduxTestingModule } from '@angular-redux/store/testing';
 
-  it('should be created', inject([SelectionsService], (service: SelectionsService) => {
-    expect(service).toBeTruthy();
-  }));
+describe('SelectionsService', () => {
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [SelectionsService],
+            imports: [
+                NgReduxTestingModule
+            ]
+        });
+    });
+
+    it('should be created', inject([SelectionsService], (service: SelectionsService) => {
+        expect(service).toBeTruthy();
+    }));
 });

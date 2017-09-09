@@ -3,6 +3,11 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgReduxTestingModule } from '@angular-redux/store/testing';
+
+import { FormActions } from './app.actions';
+
+import { SelectionsService } from './services/selections.service';
 
 describe('AppComponent', () => {
     beforeEach(async(() => {
@@ -11,8 +16,13 @@ describe('AppComponent', () => {
                 AppComponent
             ],
             imports: [
-                NgbModule.forRoot()
+                NgbModule.forRoot(),
+                NgReduxTestingModule
             ],
+            providers: [
+                SelectionsService,
+                FormActions
+            ]
         }).compileComponents();
     }));
 
