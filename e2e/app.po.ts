@@ -65,14 +65,32 @@ export class AppPage {
 
     getEditor() {
         return {
-            getTabsText() {
-                return element.all(by.css('app-root .main .tabs .nav.nav-tabs li.nav-item')).map(ef => ef.getText());
-            },
-            openCreateTab() {
-                return element(by.cssContainingText('app-root .main a.nav-link', 'New Form')).click();
-            },
             openExportDialog() {
                 return element(by.css('app-root .main button#export')).click();
+            },
+
+            tabs: {
+                count() {
+                    return element.all(by.css('app-root .main .tabs .nav.nav-tabs li.nav-item')).count();
+                },
+                getNames() {
+                    return element.all(by.css('app-root .main .tabs .nav.nav-tabs li.nav-item')).map(ef => ef.getText());
+                },
+                openCreateTab() {
+                    return element(by.cssContainingText('app-root .main a.nav-link', 'New Form')).click();
+                },
+
+                currentTab: {
+                    getName() {
+                        return element(by.css('app-root .main .nav-tabs a.nav-link.active')).getText()
+                    }
+                }
+            },
+
+            create: {
+                createBlankForm() {
+                    return element(by.css('app-root .main button#new-form')).click();
+                }
             },
 
             formElements: {

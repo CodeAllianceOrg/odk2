@@ -16,7 +16,8 @@
 <div class="container-fluid main">
   <div class="row tabs">
     <ngb-tabset>
-      <ngb-tab title="Intake North">
+      <ngb-tab *ngFor="let form of forms$ | async; trackBy: trackForms"
+               [title]="form.name">
         <ng-template ngbTabContent>
           <div class="row my-2">
             <div class="col-4">
@@ -24,7 +25,12 @@
                 <span class="input-group-addon">
                   <i class="fa fa-pencil" aria-hidden="true"></i>
                 </span>
-                <input type="text" class="form-control" placeholder="Form name" id="form-name">
+                <input type="text"
+                       class="form-control"
+                       placeholder="Form name"
+                       id="form-name"
+                       [ngModel]="form.name"
+                       (ngModelChange)="updateFormName(form, $event)">
               </div>
             </div>
             <div class="col-6"></div>
@@ -62,15 +68,15 @@
       </ngb-tab>
       <ngb-tab title="New Form">
         <ng-template ngbTabContent>
-          <h2>Create or Import</h2>
+          <h2 class="mt-3">Create or Import</h2>
           <div class="row">
             <div class="col border border-dark border-top-0 border-left-0 border-bottom-0 d-flex justify-content-center my-flex">
-              <button type="button" class="btn btn-primary" id="new-tab">
+              <button type="button" class="btn btn-primary btn-lg" id="new-form" (click)="add()">
                 <i class="fa fa-file-o" aria-hidden="true"></i> Blank Form
               </button>
             </div>
             <div class="col d-flex justify-content-center">
-              <button type="button" class="btn btn-primary" id="new-tab">
+              <button type="button" class="btn btn-primary btn-lg" id="upload-form">
                 <i class="fa fa-upload" aria-hidden="true"></i> Upload File
               </button>
             </div>

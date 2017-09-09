@@ -44,10 +44,10 @@ describe('site App', () => {
         it('should display a list of forms as tabs', () => {
             page.navigateTo()
                 .then(
-                    () => expect(editor.getTabsText()).toBeArrayOfStrings()
+                    () => expect(editor.tabs.getNames()).toBeArrayOfStrings()
                 )
                 .then(
-                    () => expect(editor.getTabsText()).toBeNonEmptyArray()
+                    () => expect(editor.tabs.getNames()).toBeNonEmptyArray()
                 );
         });
 
@@ -55,12 +55,29 @@ describe('site App', () => {
             it('should display a tab to add a new form', () => {
                 page.navigateTo()
                     .then(
-                        () => editor.openCreateTab()
+                        () => editor.tabs.openCreateTab()
                     );
             });
 
-            xit('should create a new, blank form', () => {
+            it('should create a new, blank form', () => {
+                let initialTabsCount;
 
+                page.navigateTo()
+                    .then(
+                        () => editor.tabs.count()
+                    )
+                    .then(
+                        count => {
+                            initialTabsCount = count;
+                            return editor.tabs.openCreateTab();
+                        }
+                    )
+                    .then(
+                        () => editor.create.createBlankForm()
+                    )
+                    .then(
+                        () => expect(editor.tabs.count()).toEqual(initialTabsCount + 1)
+                    );
             });
 
             xit('should upload an existing form', () => {
@@ -77,6 +94,9 @@ describe('site App', () => {
                     )
                     .then(
                         () => expect(editor.formName.get()).toEqual(name)
+                    )
+                    .then(
+                        () => expect(editor.tabs.currentTab.getName()).toEqual(name)
                     );
             });
 
