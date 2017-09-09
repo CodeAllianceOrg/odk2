@@ -136,10 +136,21 @@ describe('site App', () => {
                         );
                 });
 
-                it('should display a button to add a group', () => {
+                it('should add a group', () => {
+                    let initialCount;
+
                     page.navigateTo()
                         .then(
-                            () => editor.groups.addGroup()
+                            () => editor.groups.count()
+                        )
+                        .then(
+                            count => {
+                                initialCount = count;
+                                return editor.groups.addGroup();
+                            }
+                        )
+                        .then(
+                            () => expect(editor.groups.count()).toEqual(initialCount + 1)
                         );
                 });
             });

@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 
 import {
     IAppState,
+    IEntityStore,
     IForm
 } from '../store';
 
 import { NgRedux } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
 
-import { List, Map } from 'immutable';
+import { List } from 'immutable';
 
 @Injectable()
 export class SelectionsService {
@@ -17,10 +18,16 @@ export class SelectionsService {
 
     public get forms$(): Observable<List<IForm>> {
         return this.ngRedux
-            .select(['entities', 'forms'])
+            .select(['entities'])
             .map(
-                (formsMap: Map<number, IForm>): List<IForm> => {
-                    return formsMap.valueSeq().toList();
+                (entities: IEntityStore) => {
+                    const forms = entities.forms.valueSeq().toList();
+
+                    return forms
+                        .map(
+                            form => form.set('groups', form.get('groups').map((id: number) => entities.groups.get(id)))
+                        )
+                        .toList();
                 }
             );
     }

@@ -23,8 +23,12 @@ export class AppComponent {
         this.forms$ = selections.forms$;
     }
 
-    add() {
+    onAddForm() {
         this.formActions.addBlankForm();
+    }
+
+    onAddGroup(form: IForm) {
+        this.formActions.addGroup(form.id);
     }
 
     updateFormName(form: IForm, name: string) {

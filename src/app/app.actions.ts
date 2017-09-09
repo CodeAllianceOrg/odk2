@@ -7,7 +7,10 @@ import {
 @Injectable()
 export class FormActions {
     static ADD_BLANK_FORM = 'FORM_ACTIONS-ADD_BLANK_FORM';
+
     static UPDATE_FORM_NAME = 'FORM_ACTIONS-UPDATE_FORM_NAME';
+
+    static ADD_GROUP = 'FORM_ACTIONS-ADD_GROUP';
 
     constructor(private ngRedux: NgRedux<IAppState>) {}
 
@@ -15,6 +18,13 @@ export class FormActions {
         this.ngRedux.dispatch({
             type: FormActions.ADD_BLANK_FORM,
             payload: null
+        });
+    }
+
+    public addGroup(formKey: number): void {
+        this.ngRedux.dispatch({
+            type: FormActions.ADD_GROUP,
+            payload: formKey
         });
     }
 

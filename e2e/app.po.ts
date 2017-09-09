@@ -114,6 +114,9 @@ export class AppPage {
                 },
                 addGroup() {
                     return element(by.css('app-root .main #groups #add-group')).click();
+                },
+                count() {
+                    return element.all(by.css('app-root .main #groups .group-item')).count();
                 }
             },
 
