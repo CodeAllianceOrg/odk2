@@ -1,11 +1,20 @@
-import { Map } from 'immutable';
+import { Map, Record } from 'immutable';
 
 export interface IGroup {}
 export interface IElement {}
-export interface IForm {}
+
+export interface IForm {
+    id: number;
+    name: string;
+}
+
+export const FormRecord = Record({
+    id: 0,
+    name: 'Default Name'
+});
 
 export interface IEntityStore {
-    forms: Map<number, IForm>;
+    forms: Map<number, any>;
     groups: Map<number, IGroup>;
     elements: Map<number, IElement>;
 }
@@ -13,9 +22,7 @@ export interface IEntityStore {
 export const ENTITIES_STORE_INITIAL_STATE: IEntityStore = {
     groups: Map<number, IGroup>(),
     elements: Map<number, IElement>(),
-    forms: Map<number, IForm>({
-        0: {}
-    })
+    forms: Map<number, any>().set(0, new FormRecord())
 };
 
 export interface ISelectedStore {

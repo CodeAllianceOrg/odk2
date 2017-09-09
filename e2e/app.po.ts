@@ -79,6 +79,12 @@ export class AppPage {
                 openCreateTab() {
                     return element(by.cssContainingText('app-root .main a.nav-link', 'New Form')).click();
                 },
+
+                currentTab: {
+                    getName() {
+                        return element(by.css('app-root .main .nav-tabs a.nav-link.active')).getText()
+                    }
+                }
             },
 
             create: {

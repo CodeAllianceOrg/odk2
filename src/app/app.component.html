@@ -16,8 +16,8 @@
 <div class="container-fluid main">
   <div class="row tabs">
     <ngb-tabset>
-      <ngb-tab *ngFor="let form of forms$ | async"
-               title="Intake North">
+      <ngb-tab *ngFor="let form of forms$ | async; trackBy: trackForms"
+               [title]="form.name">
         <ng-template ngbTabContent>
           <div class="row my-2">
             <div class="col-4">
@@ -25,7 +25,12 @@
                 <span class="input-group-addon">
                   <i class="fa fa-pencil" aria-hidden="true"></i>
                 </span>
-                <input type="text" class="form-control" placeholder="Form name" id="form-name">
+                <input type="text"
+                       class="form-control"
+                       placeholder="Form name"
+                       id="form-name"
+                       [ngModel]="form.name"
+                       (ngModelChange)="updateFormName(form, $event)">
               </div>
             </div>
             <div class="col-6"></div>

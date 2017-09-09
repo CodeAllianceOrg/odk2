@@ -20,10 +20,18 @@ export class AppComponent {
 
     constructor(selections: SelectionsService,
                 private formActions: FormActions) {
-        this.forms$ = selections.forms$
+        this.forms$ = selections.forms$;
     }
 
     add() {
         this.formActions.addBlankForm();
+    }
+
+    updateFormName(form: IForm, name: string) {
+        this.formActions.updateFormName(name, form.id);
+    }
+
+    trackForms(_: undefined, form: IForm): number | undefined {
+        return form ? form.id : undefined;
     }
 }

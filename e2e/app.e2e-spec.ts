@@ -94,6 +94,9 @@ describe('site App', () => {
                     )
                     .then(
                         () => expect(editor.formName.get()).toEqual(name)
+                    )
+                    .then(
+                        () => expect(editor.tabs.currentTab.getName()).toEqual(name)
                     );
             });
 

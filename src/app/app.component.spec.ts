@@ -2,6 +2,8 @@ import { TestBed, async } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
 
+import { FormsModule } from '@angular/forms';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgReduxTestingModule } from '@angular-redux/store/testing';
 
@@ -17,7 +19,8 @@ describe('AppComponent', () => {
             ],
             imports: [
                 NgbModule.forRoot(),
-                NgReduxTestingModule
+                NgReduxTestingModule,
+                FormsModule
             ],
             providers: [
                 SelectionsService,
