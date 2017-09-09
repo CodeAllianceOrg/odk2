@@ -1,4 +1,4 @@
-import { Map, fromJS } from 'immutable';
+import { Map } from 'immutable';
 
 export interface IGroup {}
 export interface IElement {}
@@ -19,7 +19,7 @@ export const ENTITIES_STORE_INITIAL_STATE: IEntityStore = {
 };
 
 export interface ISelectedStore {
-    group: number;
+    group: number | null;
 }
 
 export const SELECTED_STORE_INITIAL_STATE: ISelectedStore = {

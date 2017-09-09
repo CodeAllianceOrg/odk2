@@ -1,5 +1,4 @@
 import { combineReducers, Reducer, Action } from 'redux';
-import { Map } from 'immutable';
 
 import {
     FormActions
@@ -33,6 +32,11 @@ export const selectionReducer: Reducer<ISelectedStore> = (
     previousState: ISelectedStore = SELECTED_STORE_INITIAL_STATE,
     action: Action
 ): ISelectedStore => {
+
+    switch (action.type) {
+
+    }
+
     return previousState;
 };
 
