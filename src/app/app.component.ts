@@ -8,6 +8,7 @@ import {
 
 import { IForm, IGroup } from './store';
 
+import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
 import { List } from 'immutable';
 
@@ -20,9 +21,22 @@ export class AppComponent {
 
     public forms$: Observable<List<IForm>>;
 
-    constructor(selections: SelectionsService,
+    @select(['selected', 'group'])
+    public selectedGroupId$: Observable<number>;
+
+    constructor(private selections: SelectionsService,
                 private formActions: FormActions) {
         this.forms$ = selections.forms$;
+    }
+
+    onSelectGroup(group: IGroup) {
+        this.formActions.selectGroup(group.id);
+    }
+
+    onAddTextElement() {
+        this.formActions.addTextElement(
+            this.selections.selectedGroupId()
+        );
     }
 
     onAddForm() {

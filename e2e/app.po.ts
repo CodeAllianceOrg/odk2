@@ -104,6 +104,10 @@ export class AppPage {
                 },
                 getAllText() {
                     return element.all(by.css('app-root .main #form-elements button')).map(ef => ef.getText());
+                },
+
+                addText() {
+                    return element(by.cssContainingText('app-root .main #form-elements button', 'Text')).click();
                 }
             },
 
@@ -120,8 +124,17 @@ export class AppPage {
                 addGroup() {
                     return element(by.css('app-root .main #groups #add-group')).click();
                 },
+                selectGroup(index: number) {
+                    return element.all(by.css('app-root .main #groups .group-item')).get(index).click();
+                },
                 count() {
                     return element.all(by.css('app-root .main #groups .group-item')).count();
+                },
+
+                elements: {
+                    count() {
+                        return element.all(by.css('app-root .main #groups .group-item .question-element-item')).count();
+                    }
                 },
 
                 controls: {

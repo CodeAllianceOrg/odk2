@@ -174,6 +174,30 @@ describe('site App', () => {
                             () => expect(editor.groups.controls.name.get(0)).toEqual(name)
                         );
                 });
+
+                it('should add questions (generic)', () => {
+                    let initialCount;
+
+                    page.navigateTo()
+                        .then(
+                            () => editor.groups.addGroup()
+                        )
+                        .then(
+                            () => editor.groups.selectGroup(0)
+                        )
+                        .then(
+                            () => editor.groups.elements.count()
+                        )
+                        .then(
+                            count => {
+                                initialCount = count;
+                                return editor.formElements.addText();
+                            }
+                        )
+                        .then(
+                            () => expect(editor.groups.elements.count()).toEqual(initialCount + 1)
+                        );
+                });
             });
         });
 

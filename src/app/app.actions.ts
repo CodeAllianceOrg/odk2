@@ -7,14 +7,25 @@ import {
 @Injectable()
 export class FormActions {
     static ADD_BLANK_FORM = 'FORM_ACTIONS-ADD_BLANK_FORM';
-
     static UPDATE_FORM_NAME = 'FORM_ACTIONS-UPDATE_FORM_NAME';
 
+    static ADD_GROUP = 'FORM_ACTIONS-ADD_GROUP';
     static UPDATE_GROUP_NAME = 'FORM_ACTIONS-UPDATE_GROUP_NAME';
 
-    static ADD_GROUP = 'FORM_ACTIONS-ADD_GROUP';
+    static ADD_TEXT_ELEMENT = 'FORM_ACTIONS-ADD_TEXT_ELEMENT';
+
+    static SELECT_GROUP = 'FORM_ACTIONS-SELECT_GROUP';
 
     constructor(private ngRedux: NgRedux<IAppState>) {}
+
+    public addTextElement(groupKey: number | null): void {
+        if (null !== groupKey) {
+            this.ngRedux.dispatch({
+                type: FormActions.ADD_TEXT_ELEMENT,
+                payload: groupKey
+            });
+        }
+    }
 
     public addBlankForm(): void {
         this.ngRedux.dispatch({
@@ -47,6 +58,13 @@ export class FormActions {
                 groupKey,
                 name
             }
+        });
+    }
+
+    public selectGroup(groupKey: number): void {
+        this.ngRedux.dispatch({
+            type: FormActions.SELECT_GROUP,
+            payload: groupKey
         });
     }
 }

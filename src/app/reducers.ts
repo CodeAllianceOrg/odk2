@@ -1,6 +1,6 @@
 import { combineReducers, Reducer, AnyAction } from 'redux';
 
-import { FormRecord, GroupRecord } from './store';
+import { FormRecord, GroupRecord, ElementRecord } from './store';
 
 import {
     FormActions
@@ -49,6 +49,15 @@ export const entityReducer: Reducer<IEntityStore> = (
             groups: previousState.groups.set(groupId, group),
             forms: previousState.forms.updateIn([action.payload, 'groups'], arr => arr.push(groupId))
         }
+    case FormActions.ADD_TEXT_ELEMENT:
+        const elementId = Date.now();
+        const element = new ElementRecord({id: elementId});
+
+        return {
+            ...previousState,
+            elements: previousState.elements.set(elementId, element),
+            groups: previousState.groups.updateIn([action.payload, 'elements'], arr => arr.push(elementId))
+        };
     default:
         return previousState;
     }
@@ -60,10 +69,13 @@ export const selectionReducer: Reducer<ISelectedStore> = (
 ): ISelectedStore => {
 
     switch (action.type) {
-
+    case FormActions.SELECT_GROUP:
+        return {
+            group: action.payload
+        };
+    default:
+        return previousState;
     }
-
-    return previousState;
 };
 
 export const rootReducer: Reducer<IAppState> = <Reducer<IAppState>> combineReducers({

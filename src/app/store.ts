@@ -1,15 +1,25 @@
 import { Map, Record, List } from 'immutable';
 
+export interface IElement {
+    id: number;
+}
+
+export const ElementRecord = Record({
+    id: 0
+});
+
 export interface IGroup {
     id: number;
+
+    elements: List<IElement>;
 }
 
 export const GroupRecord = Record({
     id: 0,
-    name: 'Default Group Name'
-});
+    name: 'Default Group Name',
 
-export interface IElement {}
+    elements: List()
+});
 
 export interface IForm {
     id: number;
@@ -27,11 +37,13 @@ export const FormRecord = Record({
 export interface IEntityStore {
     forms: Map<number, any>;
     groups: Map<number, any>;
+    elements: Map<number, any>;
 }
 
 export const ENTITIES_STORE_INITIAL_STATE: IEntityStore = {
     groups: Map<number, any>(),
-    forms: Map<number, any>().set(0, new FormRecord())
+    forms: Map<number, any>().set(0, new FormRecord()),
+    elements: Map<number, any>()
 };
 
 export interface ISelectedStore {

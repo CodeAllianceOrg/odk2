@@ -44,7 +44,11 @@
           <div class="row">
             <div class="col-2 text-center p-3" id="form-elements">
               <h2>Form Elements</h2>
-              <button type="button" class="btn btn-secondary btn-lg btn-block">Text</button>
+              <button type="button"
+                      class="btn btn-secondary btn-lg btn-block"
+                      (click)="onAddTextElement()">
+                Text
+              </button>
               <button type="button" class="btn btn-secondary btn-lg btn-block">Numeric</button>
               <button type="button" class="btn btn-secondary btn-lg btn-block">GPS</button>
               <button type="button" class="btn btn-secondary btn-lg btn-block">Combo Box</button>
@@ -54,8 +58,10 @@
             <div class="col-6 text-center p-3" id="groups">
               <h2>Groups</h2>
 
-              <div class="group-item border"
-                   *ngFor="let group of form.groups; trackBy: tracker">
+              <div class="group-item"
+                   *ngFor="let group of form.groups; trackBy: tracker"
+                   [class.active]="(selectedGroupId$ | async) === group.id"
+                   (click)="onSelectGroup(group)">
 
                 <div class="input-group">
                   <span class="input-group-addon">
@@ -68,9 +74,12 @@
                          (ngModelChange)="onGroupNameChange(group, $event)">
                 </div>
 
-                <div>
-                  <p>I'm the questions!</p>
-                </div>
+                <ul>
+                  <li class="question-element-item"
+                      *ngFor="let element of group.elements; trackBy: tracker">
+                    Question Element {{ element.id }}
+                  </li>
+                </ul>
 
               </div>
 
