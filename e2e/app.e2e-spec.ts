@@ -136,10 +136,66 @@ describe('site App', () => {
                         );
                 });
 
-                it('should display a button to add a group', () => {
+                it('should add a group', () => {
+                    let initialCount;
+
+                    page.navigateTo()
+                        .then(
+                            () => editor.groups.count()
+                        )
+                        .then(
+                            count => {
+                                initialCount = count;
+                                return editor.groups.addGroup();
+                            }
+                        )
+                        .then(
+                            () => expect(editor.groups.count()).toEqual(initialCount + 1)
+                        );
+                });
+
+                it('should manage the name of the group', () => {
+                    const name = 'Example Group Name';
+
                     page.navigateTo()
                         .then(
                             () => editor.groups.addGroup()
+                        )
+                        .then(
+                            () => editor.groups.controls.name.edit(0, name)
+                        )
+                        .then(
+                            () => editor.tabs.openCreateTab()
+                        )
+                        .then(
+                            () => editor.tabs.openTab(0)
+                        )
+                        .then(
+                            () => expect(editor.groups.controls.name.get(0)).toEqual(name)
+                        );
+                });
+
+                it('should add questions (generic)', () => {
+                    let initialCount;
+
+                    page.navigateTo()
+                        .then(
+                            () => editor.groups.addGroup()
+                        )
+                        .then(
+                            () => editor.groups.selectGroup(0)
+                        )
+                        .then(
+                            () => editor.groups.elements.count()
+                        )
+                        .then(
+                            count => {
+                                initialCount = count;
+                                return editor.formElements.addText();
+                            }
+                        )
+                        .then(
+                            () => expect(editor.groups.elements.count()).toEqual(initialCount + 1)
                         );
                 });
             });

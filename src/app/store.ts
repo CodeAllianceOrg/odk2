@@ -1,28 +1,49 @@
-import { Map, Record } from 'immutable';
+import { Map, Record, List } from 'immutable';
 
-export interface IGroup {}
-export interface IElement {}
+export interface IElement {
+    id: number;
+}
+
+export const ElementRecord = Record({
+    id: 0
+});
+
+export interface IGroup {
+    id: number;
+
+    elements: List<IElement>;
+}
+
+export const GroupRecord = Record({
+    id: 0,
+    name: 'Default Group Name',
+
+    elements: List()
+});
 
 export interface IForm {
     id: number;
     name: string;
+
+    groups: List<IGroup>;
 }
 
 export const FormRecord = Record({
     id: 0,
-    name: 'Default Name'
+    name: 'Default Form Name',
+    groups: List()
 });
 
 export interface IEntityStore {
     forms: Map<number, any>;
-    groups: Map<number, IGroup>;
-    elements: Map<number, IElement>;
+    groups: Map<number, any>;
+    elements: Map<number, any>;
 }
 
 export const ENTITIES_STORE_INITIAL_STATE: IEntityStore = {
-    groups: Map<number, IGroup>(),
-    elements: Map<number, IElement>(),
-    forms: Map<number, any>().set(0, new FormRecord())
+    groups: Map<number, any>(),
+    forms: Map<number, any>().set(0, new FormRecord()),
+    elements: Map<number, any>()
 };
 
 export interface ISelectedStore {

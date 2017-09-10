@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 
 import { SelectionsService } from './services/selections.service';
+
 import {
     FormActions
 } from './app.actions';
-import { IForm } from './store';
 
+import { IForm, IGroup } from './store';
+
+import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
 import { List } from 'immutable';
 
@@ -18,20 +21,41 @@ export class AppComponent {
 
     public forms$: Observable<List<IForm>>;
 
-    constructor(selections: SelectionsService,
+    @select(['selected', 'group'])
+    public selectedGroupId$: Observable<number>;
+
+    constructor(private selections: SelectionsService,
                 private formActions: FormActions) {
         this.forms$ = selections.forms$;
     }
 
-    add() {
+    onSelectGroup(group: IGroup) {
+        this.formActions.selectGroup(group.id);
+    }
+
+    onAddTextElement() {
+        this.formActions.addTextElement(
+            this.selections.selectedGroupId()
+        );
+    }
+
+    onAddForm() {
         this.formActions.addBlankForm();
     }
 
-    updateFormName(form: IForm, name: string) {
+    onAddGroup(form: IForm) {
+        this.formActions.addGroup(form.id);
+    }
+
+    onFormNameChange(form: IForm, name: string) {
         this.formActions.updateFormName(name, form.id);
     }
 
-    trackForms(_: undefined, form: IForm): number | undefined {
-        return form ? form.id : undefined;
+    onGroupNameChange(group: IGroup, name: string) {
+        this.formActions.updateGroupName(name, group.id);
+    }
+
+    tracker(_: undefined, obj: {id: number}): number | undefined {
+        return obj ? obj.id : undefined;
     }
 }
