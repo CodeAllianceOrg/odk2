@@ -87,7 +87,7 @@ export class AppPage {
 
                 currentTab: {
                     getName() {
-                        return element(by.css('app-root .main .nav-tabs a.nav-link.active')).getText()
+                        return element(by.css('app-root .main .nav-tabs a.nav-link.active')).getText();
                     }
                 }
             },
@@ -146,7 +146,12 @@ export class AppPage {
                             );
                         },
                         get(index: number) {
-                            return element.all(by.css('app-root .main #groups .group-item input.group-name')).get(index).getAttribute('value');
+                            return element
+                                .all(
+                                    by.css('app-root .main #groups .group-item input.group-name')
+                                )
+                                .get(index)
+                                .getAttribute('value');
                         }
                     }
                 }

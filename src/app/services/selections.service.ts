@@ -29,7 +29,10 @@ export class SelectionsService {
 
                     const groupsWithElements = entities.groups
                         .map(
-                            group => group.update('elements', (elements: List<number>) => elements.map((id: number) => entities.elements.get(id)))
+                            group => group.update(
+                                'elements',
+                                (elements: List<number>) => elements.map((id: number) => entities.elements.get(id))
+                            )
                         );
 
                     return forms

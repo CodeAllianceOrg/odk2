@@ -48,7 +48,7 @@ export const entityReducer: Reducer<IEntityStore> = (
             ...previousState,
             groups: previousState.groups.set(groupId, group),
             forms: previousState.forms.updateIn([action.payload, 'groups'], arr => arr.push(groupId))
-        }
+        };
     case FormActions.ADD_TEXT_ELEMENT:
         const elementId = Date.now();
         const element = new ElementRecord({id: elementId});
