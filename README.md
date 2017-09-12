@@ -1,6 +1,27 @@
 # Site
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.3.2.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli).
+
+We make heavy use of the following dependencies:
+
+- [Redux](http://redux.js.org/) and [@angular-redux](https://github.com/angular-redux/store)
+- [Immutable](https://facebook.github.io/immutable-js/)
+- [Bootstrap 4 beta](https://getbootstrap.com/) and [ng-bootstrap](https://github.com/ng-bootstrap/ng-bootstrap)
+- [dragula](https://github.com/bevacqua/dragula) and [ng2-dragula](https://github.com/valor-software/ng2-dragula)
+
+## Pull Requests
+
+To submit changes, please [create a pull request](https://help.github.com/articles/creating-a-pull-request/). Please use the following checklist as a guideline:
+
+- Are all tests passing?
+    - `npm run test`
+    - `npm run e2e`
+    - `npm run lint`
+    - `npm run build`
+- Did the pull request include a description of all changes? Does it account for any new or updated dependencies?
+- Does the pull request solve more than one problem? Could it be broken down into several, independent PRs?
+
+It's important to note that these are only guidelines and can and should be broken when appropriate. However a healthy code culture can be more easily cultivated when we all agree to and follow a set of simple rules.
 
 ## Development server
 
