@@ -58,9 +58,10 @@
             <div class="col-6 text-center p-3" id="groups">
               <h2>Groups</h2>
 
-              <div class="group-item"
+              <div class="group-item p-2 m-2"
                    *ngFor="let group of form.groups; trackBy: tracker"
                    [class.active]="(selectedGroupId$ | async) === group.id"
+                   [class.border]="(selectedGroupId$ | async) === group.id"
                    (click)="onSelectGroup(group)">
 
                 <div class="input-group">
@@ -74,7 +75,7 @@
                          (ngModelChange)="onGroupNameChange(group, $event)">
                 </div>
 
-                <ul>
+                <ul class="mb-0">
                   <li class="question-element-item"
                       *ngFor="let element of group.elements; trackBy: tracker">
                     Question Element {{ element.id }}
