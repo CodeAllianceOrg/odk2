@@ -117,6 +117,9 @@ export class AppPage {
                 },
 
                 controls: {
+                    element() {
+                        return element(by.css('app-root .main #element-properties #element-properties-controls-container'));
+                    },
                     delete() {
                         return element(by.css('app-root .main #element-properties button#delete-selected')).click();
                     }

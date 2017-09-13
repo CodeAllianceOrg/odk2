@@ -119,7 +119,7 @@ describe('site App', () => {
                 });
             });
 
-            fdescribe('element properties', () => {
+            describe('element properties', () => {
                 it('should display the title', () => {
                     page.navigateTo()
                         .then(
@@ -159,12 +159,36 @@ describe('site App', () => {
                         );
                 });
 
-                xit('should not display controls when there is no item selected', () => {
-
+                it('should not display controls when there is no item selected', () => {
+                    page.navigateTo()
+                        .then(
+                            () => expect(editor.elementProperties.controls.element().isPresent()).toBeFalse()
+                        );
                 });
 
-                xit('should not display controls when the selected item is removed', () => {
-
+                it('should not display controls when the selected item is removed', () => {
+                    page.navigateTo()
+                        .then(
+                            () => editor.groups.count()
+                        )
+                        .then(
+                            count => {
+                                if (count > 0) {
+                                    return editor.groups.selectGroup(0);
+                                } else {
+                                    return editor.groups.addGroup()
+                                        .then(
+                                            () => editor.groups.selectGroup(0)
+                                        );
+                                }
+                            }
+                        )
+                        .then(
+                            () => editor.elementProperties.controls.delete()
+                        )
+                        .then(
+                            () => expect(editor.elementProperties.controls.element().isPresent()).toBeFalse()
+                        );
                 });
             });
 
