@@ -16,7 +16,16 @@ export class FormActions {
 
     static SELECT_GROUP = 'FORM_ACTIONS-SELECT_GROUP';
 
+    static REMOVE = 'FORM_ACTIONS-REMOVE';
+
     constructor(private ngRedux: NgRedux<IAppState>) {}
+
+    public remove(id: number): void {
+        this.ngRedux.dispatch({
+            type: FormActions.REMOVE,
+            payload: id
+        });
+    }
 
     public addTextElement(groupKey: number | null): void {
         if (null !== groupKey) {

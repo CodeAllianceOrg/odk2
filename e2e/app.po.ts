@@ -114,6 +114,12 @@ export class AppPage {
             elementProperties: {
                 getTitleText() {
                     return element(by.css('app-root .main #element-properties h2')).getText();
+                },
+
+                controls: {
+                    delete() {
+                        return element(by.css('app-root .main #element-properties button#delete-selected')).click();
+                    }
                 }
             },
 

@@ -119,12 +119,52 @@ describe('site App', () => {
                 });
             });
 
-            describe('element properties', () => {
+            fdescribe('element properties', () => {
                 it('should display the title', () => {
                     page.navigateTo()
                         .then(
                             () => expect(editor.elementProperties.getTitleText()).toBeNonEmptyString()
                         );
+                });
+
+                it('should delete a group', () => {
+                    let initialCount;
+
+                    page.navigateTo()
+                        .then(
+                            () => editor.groups.count()
+                        )
+                        .then(
+                            count => {
+
+                                initialCount = count;
+
+                                if (count > 0) {
+                                    return editor.groups.selectGroup(0);
+                                } else {
+                                    initialCount += 1;
+
+                                    return editor.groups.addGroup()
+                                        .then(
+                                            () => editor.groups.selectGroup(0)
+                                        );
+                                }
+                            }
+                        )
+                        .then(
+                            () => editor.elementProperties.controls.delete()
+                        )
+                        .then(
+                            () => expect(editor.groups.count()).toEqual(initialCount - 1)
+                        );
+                });
+
+                xit('should not display controls when there is no item selected', () => {
+
+                });
+
+                xit('should not display controls when the selected item is removed', () => {
+
                 });
             });
 

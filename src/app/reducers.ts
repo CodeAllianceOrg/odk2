@@ -58,6 +58,16 @@ export const entityReducer: Reducer<IEntityStore> = (
             elements: previousState.elements.set(elementId, element),
             groups: previousState.groups.updateIn([action.payload, 'elements'], arr => arr.push(elementId))
         };
+    case FormActions.REMOVE:
+        return {
+            ...previousState,
+            groups: previousState.groups.delete(action.payload),
+            forms: previousState.forms
+                .updateIn(
+                    [action.payload, 'groups'],
+                    arr => arr.filter( (elem: number) => elem !== action.payload )
+                )
+        };
     default:
         return previousState;
     }
