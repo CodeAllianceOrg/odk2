@@ -14,6 +14,8 @@ import {
     SELECTED_STORE_INITIAL_STATE
 } from './store';
 
+import { List, Map } from 'immutable';
+
 export const entityReducer: Reducer<IEntityStore> = (
     previousState: IEntityStore = ENTITIES_STORE_INITIAL_STATE,
     action: AnyAction
@@ -58,6 +60,28 @@ export const entityReducer: Reducer<IEntityStore> = (
             elements: previousState.elements.set(elementId, element),
             groups: previousState.groups.updateIn([action.payload, 'elements'], arr => arr.push(elementId))
         };
+    case FormActions.REMOVE:
+
+        /*
+          should support removing an element, group or form
+        */
+
+        if (previousState.forms.has(action.payload)) {
+
+        } else if (previousState.groups.has(action.payload)) {
+            return {
+                ...previousState,
+                groups: previousState.groups.delete(action.payload),
+                forms: <Map<number, any>> previousState.forms
+                    .map(
+                        (form, key) => form.update('groups', (arr: List<number>) => arr.filter( (elem: number) => elem !== action.payload ))
+                    )
+            };
+        } else if (previousState.elements.has(action.payload)) {
+
+        }
+
+        return previousState;
     default:
         return previousState;
     }
@@ -73,6 +97,14 @@ export const selectionReducer: Reducer<ISelectedStore> = (
         return {
             group: action.payload
         };
+    case FormActions.REMOVE:
+        if (previousState.group === action.payload) {
+            return {
+                group: null
+            };
+        }
+
+        return previousState;
     default:
         return previousState;
     }

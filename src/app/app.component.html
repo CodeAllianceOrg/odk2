@@ -96,6 +96,13 @@
 
             <div class="col-4 text-center p-3" id="element-properties">
               <h2>Properties</h2>
+              <div id="element-properties-controls-container"
+                   *ngIf="selectedGroupId$ | async; let groupId">
+                <button id="delete-selected"
+                        (click)="onDeleteSelectedItem(groupId)">
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
         </ng-template>

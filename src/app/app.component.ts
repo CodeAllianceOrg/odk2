@@ -33,6 +33,10 @@ export class AppComponent {
         this.formActions.selectGroup(group.id);
     }
 
+    onDeleteSelectedItem(id: number) {
+        this.formActions.remove(id);
+    }
+
     onAddTextElement() {
         this.formActions.addTextElement(
             this.selections.selectedGroupId()
