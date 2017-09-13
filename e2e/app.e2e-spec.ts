@@ -1,4 +1,12 @@
-import { AppPage } from './app.po';
+import {
+    AppPage,
+    Header,
+    Editor,
+    EditorTabs,
+    EditorElementProperties,
+    EditorFormElements,
+    EditorGroups
+} from './app.po';
 
 describe('site App', () => {
     let page: AppPage;
@@ -6,272 +14,284 @@ describe('site App', () => {
     beforeEach(() => {
         page = new AppPage();
     });
+});
 
-    describe('header', () => {
+describe('header', () => {
 
-        let header;
+    let page: AppPage;
+    let header: Header;
 
-        beforeEach(() => {
-            header = page.getHeader();
-        });
+    beforeEach(() => {
+        page = new AppPage();
+        header = new Header();
+    });
 
-        it('should display the brand', () => {
+    it('should display the brand', () => {
+        page.navigateTo()
+            .then(
+                () => expect(header.getBrandText()).toBeNonEmptyString()
+            );
+    });
+
+    it('should display a list of links', () => {
+        page.navigateTo()
+            .then(
+                () => expect(header.getLinksText()).toBeArrayOfStrings()
+            )
+            .then(
+                () => expect(header.getLinksText()).toBeNonEmptyArray()
+            );
+    });
+});
+
+describe('editor', () => {
+
+    let page: AppPage;
+    let editor: Editor;
+    let tabs: EditorTabs;
+    let elementProperties: EditorElementProperties;
+    let formElements: EditorFormElements;
+    let groups: EditorGroups;
+
+    beforeEach(() => {
+        editor = new Editor();
+        page = new AppPage();
+        tabs = new EditorTabs();
+        elementProperties = new EditorElementProperties();
+        formElements = new EditorFormElements();
+        groups = new EditorGroups();
+    });
+
+    it('should display a list of forms as tabs', () => {
+        page.navigateTo()
+            .then(
+                () => expect(tabs.getNames()).toBeArrayOfStrings()
+            )
+            .then(
+                () => expect(tabs.getNames()).toBeNonEmptyArray()
+            );
+    });
+
+    describe('add a new form', () => {
+        it('should display a tab to add a new form', () => {
             page.navigateTo()
                 .then(
-                    () => expect(header.getBrandText()).toBeNonEmptyString()
+                    () => tabs.openCreateTab()
                 );
         });
 
-        it('should display a list of links', () => {
+        it('should create a new, blank form', () => {
+            let initialTabsCount;
+
             page.navigateTo()
                 .then(
-                    () => expect(header.getLinksText()).toBeArrayOfStrings()
+                    () => tabs.count()
                 )
                 .then(
-                    () => expect(header.getLinksText()).toBeNonEmptyArray()
+                    count => {
+                        initialTabsCount = count;
+                        return tabs.openCreateTab();
+                    }
+                )
+                .then(
+                    () => editor.create.createBlankForm()
+                )
+                .then(
+                    () => expect(tabs.count()).toEqual(initialTabsCount + 1)
                 );
+        });
+
+        xit('should upload an existing form', () => {
+
         });
     });
 
-    describe('editor', () => {
-
-        let editor;
-
-        beforeEach(() => {
-            editor = page.getEditor();
-        });
-
-        it('should display a list of forms as tabs', () => {
+    describe('controls', () => {
+        it('should manage the form name', () => {
+            const name = 'Example Name';
             page.navigateTo()
                 .then(
-                    () => expect(editor.tabs.getNames()).toBeArrayOfStrings()
+                    () => editor.formName.edit(name)
                 )
                 .then(
-                    () => expect(editor.tabs.getNames()).toBeNonEmptyArray()
+                    () => expect(editor.formName.get()).toEqual(name)
+                )
+                .then(
+                    () => expect(tabs.currentTab.getName()).toEqual(name)
                 );
         });
 
-        describe('add a new form', () => {
-            it('should display a tab to add a new form', () => {
+        describe('form elements', () => {
+            it('should display the title', () => {
                 page.navigateTo()
                     .then(
-                        () => editor.tabs.openCreateTab()
+                        () => expect(formElements.getTitleText()).toBeNonEmptyString()
                     );
             });
 
-            it('should create a new, blank form', () => {
-                let initialTabsCount;
+            it('should display a list of form elements', () => {
+                page.navigateTo()
+                    .then(
+                        () => expect(formElements.getAllText()).toBeArrayOfStrings()
+                    )
+                    .then(
+                        () => expect(formElements.getAllText()).toBeNonEmptyArray()
+                    );
+            });
+        });
+
+        describe('element properties', () => {
+            it('should display the title', () => {
+                page.navigateTo()
+                    .then(
+                        () => expect(elementProperties.getTitleText()).toBeNonEmptyString()
+                    );
+            });
+
+            it('should delete a group', () => {
+                let initialCount;
 
                 page.navigateTo()
                     .then(
-                        () => editor.tabs.count()
+                        () => groups.count()
                     )
                     .then(
                         count => {
-                            initialTabsCount = count;
-                            return editor.tabs.openCreateTab();
+
+                            initialCount = count;
+
+                            if (count > 0) {
+                                return groups.selectGroup(0);
+                            } else {
+                                initialCount += 1;
+
+                                return groups.addGroup()
+                                    .then(
+                                        () => groups.selectGroup(0)
+                                    );
+                            }
                         }
                     )
                     .then(
-                        () => editor.create.createBlankForm()
+                        () => elementProperties.controls.delete()
                     )
                     .then(
-                        () => expect(editor.tabs.count()).toEqual(initialTabsCount + 1)
+                        () => expect(groups.count()).toEqual(initialCount - 1)
                     );
             });
 
-            xit('should upload an existing form', () => {
+            it('should not display controls when there is no item selected', () => {
+                page.navigateTo()
+                    .then(
+                        () => expect(elementProperties.controls.element().isPresent()).toBeFalse()
+                    );
+            });
 
+            it('should not display controls when the selected item is removed', () => {
+                page.navigateTo()
+                    .then(
+                        () => groups.count()
+                    )
+                    .then(
+                        count => {
+                            if (count > 0) {
+                                return groups.selectGroup(0);
+                            } else {
+                                return groups.addGroup()
+                                    .then(
+                                        () => groups.selectGroup(0)
+                                    );
+                            }
+                        }
+                    )
+                    .then(
+                        () => elementProperties.controls.delete()
+                    )
+                    .then(
+                        () => expect(elementProperties.controls.element().isPresent()).toBeFalse()
+                    );
             });
         });
 
-        describe('controls', () => {
-            it('should manage the form name', () => {
-                const name = 'Example Name';
+        describe('groups', () => {
+            it('should display the title', () => {
                 page.navigateTo()
                     .then(
-                        () => editor.formName.edit(name)
-                    )
-                    .then(
-                        () => expect(editor.formName.get()).toEqual(name)
-                    )
-                    .then(
-                        () => expect(editor.tabs.currentTab.getName()).toEqual(name)
+                        () => expect(groups.getTitleText()).toBeNonEmptyString()
                     );
             });
 
-            describe('form elements', () => {
-                it('should display the title', () => {
-                    page.navigateTo()
-                        .then(
-                            () => expect(editor.formElements.getTitleText()).toBeNonEmptyString()
-                        );
-                });
+            it('should add a group', () => {
+                let initialCount;
 
-                it('should display a list of form elements', () => {
-                    page.navigateTo()
-                        .then(
-                            () => expect(editor.formElements.getAllText()).toBeArrayOfStrings()
-                        )
-                        .then(
-                            () => expect(editor.formElements.getAllText()).toBeNonEmptyArray()
-                        );
-                });
+                page.navigateTo()
+                    .then(
+                        () => groups.count()
+                    )
+                    .then(
+                        count => {
+                            initialCount = count;
+                            return groups.addGroup();
+                        }
+                    )
+                    .then(
+                        () => expect(groups.count()).toEqual(initialCount + 1)
+                    );
             });
 
-            describe('element properties', () => {
-                it('should display the title', () => {
-                    page.navigateTo()
-                        .then(
-                            () => expect(editor.elementProperties.getTitleText()).toBeNonEmptyString()
-                        );
-                });
+            it('should manage the name of the group', () => {
+                const name = 'Example Group Name';
 
-                it('should delete a group', () => {
-                    let initialCount;
-
-                    page.navigateTo()
-                        .then(
-                            () => editor.groups.count()
-                        )
-                        .then(
-                            count => {
-
-                                initialCount = count;
-
-                                if (count > 0) {
-                                    return editor.groups.selectGroup(0);
-                                } else {
-                                    initialCount += 1;
-
-                                    return editor.groups.addGroup()
-                                        .then(
-                                            () => editor.groups.selectGroup(0)
-                                        );
-                                }
-                            }
-                        )
-                        .then(
-                            () => editor.elementProperties.controls.delete()
-                        )
-                        .then(
-                            () => expect(editor.groups.count()).toEqual(initialCount - 1)
-                        );
-                });
-
-                it('should not display controls when there is no item selected', () => {
-                    page.navigateTo()
-                        .then(
-                            () => expect(editor.elementProperties.controls.element().isPresent()).toBeFalse()
-                        );
-                });
-
-                it('should not display controls when the selected item is removed', () => {
-                    page.navigateTo()
-                        .then(
-                            () => editor.groups.count()
-                        )
-                        .then(
-                            count => {
-                                if (count > 0) {
-                                    return editor.groups.selectGroup(0);
-                                } else {
-                                    return editor.groups.addGroup()
-                                        .then(
-                                            () => editor.groups.selectGroup(0)
-                                        );
-                                }
-                            }
-                        )
-                        .then(
-                            () => editor.elementProperties.controls.delete()
-                        )
-                        .then(
-                            () => expect(editor.elementProperties.controls.element().isPresent()).toBeFalse()
-                        );
-                });
+                page.navigateTo()
+                    .then(
+                        () => groups.addGroup()
+                    )
+                    .then(
+                        () => groups.controls.name.edit(0, name)
+                    )
+                    .then(
+                        () => tabs.openCreateTab()
+                    )
+                    .then(
+                        () => tabs.openTab(0)
+                    )
+                    .then(
+                        () => expect(groups.controls.name.get(0)).toEqual(name)
+                    );
             });
 
-            describe('groups', () => {
-                it('should display the title', () => {
-                    page.navigateTo()
-                        .then(
-                            () => expect(editor.groups.getTitleText()).toBeNonEmptyString()
-                        );
-                });
+            it('should add questions (generic)', () => {
+                let initialCount;
 
-                it('should add a group', () => {
-                    let initialCount;
-
-                    page.navigateTo()
-                        .then(
-                            () => editor.groups.count()
-                        )
-                        .then(
-                            count => {
-                                initialCount = count;
-                                return editor.groups.addGroup();
-                            }
-                        )
-                        .then(
-                            () => expect(editor.groups.count()).toEqual(initialCount + 1)
-                        );
-                });
-
-                it('should manage the name of the group', () => {
-                    const name = 'Example Group Name';
-
-                    page.navigateTo()
-                        .then(
-                            () => editor.groups.addGroup()
-                        )
-                        .then(
-                            () => editor.groups.controls.name.edit(0, name)
-                        )
-                        .then(
-                            () => editor.tabs.openCreateTab()
-                        )
-                        .then(
-                            () => editor.tabs.openTab(0)
-                        )
-                        .then(
-                            () => expect(editor.groups.controls.name.get(0)).toEqual(name)
-                        );
-                });
-
-                it('should add questions (generic)', () => {
-                    let initialCount;
-
-                    page.navigateTo()
-                        .then(
-                            () => editor.groups.addGroup()
-                        )
-                        .then(
-                            () => editor.groups.selectGroup(0)
-                        )
-                        .then(
-                            () => editor.groups.elements.count()
-                        )
-                        .then(
-                            count => {
-                                initialCount = count;
-                                return editor.formElements.addText();
-                            }
-                        )
-                        .then(
-                            () => expect(editor.groups.elements.count()).toEqual(initialCount + 1)
-                        );
-                });
+                page.navigateTo()
+                    .then(
+                        () => groups.addGroup()
+                    )
+                    .then(
+                        () => groups.selectGroup(0)
+                    )
+                    .then(
+                        () => groups.elements.count()
+                    )
+                    .then(
+                        count => {
+                            initialCount = count;
+                            return formElements.addText();
+                        }
+                    )
+                    .then(
+                        () => expect(groups.elements.count()).toEqual(initialCount + 1)
+                    );
             });
         });
+    });
 
-        describe('export the form', () => {
-            it('should display a button to export the form', () => {
-                page.navigateTo()
-                    .then(
-                        () => editor.openExportDialog()
-                    );
-            });
+    describe('export the form', () => {
+        it('should display a button to export the form', () => {
+            page.navigateTo()
+                .then(
+                    () => editor.openExportDialog()
+                );
         });
     });
 });
