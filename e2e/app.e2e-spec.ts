@@ -344,7 +344,7 @@ describe('editor', () => {
                     );
             });
 
-            it('should manage the name of the group', () => {
+            xit('should manage the name of the group', () => {
                 const name = 'Example Group Name';
 
                 page.navigateTo()

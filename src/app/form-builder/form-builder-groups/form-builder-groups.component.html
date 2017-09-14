@@ -1,23 +1,20 @@
 <h2>Groups</h2>
 
-<div class="group-item p-2 m-2"
+<div class="group-item border p-2 m-2"
      *ngFor="let group of form.groups; trackBy: tracker"
      [class.active]="groupId === group.id"
-     [class.border]="groupId === group.id"
+     [class.bg-light]="groupId === group.id"
      (click)="onSelectGroup(group)">
 
-  <div class="input-group">
-    <span class="input-group-addon">
-      <i class="fa fa-pencil" aria-hidden="true"></i>
+  <div class="d-flex justify-content-center">
+    <span class="mute">
+      {{ group.name }}
     </span>
-    <input type="text"
-           class="form-control group-name"
-           placeholder="Group name"
-           [ngModel]="group.name"
-           (ngModelChange)="onGroupNameChange(group, $event)">
   </div>
 
-  <ul class="mb-0">
+  <hr>
+
+  <ul class="mb-0 p-2">
     <li class="question-element-item"
         *ngFor="let element of group.elements; trackBy: tracker"
         [ngSwitch]="element.type">

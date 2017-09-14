@@ -5,7 +5,3 @@ ngb-tabset {
 .main {
     max-width: 90%;
 }
-
-.group-item.active {
-    border: 1px dotted black;
-}
