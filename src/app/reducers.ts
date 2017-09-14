@@ -52,13 +52,22 @@ export const entityReducer: Reducer<IEntityStore> = (
             forms: previousState.forms.updateIn([action.payload, 'groups'], arr => arr.push(groupId))
         };
     case FormActions.ADD_TEXT_ELEMENT:
-        const elementId = Date.now();
-        const element = new ElementRecord({id: elementId});
+        const textElementId = Date.now();
+        const textElement = new ElementRecord({id: textElementId, type: 'text'});
 
         return {
             ...previousState,
-            elements: previousState.elements.set(elementId, element),
-            groups: previousState.groups.updateIn([action.payload, 'elements'], arr => arr.push(elementId))
+            elements: previousState.elements.set(textElementId, textElement),
+            groups: previousState.groups.updateIn([action.payload, 'elements'], arr => arr.push(textElementId))
+        };
+    case FormActions.ADD_NUMERIC_ELEMENT:
+        const numericElementId = Date.now();
+        const numericElement = new ElementRecord({id: numericElementId, type: 'numeric'});
+
+        return {
+            ...previousState,
+            elements: previousState.elements.set(numericElementId, numericElement),
+            groups: previousState.groups.updateIn([action.payload, 'elements'], arr => arr.push(numericElementId))
         };
     case FormActions.REMOVE:
 

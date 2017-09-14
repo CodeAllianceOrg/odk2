@@ -138,6 +138,44 @@ describe('editor', () => {
                         () => expect(formElements.getAllText()).toBeNonEmptyArray()
                     );
             });
+
+            it('should add a text element', () => {
+                page.navigateTo()
+                    .then(
+                        () => groups.addGroup()
+                    )
+                    .then(
+                        () => groups.selectGroup(0)
+                    )
+                    .then(
+                        () => formElements.addTextElement()
+                    )
+                    .then(
+                        () => expect(groups.elements.count()).toBeGreaterThan(0)
+                    )
+                    .then(
+                        () => expect(groups.elements.text.get(0, 0).isPresent()).toBeTrue()
+                    );
+            });
+
+            it('should add a numeric element', () => {
+                page.navigateTo()
+                    .then(
+                        () => groups.addGroup()
+                    )
+                    .then(
+                        () => groups.selectGroup(0)
+                    )
+                    .then(
+                        () => formElements.addNumericElement()
+                    )
+                    .then(
+                        () => expect(groups.elements.count()).toBeGreaterThan(0)
+                    )
+                    .then(
+                        () => expect(groups.elements.numeric.get(0, 0).isPresent()).toBeTrue()
+                    );
+            });
         });
 
         describe('element properties', () => {
@@ -276,7 +314,7 @@ describe('editor', () => {
                     .then(
                         count => {
                             initialCount = count;
-                            return formElements.addText();
+                            return formElements.addTextElement();
                         }
                     )
                     .then(

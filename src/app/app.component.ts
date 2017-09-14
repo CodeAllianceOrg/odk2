@@ -43,6 +43,12 @@ export class AppComponent {
         );
     }
 
+    onAddNumericElement() {
+        this.formActions.addNumericElement(
+            this.selections.selectedGroupId()
+        );
+    }
+
     onAddForm() {
         this.formActions.addBlankForm();
     }

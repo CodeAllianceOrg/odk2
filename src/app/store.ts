@@ -2,10 +2,13 @@ import { Map, Record, List } from 'immutable';
 
 export interface IElement {
     id: number;
+
+    type: 'text' | 'numeric';
 }
 
 export const ElementRecord = Record({
-    id: 0
+    id: 0,
+    type: 'text'
 });
 
 export interface IGroup {

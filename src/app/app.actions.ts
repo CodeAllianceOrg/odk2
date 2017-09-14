@@ -13,6 +13,7 @@ export class FormActions {
     static UPDATE_GROUP_NAME = 'FORM_ACTIONS-UPDATE_GROUP_NAME';
 
     static ADD_TEXT_ELEMENT = 'FORM_ACTIONS-ADD_TEXT_ELEMENT';
+    static ADD_NUMERIC_ELEMENT = 'FORM_ACTIONS-ADD_NUMERIC_ELEMENT';
 
     static SELECT_GROUP = 'FORM_ACTIONS-SELECT_GROUP';
 
@@ -31,6 +32,15 @@ export class FormActions {
         if (null !== groupKey) {
             this.ngRedux.dispatch({
                 type: FormActions.ADD_TEXT_ELEMENT,
+                payload: groupKey
+            });
+        }
+    }
+
+    public addNumericElement(groupKey: number | null): void {
+        if (null !== groupKey) {
+            this.ngRedux.dispatch({
+                type: FormActions.ADD_NUMERIC_ELEMENT,
                 payload: groupKey
             });
         }

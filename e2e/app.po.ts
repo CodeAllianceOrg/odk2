@@ -115,8 +115,12 @@ export class EditorFormElements {
         return element.all(by.css('app-root .main #form-elements button')).map(ef => ef.getText());
     }
 
-    addText() {
+    addTextElement() {
         return element(by.cssContainingText('app-root .main #form-elements button', 'Text')).click();
+    }
+
+    addNumericElement() {
+        return element(by.cssContainingText('app-root .main #form-elements button', 'Numeric')).click();
     }
 }
 
@@ -152,6 +156,25 @@ export class EditorGroups {
     elements = {
         count() {
             return element.all(by.css('app-root .main #groups .group-item .question-element-item')).count();
+        },
+
+        text: {
+            get(groupIndex: number, elementIndex: number) {
+                return element
+                    .all(by.css('app-root .main #groups .group-item'))
+                    .get(groupIndex)
+                    .all(by.css('.text-question-element-item'))
+                    .get(elementIndex);
+            }
+        },
+        numeric: {
+            get(groupIndex: number, elementIndex: number) {
+                return element
+                    .all(by.css('app-root .main #groups .group-item'))
+                    .get(groupIndex)
+                    .all(by.css('.numeric-question-element-item'))
+                    .get(elementIndex);
+            }
         }
     }
 

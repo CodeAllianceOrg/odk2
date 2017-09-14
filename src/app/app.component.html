@@ -49,7 +49,11 @@
                       (click)="onAddTextElement()">
                 Text
               </button>
-              <button type="button" class="btn btn-secondary btn-lg btn-block">Numeric</button>
+              <button type="button"
+                      class="btn btn-secondary btn-lg btn-block"
+                      (click)="onAddNumericElement()">
+                Numeric
+              </button>
               <button type="button" class="btn btn-secondary btn-lg btn-block">GPS</button>
               <button type="button" class="btn btn-secondary btn-lg btn-block">Combo Box</button>
               <button type="button" class="btn btn-secondary btn-lg btn-block">Multi Select</button>
@@ -77,8 +81,18 @@
 
                 <ul class="mb-0">
                   <li class="question-element-item"
-                      *ngFor="let element of group.elements; trackBy: tracker">
-                    Question Element {{ element.id }}
+                      *ngFor="let element of group.elements; trackBy: tracker"
+                      [ngSwitch]="element.type">
+
+                    <div class="text-question-element-item"
+                         *ngSwitchCase=" 'text' ">
+                      Text Question Element {{ element.id }}
+                    </div>
+
+                    <div class="numeric-question-element-item"
+                         *ngSwitchCase=" 'numeric' ">
+                      Numeric Question Element {{ element.id }}
+                    </div>
                   </li>
                 </ul>
 
