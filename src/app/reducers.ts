@@ -1,6 +1,6 @@
 import { combineReducers, Reducer, AnyAction } from 'redux';
 
-import { FormRecord, GroupRecord, ElementRecord } from './store';
+import { FormRecord, ElementRecord } from './store';
 
 import {
     FormActions
@@ -51,13 +51,15 @@ export const entityReducer: Reducer<IEntityStore> = (
             groups: previousState.groups.setIn([action.payload.groupKey, 'name'], action.payload.name)
         };
     case FormActions.ADD_GROUP:
-        groupId = Date.now();
-        group = new GroupRecord({id: groupId});
+        groupId = action.payload.id;
+        group = action.payload;
+
+        formId = action.meta;
 
         return {
             ...previousState,
             groups: previousState.groups.set(groupId, group),
-            forms: previousState.forms.updateIn([action.payload, 'groups'], arr => arr.push(groupId))
+            forms: previousState.forms.updateIn([formId, 'groups'], arr => arr.push(groupId))
         };
     case FormActions.ADD_TEXT_ELEMENT:
         elementId = Date.now();
@@ -147,6 +149,10 @@ export const selectionReducer: Reducer<ISelectedStore> = (
 ): ISelectedStore => {
 
     switch (action.type) {
+    case FormActions.ADD_GROUP:
+        return {
+            group: action.payload.id
+        };
     case FormActions.SELECT_GROUP:
         return {
             group: action.payload

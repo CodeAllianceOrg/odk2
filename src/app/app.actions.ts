@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { NgRedux } from '@angular-redux/store';
 import {
-    IAppState
+    IAppState,
+    GroupRecord
 } from './store';
 
 @Injectable()
@@ -84,9 +85,14 @@ export class FormActions {
     }
 
     public addGroup(formKey: number): void {
+        const group = new GroupRecord({
+            id: Date.now()
+        });
+
         this.ngRedux.dispatch({
             type: FormActions.ADD_GROUP,
-            payload: formKey
+            payload: group,
+            meta: formKey
         });
     }
 

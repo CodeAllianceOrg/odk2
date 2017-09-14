@@ -344,6 +344,20 @@ describe('editor', () => {
                     );
             });
 
+            it('should select a newly added group', () => {
+                page.navigateTo()
+                    .then(
+                        () => groups.addGroup()
+                    )
+                    .then(
+                        () => expect(groups.getSelectedGroup().isPresent()).toBeTrue()
+                    );
+            });
+
+            xit('should persist selections between forms', () => {
+
+            });
+
             xit('should manage the name of the group', () => {
                 const name = 'Example Group Name';
 
