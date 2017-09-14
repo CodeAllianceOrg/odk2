@@ -1,35 +1,31 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { FormsModule } from '@angular/forms';
-
 import { AppComponent } from './app.component';
 
-import { SelectionsService } from './services/selections.service';
+import { SharedModule } from './shared/shared.module';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgReduxModule, NgRedux } from '@angular-redux/store';
+import { NgRedux } from '@angular-redux/store';
 import { createLogger } from 'redux-logger';
 import { IAppState, initialState } from './store';
 import { rootReducer } from './reducers';
-import {
-    FormActions
-} from './app.actions';
+
+import { HeaderComponent } from './header/header.component';
+import { TabsComponent } from './tabs/tabs.component';
+
+import { FormBuilderModule } from './form-builder/form-builder.module';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        HeaderComponent,
+        TabsComponent
     ],
     imports: [
         BrowserModule,
-        FormsModule,
-        NgbModule.forRoot(),
-        NgReduxModule
-    ],
-    providers: [
-        SelectionsService,
+        SharedModule,
 
-        FormActions
+        FormBuilderModule
     ],
     bootstrap: [AppComponent]
 })

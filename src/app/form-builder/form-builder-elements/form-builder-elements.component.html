@@ -1,0 +1,31 @@
+<h2>Form Elements</h2>
+<button type="button"
+        class="btn btn-secondary btn-lg btn-block"
+        (click)="onAddTextElement()"
+        [disabled]="!groupId">
+  Text
+</button>
+<button type="button"
+        class="btn btn-secondary btn-lg btn-block"
+        (click)="onAddNumericElement()"
+        [disabled]="!groupId">
+  Numeric
+</button>
+<button type="button"
+        class="btn btn-secondary btn-lg btn-block"
+        (click)="onAddGPSElement()"
+        [disabled]="!groupId">
+  GPS
+</button>
+<button type="button"
+        class="btn btn-secondary btn-lg btn-block"
+        (click)="onAddComboBoxElement()"
+        [disabled]="!groupId">
+  Combo Box
+</button>
+<button type="button"
+        class="btn btn-secondary btn-lg btn-block"
+        (click)="onAddMultiSelectElement()"
+        [disabled]="!groupId">
+  Multi Select
+</button>

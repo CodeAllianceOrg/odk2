@@ -1,0 +1,61 @@
+<h2>Groups</h2>
+
+<div class="group-item p-2 m-2"
+     *ngFor="let group of form.groups; trackBy: tracker"
+     [class.active]="groupId === group.id"
+     [class.border]="groupId === group.id"
+     (click)="onSelectGroup(group)">
+
+  <div class="input-group">
+    <span class="input-group-addon">
+      <i class="fa fa-pencil" aria-hidden="true"></i>
+    </span>
+    <input type="text"
+           class="form-control group-name"
+           placeholder="Group name"
+           [ngModel]="group.name"
+           (ngModelChange)="onGroupNameChange(group, $event)">
+  </div>
+
+  <ul class="mb-0">
+    <li class="question-element-item"
+        *ngFor="let element of group.elements; trackBy: tracker"
+        [ngSwitch]="element.type">
+
+      <div class="text-question-element-item"
+           *ngSwitchCase=" 'text' ">
+        Text Question Element {{ element.id }}
+      </div>
+
+      <div class="numeric-question-element-item"
+           *ngSwitchCase=" 'numeric' ">
+        Numeric Question Element {{ element.id }}
+      </div>
+
+      <div class="gps-question-element-item"
+           *ngSwitchCase=" 'gps' ">
+        GPS Question Element {{ element.id }}
+      </div>
+
+      <div class="combo-box-question-element-item"
+           *ngSwitchCase=" 'combo' ">
+        Combo Box Question Element {{ element.id }}
+      </div>
+
+      <div class="multi-select-question-element-item"
+           *ngSwitchCase=" 'multi' ">
+        Multi Select Question Element {{ element.id }}
+      </div>
+    </li>
+  </ul>
+
+</div>
+
+<div class="d-flex justify-content-center">
+  <button type="button"
+          class="btn btn-primary"
+          id="add-group"
+          (click)="onAddGroup(form)">
+    Add Group <i class="fa fa-plus-circle" aria-hidden="true"></i>
+  </button>
+</div>
