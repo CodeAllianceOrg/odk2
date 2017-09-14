@@ -139,6 +139,16 @@ describe('editor', () => {
                     );
             });
 
+            it('should disable the form elements when there is no group selected', () => {
+                page.navigateTo()
+                    .then(
+                        () => expect(groups.getSelectedGroup().isPresent()).toBeFalse()
+                    )
+                    .then(
+                        () => expect(formElements.disabled()).toBeTrue()
+                    );
+            });
+
             it('should add a text element', () => {
                 page.navigateTo()
                     .then(

@@ -42,21 +42,36 @@
           </div>
 
           <div class="row">
-            <div class="col-2 text-center p-3" id="form-elements">
+            <div class="col-2 text-center p-3"
+                 id="form-elements">
               <h2>Form Elements</h2>
               <button type="button"
                       class="btn btn-secondary btn-lg btn-block"
-                      (click)="onAddTextElement()">
+                      (click)="onAddTextElement()"
+                      [disabled]="!(selectedGroupId$ | async)">
                 Text
               </button>
               <button type="button"
                       class="btn btn-secondary btn-lg btn-block"
-                      (click)="onAddNumericElement()">
+                      (click)="onAddNumericElement()"
+                      [disabled]="!(selectedGroupId$ | async)">
                 Numeric
               </button>
-              <button type="button" class="btn btn-secondary btn-lg btn-block">GPS</button>
-              <button type="button" class="btn btn-secondary btn-lg btn-block">Combo Box</button>
-              <button type="button" class="btn btn-secondary btn-lg btn-block">Multi Select</button>
+              <button type="button"
+                      class="btn btn-secondary btn-lg btn-block"
+                      [disabled]="!(selectedGroupId$ | async)">
+                GPS
+              </button>
+              <button type="button"
+                      class="btn btn-secondary btn-lg btn-block"
+                      [disabled]="!(selectedGroupId$ | async)">
+                Combo Box
+              </button>
+              <button type="button"
+                      class="btn btn-secondary btn-lg btn-block"
+                      [disabled]="!(selectedGroupId$ | async)">
+                Multi Select
+              </button>
             </div>
 
             <div class="col-6 text-center p-3" id="groups">

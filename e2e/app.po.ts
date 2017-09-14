@@ -115,6 +115,19 @@ export class EditorFormElements {
         return element.all(by.css('app-root .main #form-elements button')).map(ef => ef.getText());
     }
 
+    disabled() {
+        return element.all(by.css('app-root .main #form-elements button'))
+            .map(
+                ef => ef.getAttribute('disabled')
+            )
+            .then(
+                arr => arr.reduce(
+                    (acc, val) => Boolean(acc) && Boolean(val),
+                    true
+                )
+            );
+    }
+
     addTextElement() {
         return element(by.cssContainingText('app-root .main #form-elements button', 'Text')).click();
     }
@@ -145,6 +158,9 @@ export class EditorGroups {
     }
     addGroup() {
         return element(by.css('app-root .main #groups #add-group')).click();
+    }
+    getSelectedGroup() {
+        return element(by.css('app-root .main #groups .group-item.active'));
     }
     selectGroup(index: number) {
         return element.all(by.css('app-root .main #groups .group-item')).get(index).click();
