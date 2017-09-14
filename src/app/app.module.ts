@@ -16,9 +16,16 @@ import {
     FormActions
 } from './app.actions';
 
+import { HeaderComponent } from './header/header.component';
+import { TabsComponent } from './tabs/tabs.component';
+import { FormBuilderComponent } from './form-builder/form-builder.component';
+
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        HeaderComponent,
+        TabsComponent,
+        FormBuilderComponent
     ],
     imports: [
         BrowserModule,

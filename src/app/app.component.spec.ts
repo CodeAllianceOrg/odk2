@@ -11,11 +11,19 @@ import { FormActions } from './app.actions';
 
 import { SelectionsService } from './services/selections.service';
 
+import { HeaderComponent } from './header/header.component';
+import { TabsComponent } from './tabs/tabs.component';
+import { FormBuilderComponent } from './form-builder/form-builder.component';
+
 describe('AppComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                AppComponent
+                AppComponent,
+
+                HeaderComponent,
+                TabsComponent,
+                FormBuilderComponent
             ],
             imports: [
                 NgbModule.forRoot(),
