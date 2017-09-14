@@ -5,6 +5,9 @@ import { FormBuilderComponent } from './form-builder.component';
 import { SharedModule } from '../shared/shared.module';
 
 import { FormBuilderHeaderComponent } from './form-builder-header/form-builder-header.component';
+import { FormBuilderElementsComponent } from './form-builder-elements/form-builder-elements.component';
+import { FormBuilderGroupsComponent } from './form-builder-groups/form-builder-groups.component';
+import { FormBuilderPropertiesComponent } from './form-builder-properties/form-builder-properties.component';
 
 describe('FormBuilderComponent', () => {
     let component: FormBuilderComponent;
@@ -14,7 +17,10 @@ describe('FormBuilderComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 FormBuilderComponent,
-                FormBuilderHeaderComponent
+                FormBuilderHeaderComponent,
+                FormBuilderElementsComponent,
+                FormBuilderGroupsComponent,
+                FormBuilderPropertiesComponent
             ],
             imports: [
                 SharedModule

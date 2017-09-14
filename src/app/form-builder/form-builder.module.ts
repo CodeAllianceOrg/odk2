@@ -5,6 +5,9 @@ import { FormBuilderComponent } from './form-builder.component';
 import { FormBuilderHeaderComponent } from './form-builder-header/form-builder-header.component';
 
 import { SharedModule } from '../shared/shared.module';
+import { FormBuilderElementsComponent } from './form-builder-elements/form-builder-elements.component';
+import { FormBuilderGroupsComponent } from './form-builder-groups/form-builder-groups.component';
+import { FormBuilderPropertiesComponent } from './form-builder-properties/form-builder-properties.component';
 
 @NgModule({
     imports: [
@@ -13,11 +16,13 @@ import { SharedModule } from '../shared/shared.module';
     ],
     declarations: [
         FormBuilderComponent,
-        FormBuilderHeaderComponent
+        FormBuilderHeaderComponent,
+        FormBuilderElementsComponent,
+        FormBuilderGroupsComponent,
+        FormBuilderPropertiesComponent
     ],
     exports: [
-        FormBuilderComponent,
-        FormBuilderHeaderComponent
+        FormBuilderComponent
     ]
 })
 export class FormBuilderModule { }
