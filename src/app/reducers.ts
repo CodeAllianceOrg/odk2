@@ -9,9 +9,7 @@ import {
 import {
     IAppState,
     IEntityStore,
-    ENTITIES_STORE_INITIAL_STATE,
-    ISelectedStore,
-    SELECTED_STORE_INITIAL_STATE
+    ENTITIES_STORE_INITIAL_STATE
 } from './store';
 
 import { List, Map } from 'immutable';
@@ -28,6 +26,7 @@ export const entityReducer: Reducer<IEntityStore> = (
     let group: Map<string, any>;
 
     let formId: number;
+    let form: Map<string, any>;
 
     switch (action.type) {
     case FormActions.ADD_BLANK_FORM:
@@ -55,11 +54,15 @@ export const entityReducer: Reducer<IEntityStore> = (
         group = action.payload;
 
         formId = action.meta;
+        form = previousState.forms.get(formId);
+
+        form = form.update('groups', arr => arr.push(groupId));
+        form = form.set('selectedGroupId', groupId);
 
         return {
             ...previousState,
             groups: previousState.groups.set(groupId, group),
-            forms: previousState.forms.updateIn([formId, 'groups'], arr => arr.push(groupId))
+            forms: previousState.forms.set(formId, form)
         };
     case FormActions.ADD_TEXT_ELEMENT:
         elementId = Date.now();
@@ -115,16 +118,27 @@ export const entityReducer: Reducer<IEntityStore> = (
         if (previousState.forms.has(action.payload)) {
 
         } else if (previousState.groups.has(action.payload)) {
+
+            groupId = action.payload;
+
             return {
                 ...previousState,
-                groups: previousState.groups.delete(action.payload),
+                groups: previousState.groups.delete(groupId),
                 forms: <Map<number, any>> previousState.forms
                     .map(
-                        (form, key) => form.update('groups', (arr: List<number>) => arr.filter( (elem: number) => elem !== action.payload ))
+                        (form, key) => {
+                            let updatedForm = form.update('groups', (arr: List<number>) => arr.filter( (elem: number) => elem !== groupId ));
+
+                            if (updatedForm.get('selectedGroupId') === groupId) {
+                                updatedForm = updatedForm.delete('selectedGroupId');
+                            }
+
+                            return updatedForm;
+                        }
                     ),
                 elements: previousState.elements.reduce(
                     (acc: Map<number, any>, _, key) => {
-                        if (previousState.groups.getIn([action.payload, 'elements']).includes(key)) {
+                        if (previousState.groups.getIn([groupId, 'elements']).includes(key)) {
                             return acc.delete(Number(key));
                         }
 
@@ -138,39 +152,28 @@ export const entityReducer: Reducer<IEntityStore> = (
         }
 
         return previousState;
-    default:
-        return previousState;
-    }
-};
-
-export const selectionReducer: Reducer<ISelectedStore> = (
-    previousState: ISelectedStore = SELECTED_STORE_INITIAL_STATE,
-    action: AnyAction
-): ISelectedStore => {
-
-    switch (action.type) {
-    case FormActions.ADD_GROUP:
-        return {
-            group: action.payload.id
-        };
     case FormActions.SELECT_GROUP:
-        return {
-            group: action.payload
-        };
-    case FormActions.REMOVE:
-        if (previousState.group === action.payload) {
-            return {
-                group: null
-            };
-        }
 
-        return previousState;
+        groupId = action.payload;
+
+        return {
+            ...previousState,
+            forms: <Map<number, any>> previousState.forms
+                .map(
+                    (form, key) => {
+                        if (form.groups.includes(groupId)) {
+                            return form.set('selectedGroupId', groupId);
+                        }
+
+                        return form;
+                    }
+                )
+        };
     default:
         return previousState;
     }
 };
 
 export const rootReducer: Reducer<IAppState> = <Reducer<IAppState>> combineReducers({
-    entities: entityReducer,
-    selected: selectionReducer
+    entities: entityReducer
 });

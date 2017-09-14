@@ -354,8 +354,36 @@ describe('editor', () => {
                     );
             });
 
-            xit('should persist selections between forms', () => {
-
+            it('should persist selections between forms', () => {
+                page.navigateTo()
+                    .then(
+                        () => groups.addGroup()
+                    )
+                    .then(
+                        () => tabs.openCreateTab()
+                    )
+                    .then(
+                        () => editor.create.createBlankForm()
+                    )
+                    .then(
+                        () => tabs.count()
+                    )
+                    .then(
+                        // open the next to last tab, last tab is create tab
+                        count => tabs.openTab(count - 2)
+                    )
+                    .then(
+                        // add a group to the new form, it will be selected
+                        () => groups.addGroup()
+                    )
+                    .then(
+                        () => tabs.openTab(0)
+                    )
+                    .then(
+                        // upon navigating back to the original form,
+                        // we should find the original group still selected
+                        () => expect(groups.getSelectedGroup().isPresent()).toBeTrue()
+                    );
             });
 
             xit('should manage the name of the group', () => {

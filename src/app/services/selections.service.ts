@@ -16,10 +16,6 @@ export class SelectionsService {
 
     constructor(private ngRedux: NgRedux<IAppState>) { }
 
-    public selectedGroupId(): number | null {
-        return this.ngRedux.getState().selected.group;
-    }
-
     public get forms$(): Observable<List<IForm>> {
         return this.ngRedux
             .select(['entities'])

@@ -3,16 +3,16 @@
 <div class="row">
   <div class="col-2 text-center p-3"
        id="form-elements">
-    <app-form-builder-elements [groupId]="selectedGroupId$ | async"></app-form-builder-elements>
+    <app-form-builder-elements [groupId]="form.selectedGroupId"></app-form-builder-elements>
   </div>
 
   <div class="col-6 text-center p-3" id="groups">
-    <app-form-builder-groups [form]="form" [groupId]="selectedGroupId$ | async">
+    <app-form-builder-groups [form]="form" [groupId]="form.selectedGroupId">
       </app-form-builder-groups>
   </div>
 
   <div class="col-4 text-center p-3" id="element-properties">
-    <app-form-builder-properties [groupId]="selectedGroupId$ | async">
+    <app-form-builder-properties [groupId]="form.selectedGroupId">
       </app-form-builder-properties>
   </div>
 </div>

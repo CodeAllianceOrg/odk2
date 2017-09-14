@@ -29,12 +29,15 @@ export interface IForm {
     name: string;
 
     groups: List<IGroup>;
+
+    selectedGroupId: number;
 }
 
 export const FormRecord = Record({
     id: 0,
     name: 'Default Form Name',
-    groups: List()
+    groups: List(),
+    selectedGroupId: 0
 });
 
 export interface IEntityStore {
@@ -49,20 +52,10 @@ export const ENTITIES_STORE_INITIAL_STATE: IEntityStore = {
     elements: Map<number, any>()
 };
 
-export interface ISelectedStore {
-    group: number | null;
-}
-
-export const SELECTED_STORE_INITIAL_STATE: ISelectedStore = {
-    group: null
-};
-
 export interface IAppState {
     entities: IEntityStore;
-    selected: ISelectedStore;
 }
 
 export const initialState: IAppState = {
-    entities: ENTITIES_STORE_INITIAL_STATE,
-    selected: SELECTED_STORE_INITIAL_STATE
+    entities: ENTITIES_STORE_INITIAL_STATE
 };
