@@ -15,7 +15,7 @@ export class FormBuilderGroupsComponent implements OnInit {
     public form: any = {};
 
     @Input()
-    public groupId: number = 0;
+    public groupId = 0;
 
     constructor(private formActions: FormActions) { }
 

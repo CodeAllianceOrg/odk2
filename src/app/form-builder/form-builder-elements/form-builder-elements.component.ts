@@ -10,7 +10,7 @@ import { FormActions } from '../../app.actions';
 export class FormBuilderElementsComponent implements OnInit {
 
     @Input()
-    public groupId: number = 0;
+    public groupId = 0;
 
     constructor(private formActions: FormActions) { }
 

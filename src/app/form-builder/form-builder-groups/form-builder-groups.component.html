@@ -2,8 +2,8 @@
 
 <div class="group-item p-2 m-2"
      *ngFor="let group of form.groups; trackBy: tracker"
-     [class.active]="(selectedGroupId$ | async) === group.id"
-     [class.border]="(selectedGroupId$ | async) === group.id"
+     [class.active]="groupId === group.id"
+     [class.border]="groupId === group.id"
      (click)="onSelectGroup(group)">
 
   <div class="input-group">
