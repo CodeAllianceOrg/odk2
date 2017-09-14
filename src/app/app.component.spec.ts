@@ -2,18 +2,14 @@ import { TestBed, async } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
 
-import { FormsModule } from '@angular/forms';
-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgReduxTestingModule } from '@angular-redux/store/testing';
 
-import { FormActions } from './app.actions';
-
-import { SelectionsService } from './services/selections.service';
-
 import { HeaderComponent } from './header/header.component';
 import { TabsComponent } from './tabs/tabs.component';
-import { FormBuilderComponent } from './form-builder/form-builder.component';
+
+import { SharedModule } from './shared/shared.module';
+import { FormBuilderModule } from './form-builder/form-builder.module';
 
 describe('AppComponent', () => {
     beforeEach(async(() => {
@@ -22,17 +18,13 @@ describe('AppComponent', () => {
                 AppComponent,
 
                 HeaderComponent,
-                TabsComponent,
-                FormBuilderComponent
+                TabsComponent
             ],
             imports: [
-                NgbModule.forRoot(),
-                NgReduxTestingModule,
-                FormsModule
-            ],
-            providers: [
-                SelectionsService,
-                FormActions
+                SharedModule,
+                FormBuilderModule,
+
+                NgReduxTestingModule
             ]
         }).compileComponents();
     }));

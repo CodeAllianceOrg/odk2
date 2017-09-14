@@ -36,14 +36,9 @@ export class FormBuilderComponent implements OnInit {
         this.formActions.addGroup(form.id);
     }
 
-    onFormNameChange(form: IForm, name: string) {
-        this.formActions.updateFormName(name, form.id);
-    }
-
     onGroupNameChange(group: IGroup, name: string) {
         this.formActions.updateGroupName(name, group.id);
     }
-
 
     onSelectGroup(group: IGroup) {
         this.formActions.selectGroup(group.id);

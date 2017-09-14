@@ -2,14 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormBuilderComponent } from './form-builder.component';
 
-import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgReduxTestingModule } from '@angular-redux/store/testing';
-
-import { FormActions } from '../app.actions';
-
-import { SelectionsService } from '../services/selections.service';
+import { FormBuilderHeaderComponent } from './form-builder-header/form-builder-header.component';
 
 describe('FormBuilderComponent', () => {
     let component: FormBuilderComponent;
@@ -17,15 +12,12 @@ describe('FormBuilderComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ FormBuilderComponent ],
-            imports: [
-                NgbModule.forRoot(),
-                NgReduxTestingModule,
-                FormsModule
+            declarations: [
+                FormBuilderComponent,
+                FormBuilderHeaderComponent
             ],
-            providers: [
-                SelectionsService,
-                FormActions
+            imports: [
+                SharedModule
             ]
         })
             .compileComponents();
