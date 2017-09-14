@@ -119,7 +119,17 @@ export const entityReducer: Reducer<IEntityStore> = (
                 forms: <Map<number, any>> previousState.forms
                     .map(
                         (form, key) => form.update('groups', (arr: List<number>) => arr.filter( (elem: number) => elem !== action.payload ))
-                    )
+                    ),
+                elements: previousState.elements.reduce(
+                    (acc: Map<number, any>, _, key) => {
+                        if (previousState.groups.getIn([action.payload, 'elements']).includes(key)) {
+                            return acc.delete(Number(key));
+                        }
+
+                        return acc;
+                    },
+                    previousState.elements
+                )
             };
         } else if (previousState.elements.has(action.payload)) {
 
