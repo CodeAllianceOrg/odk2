@@ -186,6 +186,63 @@ describe('editor', () => {
                         () => expect(groups.elements.numeric.get(0, 0).isPresent()).toBeTrue()
                     );
             });
+
+            it('should add a gps element', () => {
+                page.navigateTo()
+                    .then(
+                        () => groups.addGroup()
+                    )
+                    .then(
+                        () => groups.selectGroup(0)
+                    )
+                    .then(
+                        () => formElements.addGPSElement()
+                    )
+                    .then(
+                        () => expect(groups.elements.count()).toBeGreaterThan(0)
+                    )
+                    .then(
+                        () => expect(groups.elements.gps.get(0, 0).isPresent()).toBeTrue()
+                    );
+            });
+
+            it('should add a combo box element', () => {
+                page.navigateTo()
+                    .then(
+                        () => groups.addGroup()
+                    )
+                    .then(
+                        () => groups.selectGroup(0)
+                    )
+                    .then(
+                        () => formElements.addComboBoxElement()
+                    )
+                    .then(
+                        () => expect(groups.elements.count()).toBeGreaterThan(0)
+                    )
+                    .then(
+                        () => expect(groups.elements.comboBox.get(0, 0).isPresent()).toBeTrue()
+                    );
+            });
+
+            it('should add a multi select element', () => {
+                page.navigateTo()
+                    .then(
+                        () => groups.addGroup()
+                    )
+                    .then(
+                        () => groups.selectGroup(0)
+                    )
+                    .then(
+                        () => formElements.addMultiSelectElement()
+                    )
+                    .then(
+                        () => expect(groups.elements.count()).toBeGreaterThan(0)
+                    )
+                    .then(
+                        () => expect(groups.elements.multiSelect.get(0, 0).isPresent()).toBeTrue()
+                    );
+            });
         });
 
         describe('element properties', () => {

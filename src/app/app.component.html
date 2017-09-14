@@ -59,16 +59,19 @@
               </button>
               <button type="button"
                       class="btn btn-secondary btn-lg btn-block"
+                      (click)="onAddGPSElement()"
                       [disabled]="!(selectedGroupId$ | async)">
                 GPS
               </button>
               <button type="button"
                       class="btn btn-secondary btn-lg btn-block"
+                      (click)="onAddComboBoxElement()"
                       [disabled]="!(selectedGroupId$ | async)">
                 Combo Box
               </button>
               <button type="button"
                       class="btn btn-secondary btn-lg btn-block"
+                      (click)="onAddMultiSelectElement()"
                       [disabled]="!(selectedGroupId$ | async)">
                 Multi Select
               </button>
@@ -107,6 +110,21 @@
                     <div class="numeric-question-element-item"
                          *ngSwitchCase=" 'numeric' ">
                       Numeric Question Element {{ element.id }}
+                    </div>
+
+                    <div class="gps-question-element-item"
+                         *ngSwitchCase=" 'gps' ">
+                      GPS Question Element {{ element.id }}
+                    </div>
+
+                    <div class="combo-box-question-element-item"
+                         *ngSwitchCase=" 'combo' ">
+                      Combo Box Question Element {{ element.id }}
+                    </div>
+
+                    <div class="multi-select-question-element-item"
+                         *ngSwitchCase=" 'multi' ">
+                      Multi Select Question Element {{ element.id }}
                     </div>
                   </li>
                 </ul>

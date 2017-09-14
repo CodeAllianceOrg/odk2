@@ -49,6 +49,24 @@ export class AppComponent {
         );
     }
 
+    onAddGPSElement() {
+        this.formActions.addGPSElement(
+            this.selections.selectedGroupId()
+        );
+    }
+
+    onAddComboBoxElement() {
+        this.formActions.addComboBoxElement(
+            this.selections.selectedGroupId()
+        );
+    }
+
+    onAddMultiSelectElement() {
+        this.formActions.addMultiSelectElement(
+            this.selections.selectedGroupId()
+        );
+    }
+
     onAddForm() {
         this.formActions.addBlankForm();
     }

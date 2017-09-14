@@ -3,7 +3,7 @@ import { Map, Record, List } from 'immutable';
 export interface IElement {
     id: number;
 
-    type: 'text' | 'numeric';
+    type: 'text' | 'numeric' | 'combo' | 'multi' | 'gps';
 }
 
 export const ElementRecord = Record({

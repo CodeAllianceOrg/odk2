@@ -64,15 +64,12 @@ export class Header {
 }
 
 export class Editor {
-    openExportDialog() {
-        return element(by.css('app-root .main button#export')).click();
-    }
-
     create = {
         createBlankForm() {
             return element(by.css('app-root .main button#new-form')).click();
         }
-    }
+    };
+
     formName = {
         edit(text: string) {
             return guaranteedSendKeys(element(by.css('app-root .main input#form-name')), text);
@@ -80,10 +77,20 @@ export class Editor {
         get() {
             return element(by.css('app-root .main input#form-name')).getAttribute('value');
         }
+    };
+
+    openExportDialog() {
+        return element(by.css('app-root .main button#export')).click();
     }
 }
 
 export class EditorTabs {
+    currentTab = {
+        getName() {
+            return element(by.css('app-root .main .nav-tabs a.nav-link.active')).getText();
+        }
+    };
+
     count() {
         return element.all(by.css('app-root .main .tabs .nav.nav-tabs li.nav-item')).count();
     }
@@ -97,12 +104,6 @@ export class EditorTabs {
 
     openCreateTab() {
         return element(by.cssContainingText('app-root .main a.nav-link', 'New Form')).click();
-    }
-
-    currentTab = {
-        getName() {
-            return element(by.css('app-root .main .nav-tabs a.nav-link.active')).getText();
-        }
     }
 }
 
@@ -135,13 +136,21 @@ export class EditorFormElements {
     addNumericElement() {
         return element(by.cssContainingText('app-root .main #form-elements button', 'Numeric')).click();
     }
+
+    addGPSElement() {
+        return element(by.cssContainingText('app-root .main #form-elements button', 'GPS')).click();
+    }
+
+    addComboBoxElement() {
+        return element(by.cssContainingText('app-root .main #form-elements button', 'Combo')).click();
+    }
+
+    addMultiSelectElement() {
+        return element(by.cssContainingText('app-root .main #form-elements button', 'Multi')).click();
+    }
 }
 
 export class EditorElementProperties {
-    getTitleText() {
-        return element(by.css('app-root .main #element-properties h2')).getText();
-    }
-
     controls = {
         element() {
             return element(by.css('app-root .main #element-properties #element-properties-controls-container'));
@@ -149,26 +158,14 @@ export class EditorElementProperties {
         delete() {
             return element(by.css('app-root .main #element-properties button#delete-selected')).click();
         }
+    };
+
+    getTitleText() {
+        return element(by.css('app-root .main #element-properties h2')).getText();
     }
 }
 
 export class EditorGroups {
-    getTitleText() {
-        return element(by.css('app-root .main #groups h2')).getText();
-    }
-    addGroup() {
-        return element(by.css('app-root .main #groups #add-group')).click();
-    }
-    getSelectedGroup() {
-        return element(by.css('app-root .main #groups .group-item.active'));
-    }
-    selectGroup(index: number) {
-        return element.all(by.css('app-root .main #groups .group-item')).get(index).click();
-    }
-    count() {
-        return element.all(by.css('app-root .main #groups .group-item')).count();
-    }
-
     elements = {
         count() {
             return element.all(by.css('app-root .main #groups .group-item .question-element-item')).count();
@@ -191,8 +188,35 @@ export class EditorGroups {
                     .all(by.css('.numeric-question-element-item'))
                     .get(elementIndex);
             }
+        },
+        gps: {
+            get(groupIndex: number, elementIndex: number) {
+                return element
+                    .all(by.css('app-root .main #groups .group-item'))
+                    .get(groupIndex)
+                    .all(by.css('.gps-question-element-item'))
+                    .get(elementIndex);
+            }
+        },
+        comboBox: {
+            get(groupIndex: number, elementIndex: number) {
+                return element
+                    .all(by.css('app-root .main #groups .group-item'))
+                    .get(groupIndex)
+                    .all(by.css('.combo-box-question-element-item'))
+                    .get(elementIndex);
+            }
+        },
+        multiSelect: {
+            get(groupIndex: number, elementIndex: number) {
+                return element
+                    .all(by.css('app-root .main #groups .group-item'))
+                    .get(groupIndex)
+                    .all(by.css('.multi-select-question-element-item'))
+                    .get(elementIndex);
+            }
         }
-    }
+    };
 
     controls = {
         name: {
@@ -211,5 +235,21 @@ export class EditorGroups {
                     .getAttribute('value');
             }
         }
+    };
+
+    getTitleText() {
+        return element(by.css('app-root .main #groups h2')).getText();
+    }
+    addGroup() {
+        return element(by.css('app-root .main #groups #add-group')).click();
+    }
+    getSelectedGroup() {
+        return element(by.css('app-root .main #groups .group-item.active'));
+    }
+    selectGroup(index: number) {
+        return element.all(by.css('app-root .main #groups .group-item')).get(index).click();
+    }
+    count() {
+        return element.all(by.css('app-root .main #groups .group-item')).count();
     }
 }
