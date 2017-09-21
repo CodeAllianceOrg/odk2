@@ -22,9 +22,7 @@ before_install:
 install:
   - npm install
 script:
-  - npm run test -- --single-run
-  - npm run e2e
-  - npm run build:prod
+  - npm run check
 notifications:
   webhooks:
     on_success: change

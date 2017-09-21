@@ -126,8 +126,12 @@ export const entityReducer: Reducer<IEntityStore> = (
                 groups: previousState.groups.delete(groupId),
                 forms: <Map<number, any>> previousState.forms
                     .map(
-                        (form, key) => {
-                            let updatedForm = form.update('groups', (arr: List<number>) => arr.filter( (elem: number) => elem !== groupId ));
+                        (dirtyForm, key) => {
+                            let updatedForm = dirtyForm
+                                .update(
+                                    'groups',
+                                    (arr: List<number>) => arr.filter( (elem: number) => elem !== groupId )
+                                );
 
                             if (updatedForm.get('selectedGroupId') === groupId) {
                                 updatedForm = updatedForm.delete('selectedGroupId');
@@ -160,12 +164,12 @@ export const entityReducer: Reducer<IEntityStore> = (
             ...previousState,
             forms: <Map<number, any>> previousState.forms
                 .map(
-                    (form, key) => {
-                        if (form.groups.includes(groupId)) {
-                            return form.set('selectedGroupId', groupId);
+                    (dirtyForm, key) => {
+                        if (dirtyForm.groups.includes(groupId)) {
+                            return dirtyForm.set('selectedGroupId', groupId);
                         }
 
-                        return form;
+                        return dirtyForm;
                     }
                 )
         };

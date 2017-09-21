@@ -32,4 +32,8 @@ export class FormBuilderGroupsComponent implements OnInit {
     onSelectGroup(group: IGroup) {
         this.formActions.selectGroup(group.id);
     }
+
+    tracker(obj: any): number {
+        return obj ? obj.id : null;
+    }
 }
