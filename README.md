@@ -4,10 +4,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 We make heavy use of the following dependencies:
 
-- [Redux](http://redux.js.org/) and [@angular-redux](https://github.com/angular-redux/store)
-- [Immutable](https://facebook.github.io/immutable-js/)
-- [Bootstrap 4 beta](https://getbootstrap.com/) and [ng-bootstrap](https://github.com/ng-bootstrap/ng-bootstrap)
-- [dragula](https://github.com/bevacqua/dragula) and [ng2-dragula](https://github.com/valor-software/ng2-dragula)
+- [Redux](http://redux.js.org/) _MIT_
+- [@angular-redux](https://github.com/angular-redux/store) _MIT_
+- [Immutable](https://facebook.github.io/immutable-js/) _BSD 3-clause "New" or "Revised" License_
+- [Bootstrap 4 beta](https://getbootstrap.com/) _MIT_
+- [ng-bootstrap](https://github.com/ng-bootstrap/ng-bootstrap) _MIT_
 
 ## Pull Requests
 
