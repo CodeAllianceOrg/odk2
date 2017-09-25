@@ -168,7 +168,7 @@ describe('editor', () => {
                     );
             });
 
-            it('should add a numeric element', () => {
+            xit('should add a numeric element', () => {
                 page.navigateTo()
                     .then(
                         () => groups.addGroup()
@@ -187,7 +187,7 @@ describe('editor', () => {
                     );
             });
 
-            it('should add a gps element', () => {
+            xit('should add a gps element', () => {
                 page.navigateTo()
                     .then(
                         () => groups.addGroup()
@@ -206,7 +206,7 @@ describe('editor', () => {
                     );
             });
 
-            it('should add a combo box element', () => {
+            xit('should add a combo box element', () => {
                 page.navigateTo()
                     .then(
                         () => groups.addGroup()
@@ -225,7 +225,7 @@ describe('editor', () => {
                     );
             });
 
-            it('should add a multi select element', () => {
+            xit('should add a multi select element', () => {
                 page.navigateTo()
                     .then(
                         () => groups.addGroup()
