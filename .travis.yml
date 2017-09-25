@@ -28,3 +28,8 @@ notifications:
     on_success: change
     on_failure: always
     on_start: false
+deploy:
+  provider: surge
+  project: ./dist/
+  domain: odk-form-builder.surge.sh
+  skip_cleanup: true
