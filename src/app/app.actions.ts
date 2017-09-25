@@ -21,6 +21,9 @@ export class FormActions {
 
     static SELECT_GROUP = 'FORM_ACTIONS-SELECT_GROUP';
 
+    static SHIFT_GROUP_DOWN = 'FORM_ACTIONS-SHIFT_GROUP_DOWN';
+    static SHIFT_GROUP_UP = 'FORM_ACTIONS-SHIFT_GROUP_UP';
+
     static REMOVE = 'FORM_ACTIONS-REMOVE';
 
     constructor(private ngRedux: NgRedux<IAppState>) {}
@@ -119,6 +122,20 @@ export class FormActions {
     public selectGroup(groupKey: number): void {
         this.ngRedux.dispatch({
             type: FormActions.SELECT_GROUP,
+            payload: groupKey
+        });
+    }
+
+    public shiftGroupDown(groupKey: number): void {
+        this.ngRedux.dispatch({
+            type: FormActions.SHIFT_GROUP_DOWN,
+            payload: groupKey
+        });
+    }
+
+    public shiftGroupUp(groupKey: number): void {
+        this.ngRedux.dispatch({
+            type: FormActions.SHIFT_GROUP_UP,
             payload: groupKey
         });
     }

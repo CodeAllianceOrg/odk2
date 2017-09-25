@@ -173,6 +173,58 @@ export const entityReducer: Reducer<IEntityStore> = (
                     }
                 )
         };
+    case FormActions.SHIFT_GROUP_DOWN:
+
+        groupId = action.payload;
+
+        return {
+            ...previousState,
+            forms: <Map<number, any>> previousState.forms
+                .map(
+                    (dirtyForm, key) => {
+                        if (dirtyForm.groups.includes(groupId)) {
+                            const index = (<List<number>> dirtyForm.groups)
+                                .findIndex(
+                                    listItem => listItem === groupId
+                                );
+
+                            return dirtyForm
+                                .set(
+                                    'groups',
+                                    dirtyForm.groups.delete(index).insert(index + 1, groupId)
+                                );
+                        }
+
+                        return dirtyForm;
+                    }
+                )
+        };
+    case FormActions.SHIFT_GROUP_UP:
+
+        groupId = action.payload;
+
+        return {
+            ...previousState,
+            forms: <Map<number, any>> previousState.forms
+                .map(
+                    (dirtyForm, key) => {
+                        if (dirtyForm.groups.includes(groupId)) {
+                            const index = (<List<number>> dirtyForm.groups)
+                                .findIndex(
+                                    listItem => listItem === groupId
+                                );
+
+                            return dirtyForm
+                                .set(
+                                    'groups',
+                                    dirtyForm.groups.delete(index).insert(index - 1, groupId)
+                                );
+                        }
+
+                        return dirtyForm;
+                    }
+                )
+        };
     default:
         return previousState;
     }

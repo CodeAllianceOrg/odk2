@@ -33,6 +33,14 @@ export class FormBuilderGroupsComponent implements OnInit {
         this.formActions.selectGroup(group.id);
     }
 
+    onShiftGroupDown(group: IGroup) {
+        this.formActions.shiftGroupDown(group.id);
+    }
+
+    onShiftGroupUp(group: IGroup) {
+        this.formActions.shiftGroupUp(group.id);
+    }
+
     tracker(obj: any): number {
         return obj ? obj.id : null;
     }

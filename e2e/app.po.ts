@@ -234,6 +234,30 @@ export class EditorGroups {
                     .get(index)
                     .getAttribute('value');
             }
+        },
+        shift: {
+            down(index: number) {
+                return element
+                    .all(
+                        by.css('app-root .main #groups .group-item')
+                    )
+                    .get(index)
+                    .element(
+                        by.css('button.shift-down')
+                    )
+                    .click();
+            },
+            up(index: number) {
+                return element
+                    .all(
+                        by.css('app-root .main #groups .group-item')
+                    )
+                    .get(index)
+                    .element(
+                        by.css('button.shift-up')
+                    )
+                    .click();
+            }
         }
     };
 
@@ -245,6 +269,9 @@ export class EditorGroups {
     }
     getSelectedGroup() {
         return element(by.css('app-root .main #groups .group-item.active'));
+    }
+    getGroupId(index: number) {
+        return element.all(by.css('app-root .main #groups .group-item')).get(index).getAttribute('data-id');
     }
     selectGroup(index: number) {
         return element.all(by.css('app-root .main #groups .group-item')).get(index).click();

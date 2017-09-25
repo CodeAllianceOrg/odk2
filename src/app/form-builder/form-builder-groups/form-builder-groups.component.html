@@ -4,12 +4,28 @@
      *ngFor="let group of form.groups; trackBy: tracker"
      [class.active]="groupId === group.id"
      [class.bg-light]="groupId === group.id"
-     (click)="onSelectGroup(group)">
+     (click)="onSelectGroup(group)"
+     [attr.data-id]="group.id">
 
-  <div class="d-flex justify-content-center">
-    <span class="mute">
+  <div class="d-flex justify-content-between">
+    <div class="btn-group" role="group">
+      <button type="button"
+              class="btn btn-secondary shift-up"
+              (click)="onShiftGroupUp(group)">
+        <i class="fa fa-chevron-up"></i>
+      </button>
+      <button type="button"
+              class="btn btn-secondary shift-down"
+              (click)="onShiftGroupDown(group)">
+        <i class="fa fa-chevron-down"></i>
+      </button>
+    </div>
+
+    <h5>
       {{ group.name }}
-    </span>
+    </h5>
+
+    <span></span>
   </div>
 
   <hr>
