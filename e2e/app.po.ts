@@ -155,8 +155,18 @@ export class EditorElementProperties {
         element() {
             return element(by.css('app-root .main #element-properties #element-properties-controls-container'));
         },
-        delete() {
-            return element(by.css('app-root .main #element-properties button#delete-selected')).click();
+
+        name: {
+            edit(text: string) {
+                return guaranteedSendKeys(
+                    element(by.css('app-root .main #element-properties input.element-name')),
+                    text
+                );
+            },
+            get() {
+                return element(by.css('app-root .main #element-properties input.element-name'))
+                    .getAttribute('value');
+            }
         }
     };
 
@@ -229,10 +239,10 @@ export class EditorGroups {
             get(index: number) {
                 return element
                     .all(
-                        by.css('app-root .main #groups .group-item input.group-name')
+                        by.css('app-root .main #groups .group-item .group-name')
                     )
                     .get(index)
-                    .getAttribute('value');
+                    .getText();
             }
         },
         shift: {

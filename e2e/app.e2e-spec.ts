@@ -253,14 +253,7 @@ describe('editor', () => {
                     );
             });
 
-            xit('should not display controls when there is no item selected', () => {
-                page.navigateTo()
-                    .then(
-                        () => expect(elementProperties.controls.element().isPresent()).toBeFalse()
-                    );
-            });
-
-            xit('should not display controls when the selected item is removed', () => {
+            it('should not display controls when the selected item is removed', () => {
                 page.navigateTo()
                     .then(
                         () => groups.count()
@@ -278,10 +271,34 @@ describe('editor', () => {
                         }
                     )
                     .then(
-                        () => elementProperties.controls.delete()
+                        () => groups.controls.delete(0)
                     )
                     .then(
                         () => expect(elementProperties.controls.element().isPresent()).toBeFalse()
+                    );
+            });
+
+            it('should manage a group name', () => {
+
+                // element properties should sync the name of the group
+
+                const name = 'Test Name';
+
+                page.navigateTo()
+                    .then(
+                        () => groups.addGroup()
+                    )
+                    .then(
+                        () => groups.selectGroup(0)
+                    )
+                    .then(
+                        () => expect(elementProperties.controls.name.get()).toBeNonEmptyString()
+                    )
+                    .then(
+                        () => expect(elementProperties.controls.name.edit(name))
+                    )
+                    .then(
+                        () => expect(groups.controls.name.get(0)).toEqual(name)
                     );
             });
         });

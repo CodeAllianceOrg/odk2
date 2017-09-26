@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import { NgRedux } from '@angular-redux/store';
+import { Observable } from 'rxjs/Observable';
+import { IGroup, IAppState } from '../../store';
 import { FormActions } from '../../app.actions';
 
 @Component({
@@ -10,13 +12,22 @@ import { FormActions } from '../../app.actions';
 export class FormBuilderPropertiesComponent implements OnInit {
 
     @Input()
-    public groupId = 0;
+    public set groupId(groupId: number) {
+        this.group$ = this.ngRedux.select(['entities', 'groups', groupId]);
+    }
 
-    constructor(private formActions: FormActions) { }
+    public group$: Observable<IGroup>;
+
+    constructor(private formActions: FormActions,
+                private ngRedux: NgRedux<IAppState>) {}
 
     ngOnInit() {}
 
-    onDeleteSelectedItem() {
-        this.formActions.remove(this.groupId);
+    public onGroupNameChange(name: string, groupId: number): void {
+        this.formActions.updateGroupName(name, groupId);
+    }
+
+    public onDeleteSelectedItem(groupId: number): void {
+        this.formActions.remove(groupId);
     }
 }

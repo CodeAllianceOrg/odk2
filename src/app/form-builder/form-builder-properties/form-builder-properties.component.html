@@ -1,5 +1,13 @@
 <h2>Properties</h2>
 <div id="element-properties-controls-container"
-     *ngIf="groupId">
+     *ngIf="group$ | async ; let group">
+  <div class="form-group">
+    <label for="group-name">Group Name</label>
+    <input type="text"
+           class="form-control element-name"
+           id="group-name"
+           [ngModel]="group.name"
+           (ngModelChange)="onGroupNameChange($event, group.id)">
+  </div>
 
 </div>
