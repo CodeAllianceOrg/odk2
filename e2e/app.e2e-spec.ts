@@ -253,46 +253,14 @@ describe('editor', () => {
                     );
             });
 
-            it('should delete a group', () => {
-                let initialCount;
-
-                page.navigateTo()
-                    .then(
-                        () => groups.count()
-                    )
-                    .then(
-                        count => {
-
-                            initialCount = count;
-
-                            if (count > 0) {
-                                return groups.selectGroup(0);
-                            } else {
-                                initialCount += 1;
-
-                                return groups.addGroup()
-                                    .then(
-                                        () => groups.selectGroup(0)
-                                    );
-                            }
-                        }
-                    )
-                    .then(
-                        () => elementProperties.controls.delete()
-                    )
-                    .then(
-                        () => expect(groups.count()).toEqual(initialCount - 1)
-                    );
-            });
-
-            it('should not display controls when there is no item selected', () => {
+            xit('should not display controls when there is no item selected', () => {
                 page.navigateTo()
                     .then(
                         () => expect(elementProperties.controls.element().isPresent()).toBeFalse()
                     );
             });
 
-            it('should not display controls when the selected item is removed', () => {
+            xit('should not display controls when the selected item is removed', () => {
                 page.navigateTo()
                     .then(
                         () => groups.count()
@@ -487,6 +455,38 @@ describe('editor', () => {
 
                             return expect(groups.getGroupId(0)).toEqual(groupUnderTest);
                         }
+                    );
+            });
+
+            it('should delete a group', () => {
+                let initialCount;
+
+                page.navigateTo()
+                    .then(
+                        () => groups.count()
+                    )
+                    .then(
+                        count => {
+
+                            initialCount = count;
+
+                            if (count > 0) {
+                                return groups.selectGroup(0);
+                            } else {
+                                initialCount += 1;
+
+                                return groups.addGroup()
+                                    .then(
+                                        () => groups.selectGroup(0)
+                                    );
+                            }
+                        }
+                    )
+                    .then(
+                        () => groups.controls.delete(0)
+                    )
+                    .then(
+                        () => expect(groups.count()).toEqual(initialCount - 1)
                     );
             });
         });

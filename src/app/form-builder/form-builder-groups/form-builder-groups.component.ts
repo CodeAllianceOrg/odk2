@@ -41,6 +41,10 @@ export class FormBuilderGroupsComponent implements OnInit {
         this.formActions.shiftGroupUp(group.id);
     }
 
+    onDeleteGroup(group: IGroup) {
+        this.formActions.remove(group.id);
+    }
+
     tracker(obj: any): number {
         return obj ? obj.id : null;
     }

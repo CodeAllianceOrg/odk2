@@ -258,6 +258,17 @@ export class EditorGroups {
                     )
                     .click();
             }
+        },
+        delete(index: number) {
+            return element
+                .all(
+                    by.css('app-root .main #groups .group-item')
+                )
+                .get(index)
+                .element(
+                    by.css('button.delete')
+                )
+                .click();
         }
     };
 
