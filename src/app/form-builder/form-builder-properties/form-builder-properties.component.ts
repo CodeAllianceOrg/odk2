@@ -23,15 +23,11 @@ export class FormBuilderPropertiesComponent implements OnInit {
 
     ngOnInit() {}
 
-    public onGroupNameChange(name: string, groupId: number): void {
-        this.formActions.updateSelected('name', name, groupId);
-    }
-
     public onDeleteSelectedItem(groupId: number): void {
         this.formActions.remove(groupId);
     }
 
-    public onGroupPropertyChange(value: any, groupId: number, field: string): void {
+    public onGroupPropertyChange(value: any, groupId: number, field: string[]): void {
         this.formActions.updateSelected(field, value, groupId);
     }
 }

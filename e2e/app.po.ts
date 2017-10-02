@@ -178,6 +178,20 @@ export class EditorElementProperties {
                 return element(by.css('app-root .main #element-properties input.element-required'))
                     .getAttribute('value');
             }
+        },
+        display: {
+            base: {
+                edit(text: string) {
+                    return guaranteedSendKeys(
+                        element(by.css('app-root .main #element-properties input.element-display-base')),
+                        text
+                    );
+                },
+                get() {
+                    return element(by.css('app-root .main #element-properties input.element-display-base'))
+                        .getAttribute('value');
+                }
+            }
         }
     };
 
@@ -248,6 +262,18 @@ export class EditorGroups {
                     )
                     .get(index)
                     .getText();
+            }
+        },
+        display: {
+            base: {
+                get(index: number) {
+                    return element
+                        .all(
+                            by.css('app-root .main #groups .group-item .group-display-base')
+                        )
+                        .get(index)
+                        .getText();
+                }
             }
         },
         required: {

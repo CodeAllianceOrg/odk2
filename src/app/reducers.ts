@@ -46,7 +46,7 @@ export const entityReducer: Reducer<IEntityStore> = (
         if (previousState.elements.has(itemId)) {
             return {
                 elements: previousState.elements
-                    .setIn([action.payload.elementKey, 'properties', action.payload.field], action.payload.value),
+                    .setIn([action.payload.elementKey, 'properties', ...action.payload.field], action.payload.value),
                 forms: previousState.forms,
                 groups: previousState.groups
             };
@@ -54,12 +54,13 @@ export const entityReducer: Reducer<IEntityStore> = (
             return {
                 elements: previousState.elements,
                 forms: previousState.forms,
-                groups: previousState.groups.setIn([action.payload.elementKey, 'properties', action.payload.field], action.payload.value),
+                groups: previousState.groups
+                    .setIn([action.payload.elementKey, 'properties', ...action.payload.field], action.payload.value),
             };
         } else if (previousState.forms.has(itemId)) {
             return {
                 elements: previousState.elements,
-                forms: previousState.forms.setIn([action.payload.elementKey, 'properties', action.payload.field], action.payload.value),
+                forms: previousState.forms.setIn([action.payload.elementKey, 'properties', ...action.payload.field], action.payload.value),
                 groups: previousState.groups
             };
         }

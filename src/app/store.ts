@@ -3,11 +3,21 @@ import { Map, Record, List } from 'immutable';
 export interface IItemProperties {
     name: string;
     required: boolean;
+
+    display: {
+        base: string;
+    };
 }
+
+export const DisplayRecord = Record({
+    base: 'base'
+});
 
 export const ItemPropertiesRecord = Record({
     name: 'Untitled',
-    required: true
+    required: true,
+
+    display: new DisplayRecord()
 });
 
 export interface IElement {

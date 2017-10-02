@@ -25,6 +25,6 @@ export class FormBuilderHeaderComponent implements OnInit {
     }
 
     onFormNameChange(name: string) {
-        this.formActions.updateSelected('name', name, this.form.id);
+        this.formActions.updateSelected(['name'], name, this.form.id);
     }
 }

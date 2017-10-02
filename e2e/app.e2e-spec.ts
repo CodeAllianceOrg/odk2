@@ -278,7 +278,7 @@ describe('editor', () => {
                     );
             });
 
-            it('should manage a group\'s settings: name', () => {
+            it('should manage a group\'s properties: name', () => {
 
                 // element properties should sync the name of the group
 
@@ -302,9 +302,7 @@ describe('editor', () => {
                     );
             });
 
-            it('should manage a group\'s settings: required', () => {
-                const required = true;
-
+            it('should manage a group\'s properties: required', () => {
                 page.navigateTo()
                     .then(
                         () => groups.addGroup()
@@ -319,10 +317,31 @@ describe('editor', () => {
                         () => expect(groups.controls.required.get(0)).toBeTruthy()
                     )
                     .then(
-                        () => expect(elementProperties.controls.required.edit())
+                        () => elementProperties.controls.required.edit()
                     )
                     .then(
                         () => expect(groups.controls.required.get(0)).toBeFalsy()
+                    );
+            });
+
+            it('should manage a group\'s properties: display', () => {
+                const baseDisplay = 'Base Display';
+
+                page.navigateTo()
+                    .then(
+                        () => groups.addGroup()
+                    )
+                    .then(
+                        () => groups.selectGroup(0)
+                    )
+                    .then(
+                        () => expect(elementProperties.controls.display.base.get()).toBeNonEmptyString()
+                    )
+                    .then(
+                        () => elementProperties.controls.display.base.edit(baseDisplay)
+                    )
+                    .then(
+                        () => expect(groups.controls.display.base.get(0)).toEqual(baseDisplay)
                     );
             });
         });

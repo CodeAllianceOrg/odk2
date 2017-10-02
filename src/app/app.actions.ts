@@ -28,7 +28,7 @@ export class FormActions {
 
     constructor(private ngRedux: NgRedux<IAppState>) {}
 
-    public updateSelected(field: string, value: any, elementKey: number): void {
+    public updateSelected(field: string[], value: any, elementKey: number): void {
         this.ngRedux.dispatch({
             type: FormActions.UPDATE_SELECTED,
             payload: {

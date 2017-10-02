@@ -26,7 +26,7 @@ export class FormBuilderGroupsComponent implements OnInit {
     }
 
     onGroupNameChange(group: IGroup, name: string) {
-        this.formActions.updateSelected('name', name, group.id);
+        this.formActions.updateSelected(['name'], name, group.id);
     }
 
     onSelectGroup(group: IGroup) {
