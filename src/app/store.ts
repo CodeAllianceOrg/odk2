@@ -1,5 +1,15 @@
 import { Map, Record, List } from 'immutable';
 
+export interface IItemProperties {
+    name: string;
+    required: boolean;
+}
+
+export const ItemPropertiesRecord = Record({
+    name: 'Untitled',
+    required: true
+});
+
 export interface IElement {
     id: number;
 
@@ -14,19 +24,23 @@ export const ElementRecord = Record({
 export interface IGroup {
     id: number;
 
+    properties: IItemProperties;
+
     elements: List<IElement>;
 }
 
 export const GroupRecord = Record({
     id: 0,
-    name: 'Default Group Name',
+
+    properties: new ItemPropertiesRecord(),
 
     elements: List()
 });
 
 export interface IForm {
     id: number;
-    name: string;
+
+    properties: IItemProperties;
 
     groups: List<IGroup>;
 
@@ -35,7 +49,7 @@ export interface IForm {
 
 export const FormRecord = Record({
     id: 0,
-    name: 'Default Form Name',
+    properties: new ItemPropertiesRecord(),
     groups: List(),
     selectedGroupId: 0
 });

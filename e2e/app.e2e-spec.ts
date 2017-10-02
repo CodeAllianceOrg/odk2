@@ -278,7 +278,7 @@ describe('editor', () => {
                     );
             });
 
-            it('should manage a group name', () => {
+            it('should manage a group\'s settings: name', () => {
 
                 // element properties should sync the name of the group
 
@@ -299,6 +299,30 @@ describe('editor', () => {
                     )
                     .then(
                         () => expect(groups.controls.name.get(0)).toEqual(name)
+                    );
+            });
+
+            it('should manage a group\'s settings: required', () => {
+                const required = true;
+
+                page.navigateTo()
+                    .then(
+                        () => groups.addGroup()
+                    )
+                    .then(
+                        () => groups.selectGroup(0)
+                    )
+                    .then(
+                        () => expect(elementProperties.controls.required.get()).toBeTruthy()
+                    )
+                    .then(
+                        () => expect(groups.controls.required.get(0)).toBeTruthy()
+                    )
+                    .then(
+                        () => expect(elementProperties.controls.required.edit())
+                    )
+                    .then(
+                        () => expect(groups.controls.required.get(0)).toBeFalsy()
                     );
             });
         });
@@ -368,27 +392,6 @@ describe('editor', () => {
                         // upon navigating back to the original form,
                         // we should find the original group still selected
                         () => expect(groups.getSelectedGroup().isPresent()).toBeTrue()
-                    );
-            });
-
-            xit('should manage the name of the group', () => {
-                const name = 'Example Group Name';
-
-                page.navigateTo()
-                    .then(
-                        () => groups.addGroup()
-                    )
-                    .then(
-                        () => groups.controls.name.edit(0, name)
-                    )
-                    .then(
-                        () => tabs.openCreateTab()
-                    )
-                    .then(
-                        () => tabs.openTab(0)
-                    )
-                    .then(
-                        () => expect(groups.controls.name.get(0)).toEqual(name)
                     );
             });
 

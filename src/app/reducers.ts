@@ -28,6 +28,8 @@ export const entityReducer: Reducer<IEntityStore> = (
     let formId: number;
     let form: Map<string, any>;
 
+    let itemId: number;
+
     switch (action.type) {
     case FormActions.ADD_BLANK_FORM:
         formId = Date.now();
@@ -35,20 +37,34 @@ export const entityReducer: Reducer<IEntityStore> = (
         return {
             ...previousState,
             forms: previousState.forms.set(formId, new FormRecord({
-                name: 'Default Name',
                 id: formId
             }))
         };
-    case FormActions.UPDATE_FORM_NAME:
-        return {
-            ...previousState,
-            forms: previousState.forms.setIn([action.payload.formKey, 'name'], action.payload.name)
-        };
-    case FormActions.UPDATE_GROUP_NAME:
-        return {
-            ...previousState,
-            groups: previousState.groups.setIn([action.payload.groupKey, 'name'], action.payload.name)
-        };
+    case FormActions.UPDATE_SELECTED:
+        itemId = action.payload.elementKey;
+
+        if (previousState.elements.has(itemId)) {
+            return {
+                elements: previousState.elements
+                    .setIn([action.payload.elementKey, 'properties', action.payload.field], action.payload.value),
+                forms: previousState.forms,
+                groups: previousState.groups
+            };
+        } else if (previousState.groups.has(itemId)) {
+            return {
+                elements: previousState.elements,
+                forms: previousState.forms,
+                groups: previousState.groups.setIn([action.payload.elementKey, 'properties', action.payload.field], action.payload.value),
+            };
+        } else if (previousState.forms.has(itemId)) {
+            return {
+                elements: previousState.elements,
+                forms: previousState.forms.setIn([action.payload.elementKey, 'properties', action.payload.field], action.payload.value),
+                groups: previousState.groups
+            };
+        }
+
+        return previousState;
     case FormActions.ADD_GROUP:
         groupId = action.payload.id;
         group = action.payload;

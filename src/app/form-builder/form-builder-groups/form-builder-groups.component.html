@@ -27,10 +27,19 @@
     </div>
 
     <h5 class="group-name">
-      {{ group.name }}
+      {{ group.properties.name }}
     </h5>
 
-    <span></span>
+    <span class="badge badge-info group-required"
+          *ngIf="group.properties.required"
+          data-required="required">
+      Required
+    </span>
+
+    <span class="badge badge-secondary group-required"
+          *ngIf="!group.properties.required">
+      Not Required
+    </span>
   </div>
 
   <hr>
