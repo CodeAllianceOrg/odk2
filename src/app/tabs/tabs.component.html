@@ -2,7 +2,7 @@
   <div class="row tabs">
     <ngb-tabset>
       <ngb-tab *ngFor="let form of forms$ | async; trackBy: tracker"
-               [title]="form.name">
+               [title]="form.properties.name">
         <ng-template ngbTabContent>
           <app-form-builder [form]="form"></app-form-builder>
         </ng-template>

@@ -13,10 +13,20 @@
       <input type="text"
              class="form-control element-name"
              id="group-name"
-             [ngModel]="group.name"
+             [ngModel]="group.properties.name"
              (ngModelChange)="onGroupNameChange($event, group.id)">
     </div>
 
+    <label class="custom-control custom-checkbox element-required mt-3">
+      <input type="checkbox"
+             class="custom-control-input element-required"
+             [ngModel]="group.properties.required"
+             (ngModelChange)="onGroupPropertyChange($event, group.id, 'required')">
+      <span class="custom-control-indicator"></span>
+      <span class="custom-control-description">
+        Required
+      </span>
+    </label>
   </div>
 
 </div>

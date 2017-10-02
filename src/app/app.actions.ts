@@ -8,10 +8,8 @@ import {
 @Injectable()
 export class FormActions {
     static ADD_BLANK_FORM = 'FORM_ACTIONS-ADD_BLANK_FORM';
-    static UPDATE_FORM_NAME = 'FORM_ACTIONS-UPDATE_FORM_NAME';
 
     static ADD_GROUP = 'FORM_ACTIONS-ADD_GROUP';
-    static UPDATE_GROUP_NAME = 'FORM_ACTIONS-UPDATE_GROUP_NAME';
 
     static ADD_TEXT_ELEMENT = 'FORM_ACTIONS-ADD_TEXT_ELEMENT';
     static ADD_NUMERIC_ELEMENT = 'FORM_ACTIONS-ADD_NUMERIC_ELEMENT';
@@ -26,7 +24,20 @@ export class FormActions {
 
     static REMOVE = 'FORM_ACTIONS-REMOVE';
 
+    static UPDATE_SELECTED = 'FORM_ACTIONS-UPDATE_SELECTED';
+
     constructor(private ngRedux: NgRedux<IAppState>) {}
+
+    public updateSelected(field: string, value: any, elementKey: number): void {
+        this.ngRedux.dispatch({
+            type: FormActions.UPDATE_SELECTED,
+            payload: {
+                field,
+                value,
+                elementKey
+            }
+        });
+    }
 
     public remove(id: number): void {
         this.ngRedux.dispatch({
@@ -96,26 +107,6 @@ export class FormActions {
             type: FormActions.ADD_GROUP,
             payload: group,
             meta: formKey
-        });
-    }
-
-    public updateFormName(name: string, formKey: number): void {
-        this.ngRedux.dispatch({
-            type: FormActions.UPDATE_FORM_NAME,
-            payload: {
-                formKey,
-                name
-            }
-        });
-    }
-
-    public updateGroupName(name: string, groupKey: number): void {
-        this.ngRedux.dispatch({
-            type: FormActions.UPDATE_GROUP_NAME,
-            payload: {
-                groupKey,
-                name
-            }
         });
     }
 

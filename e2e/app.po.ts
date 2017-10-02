@@ -167,6 +167,17 @@ export class EditorElementProperties {
                 return element(by.css('app-root .main #element-properties input.element-name'))
                     .getAttribute('value');
             }
+        },
+
+        required: {
+            edit() {
+                return element(by.css('app-root .main #element-properties label.element-required'))
+                    .click();
+            },
+            get() {
+                return element(by.css('app-root .main #element-properties input.element-required'))
+                    .getAttribute('value');
+            }
         }
     };
 
@@ -230,12 +241,6 @@ export class EditorGroups {
 
     controls = {
         name: {
-            edit(index: number, text: string) {
-                return guaranteedSendKeys(
-                    element.all(by.css('app-root .main #groups .group-item input.group-name')).get(index),
-                    text
-                );
-            },
             get(index: number) {
                 return element
                     .all(
@@ -243,6 +248,16 @@ export class EditorGroups {
                     )
                     .get(index)
                     .getText();
+            }
+        },
+        required: {
+            get(index: number) {
+                return element
+                    .all(
+                        by.css('app-root .main #groups .group-item .group-required')
+                    )
+                    .get(index)
+                    .getAttribute('data-required');
             }
         },
         shift: {
