@@ -177,18 +177,20 @@ export const entityReducer: Reducer<IEntityStore> = (
         return previousState;
     case FormActions.SELECT_ELEMENT:
 
-        elementId = action.payload;
+        elementId = action.payload.elementId;
+        groupId = action.payload.groupId;
 
         return {
             ...previousState,
-            groups: <Map<number, any>> previousState.groups
+            groups: previousState.groups.setIn([groupId, 'selectedElementId'], elementId),
+            forms: <Map<number, any>> previousState.forms
                 .map(
-                    (dirtyGroup, key) => {
-                        if (dirtyGroup.elements.includes(elementId)) {
-                            return dirtyGroup.set('selectedElementId', elementId);
+                    (dirtyForm, key) => {
+                        if (dirtyForm.groups.includes(groupId)) {
+                            return dirtyForm.set('selectedGroupId', groupId);
                         }
 
-                        return dirtyGroup;
+                        return dirtyForm;
                     }
                 )
         };
@@ -198,6 +200,7 @@ export const entityReducer: Reducer<IEntityStore> = (
 
         return {
             ...previousState,
+            groups: previousState.groups.setIn([groupId, 'selectedElementId'], 0),
             forms: <Map<number, any>> previousState.forms
                 .map(
                     (dirtyForm, key) => {
