@@ -335,13 +335,16 @@ describe('editor', () => {
                         () => groups.selectGroup(0)
                     )
                     .then(
-                        () => expect(elementProperties.controls.display.base.get()).toBeNonEmptyString()
-                    )
-                    .then(
                         () => elementProperties.controls.display.base.edit(baseDisplay)
                     )
                     .then(
-                        () => expect(groups.controls.display.base.get(0)).toEqual(baseDisplay)
+                        () => groups.addGroup()
+                    )
+                    .then(
+                        () => groups.selectGroup(0)
+                    )
+                    .then(
+                        () => expect(elementProperties.controls.display.base.get()).toEqual(baseDisplay)
                     );
             });
 
@@ -359,7 +362,13 @@ describe('editor', () => {
                         () => elementProperties.controls.display.edit('es', display)
                     )
                     .then(
-                        () => expect(groups.controls.display.get(0, 'es')).toEqual(display)
+                        () => groups.addGroup()
+                    )
+                    .then(
+                        () => groups.selectGroup(0)
+                    )
+                    .then(
+                        () => expect(elementProperties.controls.display.get('es')).toEqual(display)
                     );
             });
         });

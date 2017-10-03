@@ -30,32 +30,19 @@
       {{ group.properties.name }}
     </h5>
 
-    <span class="badge badge-info group-required"
-          *ngIf="group.properties.required"
-          data-required="required">
-      Required
-    </span>
+    <div *ngIf="group.properties.required">
+      <span class="badge badge-info group-required"
+            data-required="required">
+        Required
+      </span>
+    </div>
 
-    <span class="badge badge-secondary group-required"
-          *ngIf="!group.properties.required">
-      Not Required
-    </span>
+    <div *ngIf="!group.properties.required">
+      <span class="badge badge-secondary group-required">
+        Not Required
+      </span>
+    </div>
   </div>
-
-  <ul>
-    <li>
-      Display Base:
-      <span class="group-display-base">
-        {{ group.properties.display.base }}
-      </span>
-    </li>
-    <li>
-      Display Español:
-      <span class="group-display-es">
-        {{ group.properties.display.es }}
-      </span>
-    </li>
-  </ul>
 
   <hr>
 

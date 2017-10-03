@@ -3,39 +3,44 @@
      *ngIf="group$ | async ; let group">
   <div class="form-group">
 
-    <label for="group-name">Group Name</label>
+    <fieldset>
+      <legend>Base</legend>
 
-    <div class="input-group">
+      <label for="group-name">Group Name</label>
 
-      <span class="input-group-addon">
-        <i class="fa fa-pencil" aria-hidden="true"></i>
-      </span>
-      <input type="text"
-             class="form-control element-name"
-             id="group-name"
-             [ngModel]="group.properties.name"
-             (ngModelChange)="onGroupPropertyChange($event, group.id, 'name')">
-    </div>
+      <div class="input-group">
 
-    <label class="custom-control custom-checkbox element-required mt-3">
-      <input type="checkbox"
-             class="custom-control-input element-required"
-             [ngModel]="group.properties.required"
-             (ngModelChange)="onGroupPropertyChange($event, group.id, 'required')">
-      <span class="custom-control-indicator"></span>
-      <span class="custom-control-description">
-        Required
-      </span>
-    </label>
+        <span class="input-group-addon">
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+        </span>
+        <input type="text"
+               class="form-control element-name"
+               id="group-name"
+               [ngModel]="group.properties.name"
+               (ngModelChange)="onGroupPropertyChange($event, group.id, 'name')">
+      </div>
+
+      <label class="custom-control custom-checkbox element-required mt-3">
+        <input type="checkbox"
+               class="custom-control-input element-required"
+               [ngModel]="group.properties.required"
+               (ngModelChange)="onGroupPropertyChange($event, group.id, 'required')">
+        <span class="custom-control-indicator"></span>
+        <span class="custom-control-description">
+          Required
+        </span>
+      </label>
+
+    </fieldset>
 
     <fieldset>
       <legend>
-        Group Display
+        Display
       </legend>
 
       <label for="group-display-base">Base</label>
 
-      <div class="input-group">
+      <div class="input-group pb-2">
 
         <span class="input-group-addon">
           <i class="fa fa-pencil" aria-hidden="true"></i>

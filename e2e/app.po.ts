@@ -186,6 +186,10 @@ export class EditorElementProperties {
                     text
                 );
             },
+            get(lang: string) {
+                return element(by.css(`app-root .main #element-properties input.element-display-${lang}`))
+                    .getAttribute('value');
+            },
             base: {
                 edit(text: string) {
                     return guaranteedSendKeys(
