@@ -56,14 +56,14 @@ export interface IForm {
 
     groups: List<IGroup>;
 
-    selectedGroupId: number;
+    selectedId: number;
 }
 
 export const FormRecord = Record({
     id: 0,
     properties: new ItemPropertiesRecord(),
     groups: List(),
-    selectedGroupId: 0
+    selectedId: 0
 });
 
 export interface IEntityStore {

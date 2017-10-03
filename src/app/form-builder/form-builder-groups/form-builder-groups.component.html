@@ -4,7 +4,6 @@
      *ngFor="let group of form.groups; trackBy: tracker"
      [class.active]="groupId === group.id"
      [class.bg-light]="groupId === group.id"
-     (click)="onSelectGroup(group)"
      [attr.data-id]="group.id">
 
   <div class="d-flex justify-content-between">
@@ -23,6 +22,14 @@
               class="btn btn-secondary shift-down"
               (click)="onShiftGroupDown(group)">
         <i class="fa fa-chevron-down"></i>
+      </button>
+      <button type="button"
+              class="btn btn-secondary select"
+              (click)="onSelectGroup(group)">
+        <i class="fa fa-list"
+           *ngIf="groupId !== group.id"></i>
+        <i class="fa fa-check-square-o"
+           *ngIf="groupId === group.id"></i>
       </button>
     </div>
 
@@ -49,11 +56,22 @@
   <ul class="mb-0 p-2">
     <li class="question-element-item"
         *ngFor="let element of group.elements; trackBy: tracker"
-        [ngSwitch]="element.type">
+        [ngSwitch]="element.type"
+        [class.active]="elementId === element.id"
+        [class.bg-info]="elementId === element.id">
 
-      <div class="text-question-element-item"
-           *ngSwitchCase=" 'text' ">
-        Text Question Element {{ element.id }}
+      <div *ngSwitchCase=" 'text' ">
+        <button type="button"
+                class="btn btn-secondary element-select"
+                (click)="onSelectElement(element)">
+          <i class="fa fa-list"
+             *ngIf="elementId !== element.id"></i>
+          <i class="fa fa-check-square-o"
+             *ngIf="elementId === element.id"></i>
+        </button>
+        <span class="text-question-element-item">
+          Text Question Element {{ element.id }}
+        </span>
       </div>
 
       <div class="numeric-question-element-item"

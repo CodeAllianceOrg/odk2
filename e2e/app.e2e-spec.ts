@@ -409,7 +409,23 @@ describe('editor', () => {
                     );
             });
 
-            it('should persist selections between forms', () => {
+            fit('should select a newly added question', () => {
+                page.navigateTo()
+                    .then(
+                        () => groups.addGroup()
+                    )
+                    .then(
+                        () => groups.selectGroup(0)
+                    )
+                    .then(
+                        () => formElements.addTextElement()
+                    )
+                    .then(
+                        () => expect(groups.elements.getSelected().isPresent()).toBeTrue()
+                    );
+            });
+
+            it('should persist group selections between forms', () => {
                 page.navigateTo()
                     .then(
                         () => groups.addGroup()

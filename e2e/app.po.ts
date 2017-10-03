@@ -212,6 +212,10 @@ export class EditorElementProperties {
 
 export class EditorGroups {
     elements = {
+
+        getSelected() {
+            return element.all(by.css('app-root .main #groups .group-item .question-element-item.selected'));
+        },
         count() {
             return element.all(by.css('app-root .main #groups .group-item .question-element-item')).count();
         },
@@ -354,7 +358,7 @@ export class EditorGroups {
         return element.all(by.css('app-root .main #groups .group-item')).get(index).getAttribute('data-id');
     }
     selectGroup(index: number) {
-        return element.all(by.css('app-root .main #groups .group-item')).get(index).click();
+        return element.all(by.css('app-root .main #groups .group-item button.select')).get(index).click();
     }
     count() {
         return element.all(by.css('app-root .main #groups .group-item')).count();
