@@ -344,6 +344,24 @@ describe('editor', () => {
                         () => expect(groups.controls.display.base.get(0)).toEqual(baseDisplay)
                     );
             });
+
+            it('should manage a group\'s properties: display (es)', () => {
+                const display = 'español';
+
+                page.navigateTo()
+                    .then(
+                        () => groups.addGroup()
+                    )
+                    .then(
+                        () => groups.selectGroup(0)
+                    )
+                    .then(
+                        () => elementProperties.controls.display.edit('es', display)
+                    )
+                    .then(
+                        () => expect(groups.controls.display.get(0, 'es')).toEqual(display)
+                    );
+            });
         });
 
         describe('groups', () => {

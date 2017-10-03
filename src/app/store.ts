@@ -6,11 +6,13 @@ export interface IItemProperties {
 
     display: {
         base: string;
+        es: string;
     };
 }
 
 export const DisplayRecord = Record({
-    base: 'base'
+    base: 'base',
+    es: ''
 });
 
 export const ItemPropertiesRecord = Record({

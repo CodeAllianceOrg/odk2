@@ -180,6 +180,12 @@ export class EditorElementProperties {
             }
         },
         display: {
+            edit(lang: string, text: string) {
+                return guaranteedSendKeys(
+                    element(by.css(`app-root .main #element-properties input.element-display-${lang}`)),
+                    text
+                );
+            },
             base: {
                 edit(text: string) {
                     return guaranteedSendKeys(
@@ -265,6 +271,14 @@ export class EditorGroups {
             }
         },
         display: {
+            get(index: number, lang: string) {
+                return element
+                    .all(
+                        by.css(`app-root .main #groups .group-item .group-display-${lang}`)
+                    )
+                    .get(index)
+                    .getText();
+            },
             base: {
                 get(index: number) {
                     return element
