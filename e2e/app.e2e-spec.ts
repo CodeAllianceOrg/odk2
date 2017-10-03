@@ -409,7 +409,7 @@ describe('editor', () => {
                     );
             });
 
-            fit('should select a newly added question', () => {
+            it('should select a newly added question', () => {
                 page.navigateTo()
                     .then(
                         () => groups.addGroup()

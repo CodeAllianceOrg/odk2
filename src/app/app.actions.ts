@@ -118,11 +118,13 @@ export class FormActions {
         });
     }
 
-    public selectElement(elementKey: number): void {
+    public selectElement(groupKey: number, elementKey: number): void {
         this.ngRedux.dispatch({
             type: FormActions.SELECT_ELEMENT,
             payload: elementKey
         });
+
+        this.selectGroup(groupKey);
     }
 
     public shiftGroupDown(groupKey: number): void {

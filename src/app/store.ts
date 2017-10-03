@@ -39,6 +39,8 @@ export interface IGroup {
     properties: IItemProperties;
 
     elements: List<IElement>;
+
+    selectedElementId: number;
 }
 
 export const GroupRecord = Record({
@@ -46,7 +48,9 @@ export const GroupRecord = Record({
 
     properties: new ItemPropertiesRecord(),
 
-    elements: List()
+    elements: List(),
+
+    selectedElementId: 0
 });
 
 export interface IForm {
@@ -56,14 +60,14 @@ export interface IForm {
 
     groups: List<IGroup>;
 
-    selectedId: number;
+    selectedGroupId: number;
 }
 
 export const FormRecord = Record({
     id: 0,
     properties: new ItemPropertiesRecord(),
     groups: List(),
-    selectedId: 0
+    selectedGroupId: 0
 });
 
 export interface IEntityStore {

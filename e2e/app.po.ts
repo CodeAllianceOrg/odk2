@@ -214,7 +214,7 @@ export class EditorGroups {
     elements = {
 
         getSelected() {
-            return element.all(by.css('app-root .main #groups .group-item .question-element-item.selected'));
+            return element.all(by.css('app-root .main #groups .group-item .question-element-item.active'));
         },
         count() {
             return element.all(by.css('app-root .main #groups .group-item .question-element-item')).count();

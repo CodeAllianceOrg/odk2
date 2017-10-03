@@ -57,17 +57,16 @@
     <li class="question-element-item"
         *ngFor="let element of group.elements; trackBy: tracker"
         [ngSwitch]="element.type"
-        [class.active]="elementId === element.id"
-        [class.bg-info]="elementId === element.id">
+        [class.active]="groupId === group.id && group.selectedElementId === element.id">
 
       <div *ngSwitchCase=" 'text' ">
         <button type="button"
                 class="btn btn-secondary element-select"
-                (click)="onSelectElement(element)">
+                (click)="onSelectElement(group, element)">
           <i class="fa fa-list"
-             *ngIf="elementId !== element.id"></i>
+             *ngIf="groupId !== group.id || group.selectedElementId !== element.id"></i>
           <i class="fa fa-check-square-o"
-             *ngIf="elementId === element.id"></i>
+             *ngIf="groupId === group.id && group.selectedElementId === element.id"></i>
         </button>
         <span class="text-question-element-item">
           Text Question Element {{ element.id }}

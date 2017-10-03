@@ -33,8 +33,8 @@ export class FormBuilderGroupsComponent implements OnInit {
         this.formActions.selectGroup(group.id);
     }
 
-    onSelectElement(element: IElement) {
-        this.formActions.selectElement(element.id);
+    onSelectElement(group: IGroup, element: IElement) {
+        this.formActions.selectElement(group.id, element.id);
     }
 
     onShiftGroupDown(group: IGroup) {
