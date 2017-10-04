@@ -596,6 +596,90 @@ describe('editor', () => {
         });
     });
 
+    describe('questions', () => {
+
+        it('should rearrange questions', () => {
+            let groupUnderTest;
+
+            page.navigateTo()
+                .then(
+                    () => groups.count()
+                )
+                .then(
+                    count => {
+                        if (count > 0) {
+                            return groups.getGroupId(0);
+                        }
+
+                        return groups
+                            .addGroup()
+                            .then(
+                                () => groups.getGroupId(0)
+                            );
+                    }
+                )
+                .then(
+                    groupId => {
+                        // have one group on the board. let's lock in the first and
+                        // add another group
+
+                        groupUnderTest = groupId;
+
+                        return groups.addGroup();
+                    }
+                )
+                .then(
+                    () => {
+                        // great, have two groups. let's move the first one to the bottom
+                        return groups.controls.shift.down(0);
+                    }
+                )
+                .then(
+                    () => {
+                        // expect that the last group should have the same id as the
+                        // groupUnderTest, if it was correctly shifted down
+
+                        return expect(groups.getGroupId(1)).toEqual(groupUnderTest);
+                    }
+                )
+                .then(
+                    () => {
+                        // now shift the group back up
+                        return groups.controls.shift.up(1);
+                    }
+                )
+                .then(
+                    () => {
+                        // and expect that the first group is the group under test!
+
+                        return expect(groups.getGroupId(0)).toEqual(groupUnderTest);
+                    }
+                );
+        });
+
+        it('should delete a question', () => {
+            page.navigateTo()
+                .then(
+                    () => groups.addGroup()
+                )
+                .then(
+                    () => groups.selectGroup(0)
+                )
+                .then(
+                    () => formElements.addTextElement()
+                )
+                .then(
+                    () => expect(groups.elements.count()).toEqual(1)
+                )
+                .then(
+                    () => groups.elements.delete(0, 0)
+                )
+                .then(
+                    () => expect(groups.elements.count()).toEqual(0)
+                );
+        });
+    });
+
     describe('export the form', () => {
         it('should display a button to export the form', () => {
             page.navigateTo()

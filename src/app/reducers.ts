@@ -140,6 +140,11 @@ export const entityReducer: Reducer<IEntityStore> = (
 
             groupId = action.payload;
 
+            /*
+              remove the group, remove its elements, and remove its reference
+              in its parent form
+            */
+
             return {
                 ...previousState,
                 groups: previousState.groups.delete(groupId),
@@ -172,6 +177,32 @@ export const entityReducer: Reducer<IEntityStore> = (
             };
         } else if (previousState.elements.has(action.payload)) {
 
+            elementId = action.payload;
+
+            /*
+              remove the element and remove its reference in its parent group
+            */
+
+            return {
+                ...previousState,
+                elements: previousState.elements.delete(elementId),
+                groups: <Map<number, any>> previousState.groups
+                    .map(
+                        (dirtyGroup, key) => {
+                            let updatedGroup = dirtyGroup
+                                .update(
+                                    'elements',
+                                    (arr: List<number>) => arr.filter( (elem: number) => elem !== elementId )
+                                );
+
+                            if (updatedGroup.get('selectedElementId') === elementId) {
+                                updatedGroup = updatedGroup.delete('selectedElementId');
+                            }
+
+                            return updatedGroup;
+                        }
+                    )
+            };
         }
 
         return previousState;

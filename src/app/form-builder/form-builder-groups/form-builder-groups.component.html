@@ -18,7 +18,7 @@
     <div class="btn-group" role="group">
       <button type="button"
               class="btn btn-secondary delete"
-              (click)="onDeleteGroup(group)">
+              (click)="onDelete(group.id)">
         <i class="fa fa-trash"></i>
       </button>
       <button type="button"
@@ -68,14 +68,23 @@
         [class.active]="groupId === group.id && group.selectedElementId === element.id">
 
       <div *ngSwitchCase=" 'text' ">
-        <button type="button"
-                class="btn btn-secondary element-select"
-                (click)="onSelectElement(group, element)">
-          <i class="fa fa-list"
-             *ngIf="groupId !== group.id || group.selectedElementId !== element.id"></i>
-          <i class="fa fa-check-square-o"
-             *ngIf="groupId === group.id && group.selectedElementId === element.id"></i>
-        </button>
+
+        <div class="btn-group" role="group">
+          <button type="button"
+                  class="btn btn-secondary delete"
+                  (click)="onDelete(element.id)">
+            <i class="fa fa-trash"></i>
+          </button>
+          <button type="button"
+                  class="btn btn-secondary element-select"
+                  (click)="onSelectElement(group, element)">
+            <i class="fa fa-list"
+               *ngIf="groupId !== group.id || group.selectedElementId !== element.id"></i>
+            <i class="fa fa-check-square-o"
+               *ngIf="groupId === group.id && group.selectedElementId === element.id"></i>
+          </button>
+        </div>
+
         <span class="text-question-element-item">
           <span class="element-name">
             {{ element.properties.name }}

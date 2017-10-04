@@ -219,6 +219,14 @@ export class EditorGroups {
         count() {
             return element.all(by.css('app-root .main #groups .group-item .question-element-item')).count();
         },
+        delete(groupIndex: number, elementIndex: number) {
+            return element
+                .all(by.css('app-root .main #groups .group-item'))
+                .get(groupIndex)
+                .all(by.css('.question-element-item button.delete'))
+                .get(elementIndex)
+                .click();
+        },
 
         text: {
             get(groupIndex: number, elementIndex: number) {
