@@ -223,9 +223,38 @@ export class EditorGroups {
             return element
                 .all(by.css('app-root .main #groups .group-item'))
                 .get(groupIndex)
-                .all(by.css('.question-element-item button.delete'))
+                .all(by.css('.question-element-item button.element-delete'))
                 .get(elementIndex)
                 .click();
+        },
+        getId(groupIndex: number, elementIndex: number) {
+            return element
+                .all(by.css('app-root .main #groups .group-item'))
+                .get(groupIndex)
+                .all(by.css('.question-element-item'))
+                .get(elementIndex)
+                .getAttribute('data-id');
+        },
+
+        controls: {
+            shift: {
+                down(groupIndex: number, elementIndex: number) {
+                    return element
+                        .all(by.css('app-root .main #groups .group-item'))
+                        .get(groupIndex)
+                        .all(by.css('.question-element-item button.element-shift-down'))
+                        .get(elementIndex)
+                        .click();
+                },
+                up(groupIndex: number, elementIndex: number) {
+                    return element
+                        .all(by.css('app-root .main #groups .group-item'))
+                        .get(groupIndex)
+                        .all(by.css('.question-element-item button.element-shift-up'))
+                        .get(elementIndex)
+                        .click();
+                }
+            }
         },
 
         text: {

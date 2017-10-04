@@ -23,6 +23,9 @@ export class FormActions {
     static SHIFT_GROUP_DOWN = 'FORM_ACTIONS-SHIFT_GROUP_DOWN';
     static SHIFT_GROUP_UP = 'FORM_ACTIONS-SHIFT_GROUP_UP';
 
+    static SHIFT_ELEMENT_DOWN = 'FORM_ACTIONS-SHIFT_ELEMENT_DOWN';
+    static SHIFT_ELEMENT_UP = 'FORM_ACTIONS-SHIFT_ELEMENT_UP';
+
     static REMOVE = 'FORM_ACTIONS-REMOVE';
 
     static UPDATE_SELECTED = 'FORM_ACTIONS-UPDATE_SELECTED';
@@ -139,6 +142,20 @@ export class FormActions {
         this.ngRedux.dispatch({
             type: FormActions.SHIFT_GROUP_UP,
             payload: groupKey
+        });
+    }
+
+    public shiftElementDown(key: number): void {
+        this.ngRedux.dispatch({
+            type: FormActions.SHIFT_ELEMENT_DOWN,
+            payload: key
+        });
+    }
+
+    public shiftElementUp(key: number): void {
+        this.ngRedux.dispatch({
+            type: FormActions.SHIFT_ELEMENT_UP,
+            payload: key
         });
     }
 }

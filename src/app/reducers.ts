@@ -243,6 +243,58 @@ export const entityReducer: Reducer<IEntityStore> = (
                     }
                 )
         };
+    case FormActions.SHIFT_ELEMENT_DOWN:
+
+        elementId = action.payload;
+
+        return {
+            ...previousState,
+            groups: <Map<number, any>> previousState.groups
+                .map(
+                    (dirtyGroup, key) => {
+                        if (dirtyGroup.elements.includes(elementId)) {
+                            const index = (<List<number>> dirtyGroup.elements)
+                                .findIndex(
+                                    listItem => listItem === elementId
+                                );
+
+                            return dirtyGroup
+                                .set(
+                                    'elements',
+                                    dirtyGroup.elements.delete(index).insert(index + 1, elementId)
+                                );
+                        }
+
+                        return dirtyGroup;
+                    }
+                )
+        };
+    case FormActions.SHIFT_ELEMENT_UP:
+
+        elementId = action.payload;
+
+        return {
+            ...previousState,
+            groups: <Map<number, any>> previousState.groups
+                .map(
+                    (dirtyGroup, key) => {
+                        if (dirtyGroup.elements.includes(elementId)) {
+                            const index = (<List<number>> dirtyGroup.elements)
+                                .findIndex(
+                                    listItem => listItem === elementId
+                                );
+
+                            return dirtyGroup
+                                .set(
+                                    'elements',
+                                    dirtyGroup.elements.delete(index).insert(index - 1, elementId)
+                                );
+                        }
+
+                        return dirtyGroup;
+                    }
+                )
+        };
     case FormActions.SHIFT_GROUP_DOWN:
 
         groupId = action.payload;

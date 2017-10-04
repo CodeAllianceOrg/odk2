@@ -45,6 +45,14 @@ export class FormBuilderGroupsComponent implements OnInit {
         this.formActions.shiftGroupUp(group.id);
     }
 
+    onShiftQuestionDown(question: IElement) {
+        this.formActions.shiftElementDown(question.id);
+    }
+
+    onShiftQuestionUp(question: IElement) {
+        this.formActions.shiftElementUp(question.id);
+    }
+
     onDelete(id: number) {
         this.formActions.remove(id);
     }

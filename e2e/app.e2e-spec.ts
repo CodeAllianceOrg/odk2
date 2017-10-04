@@ -599,60 +599,52 @@ describe('editor', () => {
     describe('questions', () => {
 
         it('should rearrange questions', () => {
-            let groupUnderTest;
+            let questionUnderTest;
 
             page.navigateTo()
                 .then(
-                    () => groups.count()
+                    () => groups.addGroup()
                 )
                 .then(
-                    count => {
-                        if (count > 0) {
-                            return groups.getGroupId(0);
-                        }
-
-                        return groups
-                            .addGroup()
-                            .then(
-                                () => groups.getGroupId(0)
-                            );
-                    }
+                    () => groups.selectGroup(0)
                 )
                 .then(
-                    groupId => {
-                        // have one group on the board. let's lock in the first and
-                        // add another group
-
-                        groupUnderTest = groupId;
-
-                        return groups.addGroup();
-                    }
+                    () => formElements.addTextElement()
                 )
                 .then(
-                    () => {
-                        // great, have two groups. let's move the first one to the bottom
-                        return groups.controls.shift.down(0);
+                    () => formElements.addTextElement()
+                )
+                .then(
+                    // have two text elements in the first group. let's lock in the first
+                    // and then shift it down
+                    () => groups.elements.getId(0, 0)
+                )
+                .then(
+                    questionId => {
+                        questionUnderTest = questionId;
+
+                        return groups.elements.controls.shift.down(0, 0);
                     }
                 )
                 .then(
                     () => {
-                        // expect that the last group should have the same id as the
-                        // groupUnderTest, if it was correctly shifted down
+                        // expect that the last question should have the same id as the
+                        // questionUnderTest, if it was correctly shifted down
 
-                        return expect(groups.getGroupId(1)).toEqual(groupUnderTest);
+                        return expect(groups.elements.getId(0, 1)).toEqual(questionUnderTest);
                     }
                 )
                 .then(
                     () => {
                         // now shift the group back up
-                        return groups.controls.shift.up(1);
+                        return groups.elements.controls.shift.up(0, 1);
                     }
                 )
                 .then(
                     () => {
-                        // and expect that the first group is the group under test!
+                        // and expect that the first question is the group under test!
 
-                        return expect(groups.getGroupId(0)).toEqual(groupUnderTest);
+                        return expect(groups.elements.getId(0, 0)).toEqual(questionUnderTest);
                     }
                 );
         });

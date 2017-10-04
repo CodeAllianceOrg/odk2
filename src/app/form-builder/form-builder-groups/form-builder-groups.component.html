@@ -65,15 +65,26 @@
     <li class="question-element-item"
         *ngFor="let element of group.elements; trackBy: tracker"
         [ngSwitch]="element.type"
-        [class.active]="groupId === group.id && group.selectedElementId === element.id">
+        [class.active]="groupId === group.id && group.selectedElementId === element.id"
+        [attr.data-id]="element.id">
 
       <div *ngSwitchCase=" 'text' ">
 
         <div class="btn-group" role="group">
           <button type="button"
-                  class="btn btn-secondary delete"
+                  class="btn btn-secondary element-delete"
                   (click)="onDelete(element.id)">
             <i class="fa fa-trash"></i>
+          </button>
+          <button type="button"
+                  class="btn btn-secondary element-shift-up"
+                  (click)="onShiftQuestionUp(element)">
+            <i class="fa fa-chevron-up"></i>
+          </button>
+          <button type="button"
+                  class="btn btn-secondary element-shift-down"
+                  (click)="onShiftQuestionDown(element)">
+            <i class="fa fa-chevron-down"></i>
           </button>
           <button type="button"
                   class="btn btn-secondary element-select"
