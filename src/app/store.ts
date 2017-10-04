@@ -26,11 +26,15 @@ export interface IElement {
     id: number;
 
     type: 'text' | 'numeric' | 'combo' | 'multi' | 'gps';
+
+    properties: IItemProperties;
 }
 
 export const ElementRecord = Record({
     id: 0,
-    type: 'text'
+    type: 'text',
+
+    properties: new ItemPropertiesRecord()
 });
 
 export interface IGroup {

@@ -227,6 +227,16 @@ export class EditorGroups {
                     .get(groupIndex)
                     .all(by.css('.text-question-element-item'))
                     .get(elementIndex);
+            },
+            name: {
+                get(groupIndex: number, elementIndex: number) {
+                    return element
+                        .all(by.css('app-root .main #groups .group-item'))
+                        .get(groupIndex)
+                        .all(by.css('.text-question-element-item .element-name'))
+                        .get(elementIndex)
+                        .getText();
+                },
             }
         },
         numeric: {
