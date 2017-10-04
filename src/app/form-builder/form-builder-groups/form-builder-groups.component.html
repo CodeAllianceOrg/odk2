@@ -1,4 +1,12 @@
-<h2>Groups</h2>
+<h2>
+  Groups
+  <button type="button"
+          class="btn btn-primary"
+          id="add-group"
+          (click)="onAddGroup(form)">
+    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+  </button>
+</h2>
 
 <div class="group-item border p-2 m-2"
      *ngFor="let group of form.groups; trackBy: tracker"
@@ -69,8 +77,6 @@
              *ngIf="groupId === group.id && group.selectedElementId === element.id"></i>
         </button>
         <span class="text-question-element-item">
-          Text Question Element {{ element.id }}
-
           <span class="element-name">
             {{ element.properties.name }}
           </span>
@@ -99,13 +105,4 @@
     </li>
   </ul>
 
-</div>
-
-<div class="d-flex justify-content-center">
-  <button type="button"
-          class="btn btn-primary"
-          id="add-group"
-          (click)="onAddGroup(form)">
-    Add Group <i class="fa fa-plus-circle" aria-hidden="true"></i>
-  </button>
 </div>

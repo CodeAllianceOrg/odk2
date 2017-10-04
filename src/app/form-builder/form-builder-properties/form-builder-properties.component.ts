@@ -35,7 +35,7 @@ export class FormBuilderPropertiesComponent implements OnInit {
 
     ngOnInit() {}
 
-    public onGroupPropertyChange(value: any, itemId: number, field: string[]): void {
+    public onPropertyChange(value: any, itemId: number, field: string[]): void {
         this.formActions.updateSelected(field, value, itemId);
     }
 }
