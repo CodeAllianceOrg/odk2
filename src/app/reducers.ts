@@ -88,7 +88,9 @@ export const entityReducer: Reducer<IEntityStore> = (
         return {
             ...previousState,
             elements: previousState.elements.set(elementId, element),
-            groups: previousState.groups.updateIn([action.payload, 'elements'], arr => arr.push(elementId))
+            groups: previousState.groups
+                .updateIn([action.payload, 'elements'], arr => arr.push(elementId))
+                .setIn([action.payload, 'selectedElementId'], elementId)
         };
     case FormActions.ADD_NUMERIC_ELEMENT:
         elementId = Date.now();
@@ -173,12 +175,32 @@ export const entityReducer: Reducer<IEntityStore> = (
         }
 
         return previousState;
+    case FormActions.SELECT_ELEMENT:
+
+        elementId = action.payload.elementId;
+        groupId = action.payload.groupId;
+
+        return {
+            ...previousState,
+            groups: previousState.groups.setIn([groupId, 'selectedElementId'], elementId),
+            forms: <Map<number, any>> previousState.forms
+                .map(
+                    (dirtyForm, key) => {
+                        if (dirtyForm.groups.includes(groupId)) {
+                            return dirtyForm.set('selectedGroupId', groupId);
+                        }
+
+                        return dirtyForm;
+                    }
+                )
+        };
     case FormActions.SELECT_GROUP:
 
         groupId = action.payload;
 
         return {
             ...previousState,
+            groups: previousState.groups.setIn([groupId, 'selectedElementId'], 0),
             forms: <Map<number, any>> previousState.forms
                 .map(
                     (dirtyForm, key) => {

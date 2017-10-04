@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { FormActions } from '../../app.actions';
 
-import { IForm, IGroup } from '../../store';
+import { IForm, IGroup, IElement } from '../../store';
 
 @Component({
     selector: 'app-form-builder-groups',
@@ -31,6 +31,10 @@ export class FormBuilderGroupsComponent implements OnInit {
 
     onSelectGroup(group: IGroup) {
         this.formActions.selectGroup(group.id);
+    }
+
+    onSelectElement(group: IGroup, element: IElement) {
+        this.formActions.selectElement(group.id, element.id);
     }
 
     onShiftGroupDown(group: IGroup) {

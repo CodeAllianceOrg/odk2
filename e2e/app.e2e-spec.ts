@@ -302,6 +302,28 @@ describe('editor', () => {
                     );
             });
 
+            it('should manage a question\'s properties: name', () => {
+
+                const name = 'Test Name';
+
+                page.navigateTo()
+                    .then(
+                        () => groups.addGroup()
+                    )
+                    .then(
+                        () => groups.selectGroup(0)
+                    )
+                    .then(
+                        () => formElements.addTextElement()
+                    )
+                    .then(
+                        () => expect(elementProperties.controls.name.edit(name))
+                    )
+                    .then(
+                        () => expect(groups.elements.text.name.get(0, 0)).toEqual(name)
+                    );
+            });
+
             it('should manage a group\'s properties: required', () => {
                 page.navigateTo()
                     .then(
@@ -409,7 +431,23 @@ describe('editor', () => {
                     );
             });
 
-            it('should persist selections between forms', () => {
+            it('should select a newly added question', () => {
+                page.navigateTo()
+                    .then(
+                        () => groups.addGroup()
+                    )
+                    .then(
+                        () => groups.selectGroup(0)
+                    )
+                    .then(
+                        () => formElements.addTextElement()
+                    )
+                    .then(
+                        () => expect(groups.elements.getSelected().isPresent()).toBeTrue()
+                    );
+            });
+
+            it('should persist group selections between forms', () => {
                 page.navigateTo()
                     .then(
                         () => groups.addGroup()

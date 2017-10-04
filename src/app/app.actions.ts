@@ -17,6 +17,7 @@ export class FormActions {
     static ADD_GPS_ELEMENT = 'FORM_ACTIONS-ADD_GPS_ELEMENT';
     static ADD_MULTI_SELECT_ELEMENT = 'FORM_ACTIONS-ADD_MULTI_SELECT_ELEMENT';
 
+    static SELECT_ELEMENT = 'FORM_ACTIONS-SELECT_ELEMENT';
     static SELECT_GROUP = 'FORM_ACTIONS-SELECT_GROUP';
 
     static SHIFT_GROUP_DOWN = 'FORM_ACTIONS-SHIFT_GROUP_DOWN';
@@ -114,6 +115,16 @@ export class FormActions {
         this.ngRedux.dispatch({
             type: FormActions.SELECT_GROUP,
             payload: groupKey
+        });
+    }
+
+    public selectElement(groupKey: number, elementKey: number): void {
+        this.ngRedux.dispatch({
+            type: FormActions.SELECT_ELEMENT,
+            payload: {
+                groupId: groupKey,
+                elementId: elementKey
+            }
         });
     }
 

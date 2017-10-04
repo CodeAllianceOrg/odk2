@@ -26,11 +26,15 @@ export interface IElement {
     id: number;
 
     type: 'text' | 'numeric' | 'combo' | 'multi' | 'gps';
+
+    properties: IItemProperties;
 }
 
 export const ElementRecord = Record({
     id: 0,
-    type: 'text'
+    type: 'text',
+
+    properties: new ItemPropertiesRecord()
 });
 
 export interface IGroup {
@@ -39,6 +43,8 @@ export interface IGroup {
     properties: IItemProperties;
 
     elements: List<IElement>;
+
+    selectedElementId: number;
 }
 
 export const GroupRecord = Record({
@@ -46,7 +52,9 @@ export const GroupRecord = Record({
 
     properties: new ItemPropertiesRecord(),
 
-    elements: List()
+    elements: List(),
+
+    selectedElementId: 0
 });
 
 export interface IForm {
