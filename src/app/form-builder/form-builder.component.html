@@ -1,17 +1,17 @@
 <app-form-builder-header [form]="form"></app-form-builder-header>
 
-<div class="row">
+<div class="row form-builder">
   <div class="col-2 text-center p-3"
        id="form-elements">
     <app-form-builder-elements [groupId]="form.selectedGroupId"></app-form-builder-elements>
   </div>
 
-  <div class="col-6 text-center p-3" id="groups">
+  <div class="col-7 text-center p-3" id="groups">
     <app-form-builder-groups [form]="form" [groupId]="form.selectedGroupId">
       </app-form-builder-groups>
   </div>
 
-  <div class="col-4 text-center p-3" id="element-properties">
+  <div class="col-3 text-center p-3" id="element-properties">
     <app-form-builder-properties [groupId]="form.selectedGroupId">
       </app-form-builder-properties>
   </div>

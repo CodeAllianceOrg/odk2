@@ -1,0 +1,7 @@
+#groups {
+    overflow-y: auto;
+}
+
+app-form-builder-header {
+    flex: 0 1 auto;
+}
