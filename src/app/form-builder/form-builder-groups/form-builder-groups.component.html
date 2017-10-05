@@ -8,121 +8,123 @@
   </button>
 </h2>
 
-<div class="group-item border p-2 m-2"
-     *ngFor="let group of form.groups; trackBy: tracker"
-     [class.active]="groupId === group.id"
-     [class.bg-light]="groupId === group.id"
-     [attr.data-id]="group.id">
+<div class="overflow">
+  <div class="group-item border p-2 m-2"
+       *ngFor="let group of form.groups; trackBy: tracker"
+       [class.active]="groupId === group.id"
+       [class.bg-light]="groupId === group.id"
+       [attr.data-id]="group.id">
 
-  <div class="d-flex justify-content-between">
-    <div class="btn-group" role="group">
-      <button type="button"
-              class="btn btn-secondary delete"
-              (click)="onDelete(group.id)">
-        <i class="fa fa-trash"></i>
-      </button>
-      <button type="button"
-              class="btn btn-secondary shift-up"
-              (click)="onShiftGroupUp(group)">
-        <i class="fa fa-chevron-up"></i>
-      </button>
-      <button type="button"
-              class="btn btn-secondary shift-down"
-              (click)="onShiftGroupDown(group)">
-        <i class="fa fa-chevron-down"></i>
-      </button>
-      <button type="button"
-              class="btn btn-secondary select"
-              (click)="onSelectGroup(group)">
-        <i class="fa fa-list"
-           *ngIf="groupId !== group.id"></i>
-        <i class="fa fa-check-square-o"
-           *ngIf="groupId === group.id"></i>
-      </button>
-    </div>
+    <div class="d-flex justify-content-between">
+      <div class="btn-group" role="group">
+        <button type="button"
+                class="btn btn-secondary delete"
+                (click)="onDelete(group.id)">
+          <i class="fa fa-trash"></i>
+        </button>
+        <button type="button"
+                class="btn btn-secondary shift-up"
+                (click)="onShiftGroupUp(group)">
+          <i class="fa fa-chevron-up"></i>
+        </button>
+        <button type="button"
+                class="btn btn-secondary shift-down"
+                (click)="onShiftGroupDown(group)">
+          <i class="fa fa-chevron-down"></i>
+        </button>
+        <button type="button"
+                class="btn btn-secondary select"
+                (click)="onSelectGroup(group)">
+          <i class="fa fa-list"
+             *ngIf="groupId !== group.id"></i>
+          <i class="fa fa-check-square-o"
+             *ngIf="groupId === group.id"></i>
+        </button>
+      </div>
 
-    <h5 class="group-name text-truncate px-2">
-      {{ group.properties.name }}
-    </h5>
+      <h5 class="group-name text-truncate px-2">
+        {{ group.properties.name }}
+      </h5>
 
-    <div *ngIf="group.properties.required">
-      <span class="badge badge-info group-required"
-            data-required="required">
-        Required
-      </span>
-    </div>
-
-    <div *ngIf="!group.properties.required">
-      <span class="badge badge-secondary group-required">
-        Not Required
-      </span>
-    </div>
-  </div>
-
-  <hr>
-
-  <ul class="mb-0 p-2">
-    <li class="question-element-item"
-        *ngFor="let element of group.elements; trackBy: tracker"
-        [ngSwitch]="element.type"
-        [class.active]="groupId === group.id && group.selectedElementId === element.id"
-        [attr.data-id]="element.id">
-
-      <div *ngSwitchCase=" 'text' ">
-
-        <div class="btn-group" role="group">
-          <button type="button"
-                  class="btn btn-secondary element-delete"
-                  (click)="onDelete(element.id)">
-            <i class="fa fa-trash"></i>
-          </button>
-          <button type="button"
-                  class="btn btn-secondary element-shift-up"
-                  (click)="onShiftQuestionUp(element)">
-            <i class="fa fa-chevron-up"></i>
-          </button>
-          <button type="button"
-                  class="btn btn-secondary element-shift-down"
-                  (click)="onShiftQuestionDown(element)">
-            <i class="fa fa-chevron-down"></i>
-          </button>
-          <button type="button"
-                  class="btn btn-secondary element-select"
-                  (click)="onSelectElement(group, element)">
-            <i class="fa fa-list"
-               *ngIf="groupId !== group.id || group.selectedElementId !== element.id"></i>
-            <i class="fa fa-check-square-o"
-               *ngIf="groupId === group.id && group.selectedElementId === element.id"></i>
-          </button>
-        </div>
-
-        <span class="text-question-element-item">
-          <span class="element-name">
-            {{ element.properties.name }}
-          </span>
+      <div *ngIf="group.properties.required">
+        <span class="badge badge-info group-required"
+              data-required="required">
+          Required
         </span>
       </div>
 
-      <div class="numeric-question-element-item"
-           *ngSwitchCase=" 'numeric' ">
-        Numeric Question Element {{ element.id }}
+      <div *ngIf="!group.properties.required">
+        <span class="badge badge-secondary group-required">
+          Not Required
+        </span>
       </div>
+    </div>
 
-      <div class="gps-question-element-item"
-           *ngSwitchCase=" 'gps' ">
-        GPS Question Element {{ element.id }}
-      </div>
+    <hr>
 
-      <div class="combo-box-question-element-item"
-           *ngSwitchCase=" 'combo' ">
-        Combo Box Question Element {{ element.id }}
-      </div>
+    <ul class="mb-0 p-2">
+      <li class="question-element-item"
+          *ngFor="let element of group.elements; trackBy: tracker"
+          [ngSwitch]="element.type"
+          [class.active]="groupId === group.id && group.selectedElementId === element.id"
+          [attr.data-id]="element.id">
 
-      <div class="multi-select-question-element-item"
-           *ngSwitchCase=" 'multi' ">
-        Multi Select Question Element {{ element.id }}
-      </div>
-    </li>
-  </ul>
+        <div *ngSwitchCase=" 'text' ">
 
+          <div class="btn-group" role="group">
+            <button type="button"
+                    class="btn btn-secondary element-delete"
+                    (click)="onDelete(element.id)">
+              <i class="fa fa-trash"></i>
+            </button>
+            <button type="button"
+                    class="btn btn-secondary element-shift-up"
+                    (click)="onShiftQuestionUp(element)">
+              <i class="fa fa-chevron-up"></i>
+            </button>
+            <button type="button"
+                    class="btn btn-secondary element-shift-down"
+                    (click)="onShiftQuestionDown(element)">
+              <i class="fa fa-chevron-down"></i>
+            </button>
+            <button type="button"
+                    class="btn btn-secondary element-select"
+                    (click)="onSelectElement(group, element)">
+              <i class="fa fa-list"
+                 *ngIf="groupId !== group.id || group.selectedElementId !== element.id"></i>
+              <i class="fa fa-check-square-o"
+                 *ngIf="groupId === group.id && group.selectedElementId === element.id"></i>
+            </button>
+          </div>
+
+          <span class="text-question-element-item">
+            <span class="element-name">
+              {{ element.properties.name }}
+            </span>
+          </span>
+        </div>
+
+        <div class="numeric-question-element-item"
+             *ngSwitchCase=" 'numeric' ">
+          Numeric Question Element {{ element.id }}
+        </div>
+
+        <div class="gps-question-element-item"
+             *ngSwitchCase=" 'gps' ">
+          GPS Question Element {{ element.id }}
+        </div>
+
+        <div class="combo-box-question-element-item"
+             *ngSwitchCase=" 'combo' ">
+          Combo Box Question Element {{ element.id }}
+        </div>
+
+        <div class="multi-select-question-element-item"
+             *ngSwitchCase=" 'multi' ">
+          Multi Select Question Element {{ element.id }}
+        </div>
+      </li>
+    </ul>
+
+  </div>
 </div>

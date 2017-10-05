@@ -1,7 +1,14 @@
-#groups {
-    overflow-y: auto;
-}
-
 app-form-builder-header {
     flex: 0 1 auto;
+}
+
+.form-builder {
+    flex: 1 1 auto;
+}
+
+app-form-builder-groups {
+    flex: 1 1 auto;
+    display: flex;
+    flex-flow: column;
+    height: 100%;
 }
