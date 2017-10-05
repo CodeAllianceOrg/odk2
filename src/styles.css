@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+    margin: 0
+}
+
+ul.nav-tabs {
+    flex: 0 1 auto;
+}
+
+div.tab-content,
+div.tab-pane {
+    flex: 1 1 auto;
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}

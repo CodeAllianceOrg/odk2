@@ -2,6 +2,16 @@ ngb-tabset {
     width: 100%;
 }
 
+.flex-column {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+.flexify-me {
+    flex: 1 1 auto;
+}
+
 .main {
     max-width: 90%;
 }
