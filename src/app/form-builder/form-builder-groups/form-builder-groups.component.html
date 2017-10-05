@@ -45,19 +45,6 @@
       <h5 class="group-name text-truncate px-2">
         {{ group.properties.name }}
       </h5>
-
-      <div *ngIf="group.properties.required">
-        <span class="badge badge-info group-required"
-              data-required="required">
-          Required
-        </span>
-      </div>
-
-      <div *ngIf="!group.properties.required">
-        <span class="badge badge-secondary group-required">
-          Not Required
-        </span>
-      </div>
     </div>
 
     <hr>
@@ -102,6 +89,19 @@
               {{ element.properties.name }}
             </span>
           </span>
+
+          <div *ngIf="element.properties.required">
+            <span class="badge badge-info element-required"
+                  data-required="required">
+              Required
+            </span>
+          </div>
+
+          <div *ngIf="!element.properties.required">
+            <span class="badge badge-secondary element-required">
+              Not Required
+            </span>
+          </div>
         </div>
 
         <div class="numeric-question-element-item"

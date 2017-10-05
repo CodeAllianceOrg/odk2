@@ -324,7 +324,7 @@ describe('editor', () => {
                     );
             });
 
-            it('should manage a group\'s properties: required', () => {
+            it('should manage a question\'s properties: required', () => {
                 page.navigateTo()
                     .then(
                         () => groups.addGroup()
@@ -333,16 +333,16 @@ describe('editor', () => {
                         () => groups.selectGroup(0)
                     )
                     .then(
-                        () => expect(elementProperties.controls.required.get()).toBeTruthy()
+                        () => formElements.addTextElement()
                     )
                     .then(
-                        () => expect(groups.controls.required.get(0)).toBeTruthy()
+                        () => expect(groups.elements.controls.required.get(0, 0)).toBeTruthy()
                     )
                     .then(
                         () => elementProperties.controls.required.edit()
                     )
                     .then(
-                        () => expect(groups.controls.required.get(0)).toBeFalsy()
+                        () => expect(groups.elements.controls.required.get(0, 0)).toBeFalsy()
                     );
             });
 

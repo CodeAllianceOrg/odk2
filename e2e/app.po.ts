@@ -237,6 +237,16 @@ export class EditorGroups {
         },
 
         controls: {
+            required: {
+                get(groupIndex: number, elementIndex: number) {
+                    return element
+                        .all(by.css('app-root .main #groups .group-item'))
+                        .get(groupIndex)
+                        .all(by.css('.question-element-item .element-required'))
+                        .get(elementIndex)
+                        .getAttribute('data-required');
+                }
+            },
             shift: {
                 down(groupIndex: number, elementIndex: number) {
                     return element
@@ -343,16 +353,6 @@ export class EditorGroups {
                         .get(index)
                         .getText();
                 }
-            }
-        },
-        required: {
-            get(index: number) {
-                return element
-                    .all(
-                        by.css('app-root .main #groups .group-item .group-required')
-                    )
-                    .get(index)
-                    .getAttribute('data-required');
             }
         },
         shift: {

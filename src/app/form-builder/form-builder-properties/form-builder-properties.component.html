@@ -20,7 +20,8 @@
                (ngModelChange)="onPropertyChange($event, item.id, 'name')">
       </div>
 
-      <label class="custom-control custom-checkbox element-required mt-3">
+      <label class="custom-control custom-checkbox element-required mt-3"
+             *ngIf="properties.required">
         <input type="checkbox"
                class="custom-control-input element-required"
                [ngModel]="item.properties.required"

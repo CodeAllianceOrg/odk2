@@ -13,6 +13,8 @@ import 'rxjs/add/observable/of';
 })
 export class FormBuilderPropertiesComponent implements OnInit {
 
+    public properties: {[key: string]: boolean} = {};
+
     @Input()
     public set groupId(groupId: number) {
         this.item$ = this.ngRedux
@@ -20,8 +22,19 @@ export class FormBuilderPropertiesComponent implements OnInit {
             .switchMap(
                 (group: IGroup) => {
                     if (group && group.selectedElementId) {
+                        this.properties = {
+                            name: true,
+                            required: true,
+                            display: true
+                        };
+
                         return this.ngRedux.select(['entities', 'elements', group.selectedElementId]);
                     }
+
+                    this.properties = {
+                        name: true,
+                        display: true
+                    };
 
                     return Observable.of(group);
                 }
