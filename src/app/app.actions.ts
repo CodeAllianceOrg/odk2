@@ -17,10 +17,14 @@ export class FormActions {
     static ADD_GPS_ELEMENT = 'FORM_ACTIONS-ADD_GPS_ELEMENT';
     static ADD_MULTI_SELECT_ELEMENT = 'FORM_ACTIONS-ADD_MULTI_SELECT_ELEMENT';
 
+    static SELECT_ELEMENT = 'FORM_ACTIONS-SELECT_ELEMENT';
     static SELECT_GROUP = 'FORM_ACTIONS-SELECT_GROUP';
 
     static SHIFT_GROUP_DOWN = 'FORM_ACTIONS-SHIFT_GROUP_DOWN';
     static SHIFT_GROUP_UP = 'FORM_ACTIONS-SHIFT_GROUP_UP';
+
+    static SHIFT_ELEMENT_DOWN = 'FORM_ACTIONS-SHIFT_ELEMENT_DOWN';
+    static SHIFT_ELEMENT_UP = 'FORM_ACTIONS-SHIFT_ELEMENT_UP';
 
     static REMOVE = 'FORM_ACTIONS-REMOVE';
 
@@ -117,6 +121,16 @@ export class FormActions {
         });
     }
 
+    public selectElement(groupKey: number, elementKey: number): void {
+        this.ngRedux.dispatch({
+            type: FormActions.SELECT_ELEMENT,
+            payload: {
+                groupId: groupKey,
+                elementId: elementKey
+            }
+        });
+    }
+
     public shiftGroupDown(groupKey: number): void {
         this.ngRedux.dispatch({
             type: FormActions.SHIFT_GROUP_DOWN,
@@ -128,6 +142,20 @@ export class FormActions {
         this.ngRedux.dispatch({
             type: FormActions.SHIFT_GROUP_UP,
             payload: groupKey
+        });
+    }
+
+    public shiftElementDown(key: number): void {
+        this.ngRedux.dispatch({
+            type: FormActions.SHIFT_ELEMENT_DOWN,
+            payload: key
+        });
+    }
+
+    public shiftElementUp(key: number): void {
+        this.ngRedux.dispatch({
+            type: FormActions.SHIFT_ELEMENT_UP,
+            payload: key
         });
     }
 }

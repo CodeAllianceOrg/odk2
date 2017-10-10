@@ -1,10 +1,10 @@
-<div class="container-fluid main">
-  <div class="row tabs">
-    <ngb-tabset>
+<div class="container-fluid main flex-column">
+  <div class="row tabs flex-column flexify-me">
+    <ngb-tabset class="flex-column">
       <ngb-tab *ngFor="let form of forms$ | async; trackBy: tracker"
                [title]="form.properties.name">
         <ng-template ngbTabContent>
-          <app-form-builder [form]="form"></app-form-builder>
+          <app-form-builder [form]="form" class="flex-column flexify-me"></app-form-builder>
         </ng-template>
       </ngb-tab>
       <ngb-tab title="New Form">

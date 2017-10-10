@@ -1,12 +1,12 @@
 <h2>Properties</h2>
 <div id="element-properties-controls-container"
-     *ngIf="group$ | async ; let group">
+     *ngIf="item$ | async ; let item">
   <div class="form-group">
 
     <fieldset>
       <legend>Base</legend>
 
-      <label for="group-name">Group Name</label>
+      <label for="item-name">Item Name</label>
 
       <div class="input-group">
 
@@ -15,16 +15,17 @@
         </span>
         <input type="text"
                class="form-control element-name"
-               id="group-name"
-               [ngModel]="group.properties.name"
-               (ngModelChange)="onGroupPropertyChange($event, group.id, 'name')">
+               id="item-name"
+               [ngModel]="item.properties.name"
+               (ngModelChange)="onPropertyChange($event, item.id, 'name')">
       </div>
 
-      <label class="custom-control custom-checkbox element-required mt-3">
+      <label class="custom-control custom-checkbox element-required mt-3"
+             *ngIf="properties.required">
         <input type="checkbox"
                class="custom-control-input element-required"
-               [ngModel]="group.properties.required"
-               (ngModelChange)="onGroupPropertyChange($event, group.id, 'required')">
+               [ngModel]="item.properties.required"
+               (ngModelChange)="onPropertyChange($event, item.id, 'required')">
         <span class="custom-control-indicator"></span>
         <span class="custom-control-description">
           Required
@@ -38,7 +39,7 @@
         Display
       </legend>
 
-      <label for="group-display-base">Base</label>
+      <label for="item-display-base">Base</label>
 
       <div class="input-group pb-2">
 
@@ -47,12 +48,12 @@
         </span>
         <input type="text"
                class="form-control element-display-base"
-               id="group-display-base"
-               [ngModel]="group.properties.display.base"
-               (ngModelChange)="onGroupPropertyChange($event, group.id, ['display', 'base'])">
+               id="item-display-base"
+               [ngModel]="item.properties.display.base"
+               (ngModelChange)="onPropertyChange($event, item.id, ['display', 'base'])">
       </div>
 
-      <label for="group-display-es">Español</label>
+      <label for="item-display-es">Español</label>
 
       <div class="input-group">
 
@@ -61,9 +62,9 @@
         </span>
         <input type="text"
                class="form-control element-display-es"
-               id="group-display-es"
-               [ngModel]="group.properties.display.es"
-               (ngModelChange)="onGroupPropertyChange($event, group.id, ['display', 'es'])">
+               id="item-display-es"
+               [ngModel]="item.properties.display.es"
+               (ngModelChange)="onPropertyChange($event, item.id, ['display', 'es'])">
       </div>
 
     </fieldset>

@@ -1,3 +1,12 @@
 ul {
     min-height: 100px;
 }
+
+.overflow {
+    overflow-y: auto;
+    flex: 1 1 auto;
+}
+
+h2 {
+    flex: 0 1 auto;
+}

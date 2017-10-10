@@ -212,8 +212,59 @@ export class EditorElementProperties {
 
 export class EditorGroups {
     elements = {
+
+        getSelected() {
+            return element.all(by.css('app-root .main #groups .group-item .question-element-item.active'));
+        },
         count() {
             return element.all(by.css('app-root .main #groups .group-item .question-element-item')).count();
+        },
+        delete(groupIndex: number, elementIndex: number) {
+            return element
+                .all(by.css('app-root .main #groups .group-item'))
+                .get(groupIndex)
+                .all(by.css('.question-element-item button.element-delete'))
+                .get(elementIndex)
+                .click();
+        },
+        getId(groupIndex: number, elementIndex: number) {
+            return element
+                .all(by.css('app-root .main #groups .group-item'))
+                .get(groupIndex)
+                .all(by.css('.question-element-item'))
+                .get(elementIndex)
+                .getAttribute('data-id');
+        },
+
+        controls: {
+            required: {
+                get(groupIndex: number, elementIndex: number) {
+                    return element
+                        .all(by.css('app-root .main #groups .group-item'))
+                        .get(groupIndex)
+                        .all(by.css('.question-element-item .element-required'))
+                        .get(elementIndex)
+                        .getAttribute('data-required');
+                }
+            },
+            shift: {
+                down(groupIndex: number, elementIndex: number) {
+                    return element
+                        .all(by.css('app-root .main #groups .group-item'))
+                        .get(groupIndex)
+                        .all(by.css('.question-element-item button.element-shift-down'))
+                        .get(elementIndex)
+                        .click();
+                },
+                up(groupIndex: number, elementIndex: number) {
+                    return element
+                        .all(by.css('app-root .main #groups .group-item'))
+                        .get(groupIndex)
+                        .all(by.css('.question-element-item button.element-shift-up'))
+                        .get(elementIndex)
+                        .click();
+                }
+            }
         },
 
         text: {
@@ -223,6 +274,16 @@ export class EditorGroups {
                     .get(groupIndex)
                     .all(by.css('.text-question-element-item'))
                     .get(elementIndex);
+            },
+            name: {
+                get(groupIndex: number, elementIndex: number) {
+                    return element
+                        .all(by.css('app-root .main #groups .group-item'))
+                        .get(groupIndex)
+                        .all(by.css('.text-question-element-item .element-name'))
+                        .get(elementIndex)
+                        .getText();
+                },
             }
         },
         numeric: {
@@ -294,16 +355,6 @@ export class EditorGroups {
                 }
             }
         },
-        required: {
-            get(index: number) {
-                return element
-                    .all(
-                        by.css('app-root .main #groups .group-item .group-required')
-                    )
-                    .get(index)
-                    .getAttribute('data-required');
-            }
-        },
         shift: {
             down(index: number) {
                 return element
@@ -354,7 +405,7 @@ export class EditorGroups {
         return element.all(by.css('app-root .main #groups .group-item')).get(index).getAttribute('data-id');
     }
     selectGroup(index: number) {
-        return element.all(by.css('app-root .main #groups .group-item')).get(index).click();
+        return element.all(by.css('app-root .main #groups .group-item button.select')).get(index).click();
     }
     count() {
         return element.all(by.css('app-root .main #groups .group-item')).count();

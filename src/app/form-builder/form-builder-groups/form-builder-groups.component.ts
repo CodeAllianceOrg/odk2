@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { FormActions } from '../../app.actions';
 
-import { IForm, IGroup } from '../../store';
+import { IForm, IGroup, IElement } from '../../store';
 
 @Component({
     selector: 'app-form-builder-groups',
@@ -33,6 +33,10 @@ export class FormBuilderGroupsComponent implements OnInit {
         this.formActions.selectGroup(group.id);
     }
 
+    onSelectElement(group: IGroup, element: IElement) {
+        this.formActions.selectElement(group.id, element.id);
+    }
+
     onShiftGroupDown(group: IGroup) {
         this.formActions.shiftGroupDown(group.id);
     }
@@ -41,8 +45,16 @@ export class FormBuilderGroupsComponent implements OnInit {
         this.formActions.shiftGroupUp(group.id);
     }
 
-    onDeleteGroup(group: IGroup) {
-        this.formActions.remove(group.id);
+    onShiftQuestionDown(question: IElement) {
+        this.formActions.shiftElementDown(question.id);
+    }
+
+    onShiftQuestionUp(question: IElement) {
+        this.formActions.shiftElementUp(question.id);
+    }
+
+    onDelete(id: number) {
+        this.formActions.remove(id);
     }
 
     tracker(obj: any): number {

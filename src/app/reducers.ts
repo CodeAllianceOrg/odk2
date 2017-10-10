@@ -88,7 +88,9 @@ export const entityReducer: Reducer<IEntityStore> = (
         return {
             ...previousState,
             elements: previousState.elements.set(elementId, element),
-            groups: previousState.groups.updateIn([action.payload, 'elements'], arr => arr.push(elementId))
+            groups: previousState.groups
+                .updateIn([action.payload, 'elements'], arr => arr.push(elementId))
+                .setIn([action.payload, 'selectedElementId'], elementId)
         };
     case FormActions.ADD_NUMERIC_ELEMENT:
         elementId = Date.now();
@@ -138,6 +140,11 @@ export const entityReducer: Reducer<IEntityStore> = (
 
             groupId = action.payload;
 
+            /*
+              remove the group, remove its elements, and remove its reference
+              in its parent form
+            */
+
             return {
                 ...previousState,
                 groups: previousState.groups.delete(groupId),
@@ -170,15 +177,43 @@ export const entityReducer: Reducer<IEntityStore> = (
             };
         } else if (previousState.elements.has(action.payload)) {
 
+            elementId = action.payload;
+
+            /*
+              remove the element and remove its reference in its parent group
+            */
+
+            return {
+                ...previousState,
+                elements: previousState.elements.delete(elementId),
+                groups: <Map<number, any>> previousState.groups
+                    .map(
+                        (dirtyGroup, key) => {
+                            let updatedGroup = dirtyGroup
+                                .update(
+                                    'elements',
+                                    (arr: List<number>) => arr.filter( (elem: number) => elem !== elementId )
+                                );
+
+                            if (updatedGroup.get('selectedElementId') === elementId) {
+                                updatedGroup = updatedGroup.delete('selectedElementId');
+                            }
+
+                            return updatedGroup;
+                        }
+                    )
+            };
         }
 
         return previousState;
-    case FormActions.SELECT_GROUP:
+    case FormActions.SELECT_ELEMENT:
 
-        groupId = action.payload;
+        elementId = action.payload.elementId;
+        groupId = action.payload.groupId;
 
         return {
             ...previousState,
+            groups: previousState.groups.setIn([groupId, 'selectedElementId'], elementId),
             forms: <Map<number, any>> previousState.forms
                 .map(
                     (dirtyForm, key) => {
@@ -187,6 +222,76 @@ export const entityReducer: Reducer<IEntityStore> = (
                         }
 
                         return dirtyForm;
+                    }
+                )
+        };
+    case FormActions.SELECT_GROUP:
+
+        groupId = action.payload;
+
+        return {
+            ...previousState,
+            groups: previousState.groups.setIn([groupId, 'selectedElementId'], 0),
+            forms: <Map<number, any>> previousState.forms
+                .map(
+                    (dirtyForm, key) => {
+                        if (dirtyForm.groups.includes(groupId)) {
+                            return dirtyForm.set('selectedGroupId', groupId);
+                        }
+
+                        return dirtyForm;
+                    }
+                )
+        };
+    case FormActions.SHIFT_ELEMENT_DOWN:
+
+        elementId = action.payload;
+
+        return {
+            ...previousState,
+            groups: <Map<number, any>> previousState.groups
+                .map(
+                    (dirtyGroup, key) => {
+                        if (dirtyGroup.elements.includes(elementId)) {
+                            const index = (<List<number>> dirtyGroup.elements)
+                                .findIndex(
+                                    listItem => listItem === elementId
+                                );
+
+                            return dirtyGroup
+                                .set(
+                                    'elements',
+                                    dirtyGroup.elements.delete(index).insert(index + 1, elementId)
+                                );
+                        }
+
+                        return dirtyGroup;
+                    }
+                )
+        };
+    case FormActions.SHIFT_ELEMENT_UP:
+
+        elementId = action.payload;
+
+        return {
+            ...previousState,
+            groups: <Map<number, any>> previousState.groups
+                .map(
+                    (dirtyGroup, key) => {
+                        if (dirtyGroup.elements.includes(elementId)) {
+                            const index = (<List<number>> dirtyGroup.elements)
+                                .findIndex(
+                                    listItem => listItem === elementId
+                                );
+
+                            return dirtyGroup
+                                .set(
+                                    'elements',
+                                    dirtyGroup.elements.delete(index).insert(index - 1, elementId)
+                                );
+                        }
+
+                        return dirtyGroup;
                     }
                 )
         };

@@ -302,7 +302,10 @@ describe('editor', () => {
                     );
             });
 
-            it('should manage a group\'s properties: required', () => {
+            it('should manage a question\'s properties: name', () => {
+
+                const name = 'Test Name';
+
                 page.navigateTo()
                     .then(
                         () => groups.addGroup()
@@ -311,16 +314,35 @@ describe('editor', () => {
                         () => groups.selectGroup(0)
                     )
                     .then(
-                        () => expect(elementProperties.controls.required.get()).toBeTruthy()
+                        () => formElements.addTextElement()
                     )
                     .then(
-                        () => expect(groups.controls.required.get(0)).toBeTruthy()
+                        () => expect(elementProperties.controls.name.edit(name))
+                    )
+                    .then(
+                        () => expect(groups.elements.text.name.get(0, 0)).toEqual(name)
+                    );
+            });
+
+            it('should manage a question\'s properties: required', () => {
+                page.navigateTo()
+                    .then(
+                        () => groups.addGroup()
+                    )
+                    .then(
+                        () => groups.selectGroup(0)
+                    )
+                    .then(
+                        () => formElements.addTextElement()
+                    )
+                    .then(
+                        () => expect(groups.elements.controls.required.get(0, 0)).toBeTruthy()
                     )
                     .then(
                         () => elementProperties.controls.required.edit()
                     )
                     .then(
-                        () => expect(groups.controls.required.get(0)).toBeFalsy()
+                        () => expect(groups.elements.controls.required.get(0, 0)).toBeFalsy()
                     );
             });
 
@@ -409,7 +431,23 @@ describe('editor', () => {
                     );
             });
 
-            it('should persist selections between forms', () => {
+            it('should select a newly added question', () => {
+                page.navigateTo()
+                    .then(
+                        () => groups.addGroup()
+                    )
+                    .then(
+                        () => groups.selectGroup(0)
+                    )
+                    .then(
+                        () => formElements.addTextElement()
+                    )
+                    .then(
+                        () => expect(groups.elements.getSelected().isPresent()).toBeTrue()
+                    );
+            });
+
+            it('should persist group selections between forms', () => {
                 page.navigateTo()
                     .then(
                         () => groups.addGroup()
@@ -555,6 +593,82 @@ describe('editor', () => {
                         () => expect(groups.count()).toEqual(initialCount - 1)
                     );
             });
+        });
+    });
+
+    describe('questions', () => {
+
+        it('should rearrange questions', () => {
+            let questionUnderTest;
+
+            page.navigateTo()
+                .then(
+                    () => groups.addGroup()
+                )
+                .then(
+                    () => groups.selectGroup(0)
+                )
+                .then(
+                    () => formElements.addTextElement()
+                )
+                .then(
+                    () => formElements.addTextElement()
+                )
+                .then(
+                    // have two text elements in the first group. let's lock in the first
+                    // and then shift it down
+                    () => groups.elements.getId(0, 0)
+                )
+                .then(
+                    questionId => {
+                        questionUnderTest = questionId;
+
+                        return groups.elements.controls.shift.down(0, 0);
+                    }
+                )
+                .then(
+                    () => {
+                        // expect that the last question should have the same id as the
+                        // questionUnderTest, if it was correctly shifted down
+
+                        return expect(groups.elements.getId(0, 1)).toEqual(questionUnderTest);
+                    }
+                )
+                .then(
+                    () => {
+                        // now shift the group back up
+                        return groups.elements.controls.shift.up(0, 1);
+                    }
+                )
+                .then(
+                    () => {
+                        // and expect that the first question is the group under test!
+
+                        return expect(groups.elements.getId(0, 0)).toEqual(questionUnderTest);
+                    }
+                );
+        });
+
+        it('should delete a question', () => {
+            page.navigateTo()
+                .then(
+                    () => groups.addGroup()
+                )
+                .then(
+                    () => groups.selectGroup(0)
+                )
+                .then(
+                    () => formElements.addTextElement()
+                )
+                .then(
+                    () => expect(groups.elements.count()).toEqual(1)
+                )
+                .then(
+                    () => groups.elements.delete(0, 0)
+                )
+                .then(
+                    () => expect(groups.elements.count()).toEqual(0)
+                );
         });
     });
 
