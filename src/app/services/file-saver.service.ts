@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { IAppState, IForm, IGroup, IElement } from '../store';
 import { NgRedux } from '@angular-redux/store';
 import * as fileSaver from 'file-saver';
-import { ODKSurvey, ISection } from 'odk2-format-converter';
+import { ODKSurvey, ISection, ISurvey } from 'odk2-format-converter';
 import { Map } from 'immutable';
 
 function s2ab(s: string): ArrayBuffer {
@@ -38,13 +38,25 @@ export class FileSaverService {
                 sections.push({
                     section_name: group.properties.name,
                     questions: elements.map(
-                        el => ({type: <'text'> el.type, name: el.properties.name, 'display.text': el.properties.display.base})
+                        el => ({
+                            type: <'text'> el.type,
+                            name: el.properties.name,
+                            required: el.properties.required,
+                            'display.text': el.properties.display.base,
+                            'display.text.spanish': el.properties.display.es
+                        })
                     )
                 });
             }
         );
 
-        const odkSurvey = ODKSurvey.fromJSON(sections);
+        const survey: ISurvey = {
+            title: form.properties.display.base,
+            table_id: form.properties.name,
+            sections
+        };
+
+        const odkSurvey = ODKSurvey.fromJSON(survey);
 
         const xlsxBinary = odkSurvey.toXLSXBinary();
 
