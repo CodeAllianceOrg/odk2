@@ -672,7 +672,7 @@ describe('editor', () => {
         });
     });
 
-    describe('export the form', () => {
+    describe('export the survey', () => {
         it('should display a button to export the form', () => {
             page.navigateTo()
                 .then(

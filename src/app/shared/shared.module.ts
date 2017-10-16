@@ -8,6 +8,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgReduxModule } from '@angular-redux/store';
 
 import { SelectionsService } from '../services/selections.service';
+import { FileSaverService } from '../services/file-saver.service';
+
 import { FormActions } from '../app.actions';
 
 @NgModule({
@@ -25,7 +27,8 @@ import { FormActions } from '../app.actions';
     ],
     providers: [
         FormActions,
-        SelectionsService
+        SelectionsService,
+        FileSaverService
     ]
 })
 export class SharedModule { }
