@@ -16,7 +16,3 @@ div.tab-pane {
     flex-flow: column;
     height: 100%;
 }
-
-.hidden {
-    display: none;
-}
