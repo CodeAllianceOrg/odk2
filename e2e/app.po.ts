@@ -103,7 +103,7 @@ export class EditorTabs {
     }
 
     openCreateTab() {
-        return element(by.cssContainingText('app-root .main a.nav-link', 'New Form')).click();
+        return element(by.cssContainingText('app-root .main a.nav-link', 'New Survey')).click();
     }
 }
 
