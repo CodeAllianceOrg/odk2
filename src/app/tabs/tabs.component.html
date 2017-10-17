@@ -17,7 +17,8 @@
               </button>
             </div>
             <div class="col d-flex justify-content-center py-5">
-              <label class="custom-file">
+              <label class="custom-file"
+                     *ngFor="let stamp of restamp">
                 <input type="file"
                        id="upload-form"
                        class="custom-file-input"

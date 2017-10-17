@@ -12,12 +12,15 @@ export class FormActions {
     static ADD_EXISTING_FORM = 'FORM_ACTIONS-ADD_EXISTING_FORM';
 
     static ADD_GROUP = 'FORM_ACTIONS-ADD_GROUP';
+    static ADD_EXISTING_GROUP = 'FORM_ACTIONS-ADD_EXISTING_GROUP';
 
     static ADD_TEXT_ELEMENT = 'FORM_ACTIONS-ADD_TEXT_ELEMENT';
     static ADD_NUMERIC_ELEMENT = 'FORM_ACTIONS-ADD_NUMERIC_ELEMENT';
     static ADD_COMBO_BOX_ELEMENT = 'FORM_ACTIONS-ADD_COMBO_BOX_ELEMENT';
     static ADD_GPS_ELEMENT = 'FORM_ACTIONS-ADD_GPS_ELEMENT';
     static ADD_MULTI_SELECT_ELEMENT = 'FORM_ACTIONS-ADD_MULTI_SELECT_ELEMENT';
+
+    static ADD_EXISTING_ELEMENT = 'FORM_ACTIONS-ADD_EXISTING_ELEMENT';
 
     static SELECT_ELEMENT = 'FORM_ACTIONS-SELECT_ELEMENT';
     static SELECT_GROUP = 'FORM_ACTIONS-SELECT_GROUP';
@@ -33,6 +36,20 @@ export class FormActions {
     static UPDATE_SELECTED = 'FORM_ACTIONS-UPDATE_SELECTED';
 
     constructor(private ngRedux: NgRedux<IAppState>) {}
+
+    public addExistingGroup(group: Map<string, any>): void {
+        this.ngRedux.dispatch({
+            type: FormActions.ADD_EXISTING_GROUP,
+            payload: group
+        });
+    }
+
+    public addExistingElement(element: Map<string, any>): void {
+        this.ngRedux.dispatch({
+            type: FormActions.ADD_EXISTING_ELEMENT,
+            payload: element
+        });
+    }
 
     public addExistingForm(form: Map<string, any>): void {
         this.ngRedux.dispatch({

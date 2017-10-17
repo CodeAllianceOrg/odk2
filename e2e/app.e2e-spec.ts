@@ -104,6 +104,10 @@ describe('editor', () => {
         it('should upload an existing form', () => {
             let initialTabsCount;
 
+            // from ./test_files/exampleForm.xlsx
+            const numGroups = 2;
+            const numQuestions = 6;
+
             page.navigateTo()
                 .then(
                     () => tabs.count()
@@ -119,6 +123,16 @@ describe('editor', () => {
                 )
                 .then(
                     () => expect(tabs.count()).toEqual(initialTabsCount + 1)
+                )
+                .then(
+                    // navigate to the last tab
+                    () => tabs.openTab(initialTabsCount - 1)
+                )
+                .then(
+                    () => expect(groups.count()).toEqual(numGroups)
+                )
+                .then(
+                    () => expect(groups.elements.count()).toEqual(numQuestions)
                 );
         });
     });

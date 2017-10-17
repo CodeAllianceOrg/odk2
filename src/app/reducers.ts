@@ -46,6 +46,18 @@ export const entityReducer: Reducer<IEntityStore> = (
             ...previousState,
             forms: previousState.forms.set(action.payload.id, action.payload)
         };
+    case FormActions.ADD_EXISTING_GROUP:
+        /* action.payload is a GroupRecord */
+        return {
+            ...previousState,
+            groups: previousState.groups.set(action.payload.id, action.payload)
+        };
+    case FormActions.ADD_EXISTING_ELEMENT:
+        /* action.payload is a ElementRecord */
+        return {
+            ...previousState,
+            elements: previousState.elements.set(action.payload.id, action.payload)
+        };
     case FormActions.UPDATE_SELECTED:
         itemId = action.payload.elementKey;
 

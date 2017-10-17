@@ -20,6 +20,7 @@ import { List } from 'immutable';
 export class TabsComponent implements OnInit {
 
     public forms$: Observable<List<IForm>>;
+    public restamp = [true];
 
     constructor(selections: SelectionsService,
                 private formActions: FormActions,
@@ -35,6 +36,8 @@ export class TabsComponent implements OnInit {
 
     onUploadForm(file: File) {
         this.fileService.importSurvey(file);
+
+        this.restamp = [!this.restamp[0]];
     }
 
     tracker(_: undefined, obj: {id: number}): number | undefined {
