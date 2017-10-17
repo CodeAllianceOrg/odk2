@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { IAppState, IForm, IGroup, IElement } from '../store';
+import {
+    IAppState,
+    IForm,
+    FormRecord,
+    IGroup,
+    IElement
+} from '../store';
+import { FormActions } from '../app.actions';
 import { NgRedux } from '@angular-redux/store';
 import * as fileSaver from 'file-saver';
 import { ODKSurvey, ISection, ISurvey } from 'odk2-format-converter';
@@ -17,7 +24,21 @@ function s2ab(s: string): ArrayBuffer {
 @Injectable()
 export class FileSaverService {
 
-    constructor(private ngRedux: NgRedux<IAppState>) {}
+    constructor(private ngRedux: NgRedux<IAppState>,
+                private formActions: FormActions) {}
+
+    public importSurvey(file: File): void {
+        const reader = new FileReader();
+
+        reader.onload = xlsxBase64 => {
+            const form = new FormRecord({
+                id: Date.now()
+            });
+
+            this.formActions.addExistingForm(form);
+        };
+        reader.readAsDataURL(file);
+    }
 
     public exportSurvey(formId: number): void {
         const state = this.ngRedux.getState();

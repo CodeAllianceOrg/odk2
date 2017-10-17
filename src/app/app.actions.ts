@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NgRedux } from '@angular-redux/store';
+import { Map } from 'immutable';
 import {
     IAppState,
     GroupRecord
@@ -8,6 +9,7 @@ import {
 @Injectable()
 export class FormActions {
     static ADD_BLANK_FORM = 'FORM_ACTIONS-ADD_BLANK_FORM';
+    static ADD_EXISTING_FORM = 'FORM_ACTIONS-ADD_EXISTING_FORM';
 
     static ADD_GROUP = 'FORM_ACTIONS-ADD_GROUP';
 
@@ -31,6 +33,13 @@ export class FormActions {
     static UPDATE_SELECTED = 'FORM_ACTIONS-UPDATE_SELECTED';
 
     constructor(private ngRedux: NgRedux<IAppState>) {}
+
+    public addExistingForm(form: Map<string, any>): void {
+        this.ngRedux.dispatch({
+            type: FormActions.ADD_EXISTING_FORM,
+            payload: form
+        });
+    }
 
     public updateSelected(field: string[], value: any, elementKey: number): void {
         this.ngRedux.dispatch({

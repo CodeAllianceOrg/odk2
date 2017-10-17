@@ -1,11 +1,12 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { NgReduxTestingModule } from '@angular-redux/store/testing';
 import { FileSaverService } from './file-saver.service';
+import { FormActions } from '../app.actions';
 
 describe('FileSaverService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-        providers: [FileSaverService],
+        providers: [FileSaverService, FormActions],
         imports: [NgReduxTestingModule]
     });
   });

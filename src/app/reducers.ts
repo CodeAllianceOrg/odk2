@@ -40,6 +40,12 @@ export const entityReducer: Reducer<IEntityStore> = (
                 id: formId
             }))
         };
+    case FormActions.ADD_EXISTING_FORM:
+        /* action.payload is a FormRecord */
+        return {
+            ...previousState,
+            forms: previousState.forms.set(action.payload.id, action.payload)
+        };
     case FormActions.UPDATE_SELECTED:
         itemId = action.payload.elementKey;
 

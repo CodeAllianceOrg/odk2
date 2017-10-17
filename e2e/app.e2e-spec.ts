@@ -101,8 +101,25 @@ describe('editor', () => {
                 );
         });
 
-        xit('should upload an existing form', () => {
+        it('should upload an existing form', () => {
+            let initialTabsCount;
 
+            page.navigateTo()
+                .then(
+                    () => tabs.count()
+                )
+                .then(
+                    count => {
+                        initialTabsCount = count;
+                        return tabs.openCreateTab();
+                    }
+                )
+                .then(
+                    () => editor.create.uploadExistingForm()
+                )
+                .then(
+                    () => expect(tabs.count()).toEqual(initialTabsCount + 1)
+                );
         });
     });
 
