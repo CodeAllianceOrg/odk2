@@ -23,7 +23,7 @@ install:
   - npm install
 script:
   - npm run check
-  - npm run start & sleep 5; npm run test-pa11y;
+  - npm run start & sleep 20; npm run test-pa11y;
 notifications:
   email: false
   webhooks:
