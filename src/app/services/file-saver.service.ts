@@ -120,6 +120,10 @@ export class FileSaverService {
 
                 sections.push({
                     section_name: group.properties.name,
+                    display: {
+                        'title': group.properties.display.base,
+                        'title.spanish': group.properties.display.es
+                    },
                     questions: elements.map(
                         el => ({
                             type: <'text'> el.type,
