@@ -16,3 +16,7 @@ div.tab-pane {
     flex-flow: column;
     height: 100%;
 }
+
+a {
+    color: #0072ed;
+}
