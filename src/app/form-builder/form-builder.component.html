@@ -1,18 +1,20 @@
 <app-form-builder-header [form]="form"></app-form-builder-header>
 
 <div class="row form-builder">
-  <div class="col-2 text-center p-3"
-       id="form-elements">
-    <app-form-builder-elements [groupId]="form.selectedGroupId"></app-form-builder-elements>
-  </div>
-
   <div class="col-7 text-center p-3" id="groups">
     <app-form-builder-groups [form]="form" [groupId]="form.selectedGroupId">
       </app-form-builder-groups>
   </div>
 
-  <div class="col-3 text-center p-3" id="element-properties">
+<!-- TODO: this one should only appear if a prompt type is selected for editing -->
+  <div class="col-3 p-3" id="element-properties">
     <app-form-builder-properties [groupId]="form.selectedGroupId">
       </app-form-builder-properties>
   </div>
+
+  <!-- TODO: these should only appear when a section is available to add to -->
+    <div class="col-2 p-3"
+         id="form-elements">
+      <app-form-builder-elements [groupId]="form.selectedGroupId"></app-form-builder-elements>
+    </div>
 </div>
