@@ -1,12 +1,12 @@
-<h2>Properties</h2>
+<h3>Item Properties</h3>
 <div id="element-properties-controls-container"
      *ngIf="item$ | async ; let item">
   <div class="form-group">
 
-    <fieldset>
-      <legend>Base</legend>
+    <fieldset class="mb-4">
+      <legend>Machine Readable Name</legend>
 
-      <label for="item-name">Item Name</label>
+      <label class="sr-only" for="item-name">Item Name</label>
 
       <div class="input-group">
 
@@ -34,12 +34,12 @@
 
     </fieldset>
 
-    <fieldset>
+    <fieldset class="mb-4">
       <legend>
-        Display
+        User Friendly Name
       </legend>
 
-      <label for="item-display-base">Base</label>
+      <label for="item-display-base">Base English Name</label>
 
       <div class="input-group pb-2">
 
