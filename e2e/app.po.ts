@@ -6,6 +6,8 @@ import {
     ExpectedConditions
 } from 'protractor';
 
+import * as path from 'path';
+
 /***********************
  ** Utilities
  ***********************/
@@ -67,6 +69,18 @@ export class Editor {
     create = {
         createBlankForm() {
             return element(by.css('app-root .main button#new-form')).click();
+        },
+        uploadExistingForm() {
+            return element(by.css('app-root .main input#upload-form'))
+                .clear()
+                .then(
+                    () => {
+                        // then, upload the file
+                        const fileName = './test_files/exampleForm.xlsx';
+                        const absolutePath = path.resolve(__dirname, fileName);
+                        return element(by.css('app-root .main input#upload-form')).sendKeys(absolutePath);
+                    }
+                );
         }
     };
 

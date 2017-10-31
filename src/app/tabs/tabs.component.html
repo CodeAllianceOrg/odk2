@@ -17,9 +17,14 @@
               </button>
             </div>
             <div class="col d-flex justify-content-center py-5">
-              <button type="button" class="btn btn-primary btn-lg" id="upload-form">
-                <i class="fa fa-upload" aria-hidden="true"></i> Upload File
-              </button>
+              <label class="custom-file"
+                     *ngFor="let stamp of restamp">
+                <input type="file"
+                       id="upload-form"
+                       class="custom-file-input"
+                       (change)="onUploadForm($event.target.files[0])">
+                <span class="custom-file-control"></span>
+              </label>
             </div>
           </div>
         </ng-template>

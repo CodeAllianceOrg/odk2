@@ -23,11 +23,15 @@ install:
   - npm install
 script:
   - npm run check
+  - npm run start & sleep 20; npm run test-pa11y;
 notifications:
+  email: false
   webhooks:
     on_success: change
     on_failure: always
     on_start: false
+before_deploy:
+  - npm run build:prod
 deploy:
   provider: surge
   project: ./dist/

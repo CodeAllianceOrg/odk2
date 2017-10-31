@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { SelectionsService } from '../services/selections.service';
+import { FileSaverService } from '../services/file-saver.service';
 
 import {
     FormActions
@@ -12,16 +13,18 @@ import { Observable } from 'rxjs/Observable';
 import { List } from 'immutable';
 
 @Component({
-  selector: 'app-tabs',
-  templateUrl: './tabs.component.html',
-  styleUrls: ['./tabs.component.css']
+    selector: 'app-tabs',
+    templateUrl: './tabs.component.html',
+    styleUrls: ['./tabs.component.css']
 })
 export class TabsComponent implements OnInit {
 
     public forms$: Observable<List<IForm>>;
+    public restamp = [true];
 
     constructor(selections: SelectionsService,
-                private formActions: FormActions) {
+                private formActions: FormActions,
+                private fileService: FileSaverService) {
         this.forms$ = selections.forms$;
     }
 
@@ -29,6 +32,12 @@ export class TabsComponent implements OnInit {
 
     onAddForm() {
         this.formActions.addBlankForm();
+    }
+
+    onUploadForm(file: File) {
+        this.fileService.importSurvey(file);
+
+        this.restamp = [!this.restamp[0]];
     }
 
     tracker(_: undefined, obj: {id: number}): number | undefined {
