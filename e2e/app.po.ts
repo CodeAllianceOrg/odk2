@@ -55,6 +55,30 @@ export class AppPage {
     }
 }
 
+export class AboutPage {
+  motivation = {
+    content() {
+      return element(by.css('app-root #section-motivation')).getText();
+    }
+  };
+
+  tutorial = {
+    content() {
+      return element(by.css('app-root #section-tutorial')).getText();
+    }
+  };
+
+  contact = {
+    content() {
+      return element(by.css('app-root #section-contact')).getText();
+    }
+  };
+
+  navigateTo() {
+    return browser.get('/about');
+  }
+}
+
 export class Header {
     getBrandText() {
         return element(by.css('app-root nav.navbar .navbar-brand')).getText();

@@ -61,5 +61,12 @@
       "true": "Required",
       "false": "Not Required"
     }
+  },
+  "app-about": {
+    "example-content": {
+      "motivation": "I am the motivation example content!",
+      "tutorial": "I am the tutorial example content!",
+      "contact": "I am the contact example content!"
+    }
   }
 }

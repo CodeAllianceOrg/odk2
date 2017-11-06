@@ -12,19 +12,25 @@ import {rootReducer} from './reducers';
 
 import {HeaderComponent} from './header/header.component';
 import {TabsComponent} from './tabs/tabs.component';
+import {AboutComponent} from './about/about.component';
+import {EditorComponent} from './editor/editor.component';
 
 import {FormBuilderModule} from './form-builder/form-builder.module';
+import {AppRoutingModule} from './app-routing.module';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    TabsComponent
+    TabsComponent,
+    AboutComponent,
+    EditorComponent
   ],
   imports: [
     BrowserModule,
     SharedModule,
-
+    AppRoutingModule,
     FormBuilderModule
   ],
   bootstrap: [AppComponent]

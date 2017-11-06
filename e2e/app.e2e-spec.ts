@@ -1,11 +1,11 @@
 import {
-    AppPage,
-    Header,
-    Editor,
-    EditorTabs,
-    EditorElementProperties,
-    EditorFormElements,
-    EditorGroups
+  AppPage,
+  Header,
+  Editor,
+  EditorTabs,
+  EditorElementProperties,
+  EditorFormElements,
+  EditorGroups, AboutPage
 } from './app.po';
 
 describe('site App', () => {
@@ -44,7 +44,26 @@ describe('header', () => {
     });
 });
 
-describe('editor', () => {
+describe('about page', () => {
+
+  let page: AboutPage;
+
+  beforeEach(() => {
+    page = new AboutPage();
+  });
+
+  it('should display the app motivation, tutorial and primary authors / contacts', async () => {
+      await page.navigateTo();
+
+      await expect(page.motivation.content()).toBeNonEmptyString();
+
+      await expect(page.tutorial.content()).toBeNonEmptyString();
+
+      await expect(page.contact.content()).toBeNonEmptyString();
+  });
+});
+
+describe('editor page', () => {
 
     let page: AppPage;
     let editor: Editor;
