@@ -1,4 +1,4 @@
-<h3 class="section-header">Prompt Types</h3>
+<h3 class="section-header">{{ 'app-form-builder-elements.title' | translate }}</h3>
 <ul class="list-unstyled">
   <li class="mb-1">
     <button type="button"
@@ -6,7 +6,8 @@
             (click)="onAddTextElement()"
             [disabled]="!groupId">
       <i class="fa fa-plus-circle" aria-hidden="true"></i>
-      <span class="sr-only">Add</span> Text
+      <span class="sr-only">{{ 'app-form-builder-elements.common.add' | translate }}</span>
+      {{ 'app-form-builder-elements.types.text' | translate }}
     </button>
   </li>
   <li class="mb-1">
@@ -15,7 +16,8 @@
             (click)="onAddNumericElement()"
             disabled>
       <i class="fa fa-plus-circle" aria-hidden="true"></i>
-      <span class="sr-only">Add</span> Numeric
+      <span class="sr-only">{{ 'app-form-builder-elements.common.add' | translate }}</span>
+      {{ 'app-form-builder-elements.types.numeric' | translate }}
     </button>
   </li>
   <li class="mb-1">
@@ -24,7 +26,8 @@
             (click)="onAddGPSElement()"
             disabled>
       <i class="fa fa-plus-circle" aria-hidden="true"></i>
-      <span class="sr-only">Add</span> GPS
+      <span class="sr-only">{{ 'app-form-builder-elements.common.add' | translate }}</span>
+      {{ 'app-form-builder-elements.types.gps' | translate }}
     </button>
   </li>
   <li class="mb-1">
@@ -33,7 +36,8 @@
             (click)="onAddComboBoxElement()"
             disabled>
       <i class="fa fa-plus-circle" aria-hidden="true"></i>
-      <span class="sr-only">Add</span> Combo Box
+      <span class="sr-only">{{ 'app-form-builder-elements.common.add' | translate }}</span>
+      {{ 'app-form-builder-elements.types.combo' | translate }}
     </button>
   </li>
   <li class="mb-1">
@@ -42,7 +46,8 @@
             (click)="onAddMultiSelectElement()"
             disabled>
       <i class="fa fa-plus-circle" aria-hidden="true"></i>
-      <span class="sr-only">Add</span> Multi Select
+      <span class="sr-only">{{ 'app-form-builder-elements.common.add' | translate }}</span>
+      {{ 'app-form-builder-elements.types.multi' | translate }}
     </button>
   </li>
 </ul>

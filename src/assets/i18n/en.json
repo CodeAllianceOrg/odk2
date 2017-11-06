@@ -1,0 +1,65 @@
+{
+  "app-header": {
+    "brand": "ODK 2.0 Form Builder",
+    "links": {
+      "home": "Home",
+      "about": "About",
+      "github": "Github"
+    }
+  },
+  "app-tabs": {
+    "title": "Create or Import",
+    "create": {
+      "title": "New Survey",
+      "blank": "Blank Survey"
+    }
+  },
+  "app-form-builder-elements": {
+    "title": "Prompt Types",
+    "common": {
+      "add": "Add"
+    },
+    "types": {
+      "text": "Text",
+      "numeric": "Numeric",
+      "gps": "GPS",
+      "combo": "Combo Box",
+      "multi": "Multi Select"
+    }
+  },
+  "app-form-builder-groups": {
+    "title": "Survey Sections",
+    "actions": {
+      "add": "Add Section"
+    }
+  },
+  "app-form-builder-header": {
+    "actions": {
+      "export": "Export"
+    },
+    "form": {
+      "name": "Form Name"
+    }
+  },
+  "app-form-builder-properties": {
+    "title": "Item Properties",
+    "form": {
+      "base": {
+        "legend": "Base Properties",
+        "machine-name": "Machine Readable Name"
+      },
+      "display": {
+        "legend": "User Friendly Name",
+        "en": "English",
+        "es": "Español"
+      }
+    }
+  },
+  "common": {
+    "required": {
+      "label": "Required",
+      "true": "Required",
+      "false": "Not Required"
+    }
+  }
+}

@@ -1,13 +1,19 @@
-<h3 class="section-header">Item Properties</h3>
+<h3 class="section-header">
+  {{ 'app-form-builder-properties.title' | translate }}
+</h3>
 
 <div id="element-properties-controls-container"
      *ngIf="item$ | async ; let item">
   <div class="form-group">
 
     <fieldset class="mb-4">
-      <legend>Base Properties</legend>
+      <legend>
+        {{ 'app-form-builder-properties.form.base.legend' | translate }}
+      </legend>
 
-      <label for="item-name">Machine Readable Name</label>
+      <label for="item-name">
+        {{ 'app-form-builder-properties.form.base.machine-name' | translate }}
+      </label>
 
       <div class="input-group">
 
@@ -29,7 +35,7 @@
                (ngModelChange)="onPropertyChange($event, item.id, 'required')">
         <span class="custom-control-indicator"></span>
         <span class="custom-control-description">
-          Required
+          {{ 'common.required.label' | translate }}
         </span>
       </label>
 
@@ -37,10 +43,12 @@
 
     <fieldset class="mb-4">
       <legend>
-        User Friendly Name
+        {{ 'app-form-builder-properties.form.display.legend' | translate }}
       </legend>
 
-      <label for="item-display-base">Base English Name</label>
+      <label for="item-display-base">
+        {{ 'app-form-builder-properties.form.display.en' | translate }}
+      </label>
 
       <div class="input-group pb-2">
 
@@ -54,7 +62,9 @@
                (ngModelChange)="onPropertyChange($event, item.id, ['display', 'base'])">
       </div>
 
-      <label for="item-display-es">Español</label>
+      <label for="item-display-es">
+        {{ 'app-form-builder-properties.form.display.es' | translate }}
+      </label>
 
       <div class="input-group">
 

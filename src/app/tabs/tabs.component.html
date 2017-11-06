@@ -7,13 +7,13 @@
           <app-form-builder [form]="form" class="flex-column flexify-me"></app-form-builder>
         </ng-template>
       </ngb-tab>
-      <ngb-tab title="New Survey">
+      <ngb-tab title="{{ 'app-tabs.create.title' | translate }}">
         <ng-template ngbTabContent>
-          <h2 class="mt-3">Create or Import</h2>
+          <h2 class="mt-3">{{ 'app-tabs.title' | translate }}</h2>
           <div class="row">
             <div class="col border border-dark border-top-0 border-left-0 border-bottom-0 d-flex justify-content-center py-5">
               <button type="button" class="btn btn-primary btn-lg" id="new-form" (click)="onAddForm()">
-                <i class="fa fa-file-o" aria-hidden="true"></i> Blank Survey
+                <i class="fa fa-file-o" aria-hidden="true"></i> {{ 'app-tabs.create.blank' | translate }}
               </button>
             </div>
             <div class="col d-flex justify-content-center py-5">

@@ -1,27 +1,28 @@
-<div class="row my-2">
-  <div class="col-4">
+<div class="d-flex justify-content-between my-2">
+  <div>
     <div class="input-group">
-      <span class="input-group-addon">
-        <i class="fa fa-pencil" aria-hidden="true"></i>
-      </span>
-      <label for="form-name" class="sr-only">Form Name:</label>
-      <input type="text"
-             title="Form name"
+        <span class="input-group-addon">
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+        </span>
+      <label for="form-name" class="sr-only">
+        {{ 'app-form-builder-header.form.name' | translate }}
+      </label>
+      <input id="form-name"
              class="form-control"
-             placeholder="Form name"
-             aria-label="Form name"
-             id="form-name"
+             type="text"
+             title="{{ 'app-form-builder-header.form.name' | translate }}"
+             placeholder="{{ 'app-form-builder-header.form.name' | translate }}"
+             [attr.aria-label]="'app-form-builder-header.form.name' | translate"
              [ngModel]="form.properties?.name"
              (ngModelChange)="onFormNameChange($event)">
     </div>
   </div>
-  <div class="col-6"></div>
-  <div class="col-2 d-flex flex-row-reverse">
-    <button type="button"
-            class="btn btn-primary"
-            id="export"
-            (click)="saveAs()">
-      Export <i class="fa fa-floppy-o" aria-hidden="true"></i>
-    </button>
-  </div>
+
+  <button type="button"
+          class="btn btn-primary"
+          id="export"
+          (click)="saveAs()">
+    {{ 'app-form-builder-header.actions.export' | translate }}
+    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+  </button>
 </div>
