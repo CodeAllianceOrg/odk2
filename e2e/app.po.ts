@@ -123,7 +123,7 @@ export class EditorTabs {
 
 export class EditorFormElements {
     getTitleText() {
-        return element(by.css('app-root .main #form-elements h2')).getText();
+        return element(by.css('app-root .main #form-elements .section-header')).getText();
     }
 
     getAllText() {
@@ -220,7 +220,7 @@ export class EditorElementProperties {
     };
 
     getTitleText() {
-        return element(by.css('app-root .main #element-properties h2')).getText();
+        return element(by.css('app-root .main #element-properties .section-header')).getText();
     }
 }
 
@@ -407,7 +407,7 @@ export class EditorGroups {
     };
 
     getTitleText() {
-        return element(by.css('app-root .main #groups h2')).getText();
+        return element(by.css('app-root .main #groups .section-header')).getText();
     }
     addGroup() {
         return element(by.css('app-root .main #groups #add-group')).click();
