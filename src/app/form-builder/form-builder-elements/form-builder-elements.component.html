@@ -1,31 +1,48 @@
-<h2>Form Elements</h2>
-<button type="button"
-        class="btn btn-secondary btn-lg btn-block"
-        (click)="onAddTextElement()"
-        [disabled]="!groupId">
-  Text
-</button>
-<button type="button"
-        class="btn btn-secondary btn-lg btn-block"
-        (click)="onAddNumericElement()"
-        disabled>
-  Numeric
-</button>
-<button type="button"
-        class="btn btn-secondary btn-lg btn-block"
-        (click)="onAddGPSElement()"
-        disabled>
-  GPS
-</button>
-<button type="button"
-        class="btn btn-secondary btn-lg btn-block"
-        (click)="onAddComboBoxElement()"
-        disabled>
-  Combo Box
-</button>
-<button type="button"
-        class="btn btn-secondary btn-lg btn-block"
-        (click)="onAddMultiSelectElement()"
-        disabled>
-  Multi Select
-</button>
+<h3 class="section-header">Prompt Types</h3>
+<ul class="list-unstyled">
+  <li class="mb-1">
+    <button type="button"
+            class="btn btn-secondary btn-lg btn-block"
+            (click)="onAddTextElement()"
+            [disabled]="!groupId">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+      <span class="sr-only">Add</span> Text
+    </button>
+  </li>
+  <li class="mb-1">
+    <button type="button"
+            class="btn btn-secondary btn-lg btn-block"
+            (click)="onAddNumericElement()"
+            disabled>
+      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+      <span class="sr-only">Add</span> Numeric
+    </button>
+  </li>
+  <li class="mb-1">
+    <button type="button"
+            class="btn btn-secondary btn-lg btn-block"
+            (click)="onAddGPSElement()"
+            disabled>
+      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+      <span class="sr-only">Add</span> GPS
+    </button>
+  </li>
+  <li class="mb-1">
+    <button type="button"
+            class="btn btn-secondary btn-lg btn-block"
+            (click)="onAddComboBoxElement()"
+            disabled>
+      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+      <span class="sr-only">Add</span> Combo Box
+    </button>
+  </li>
+  <li class="mb-1">
+    <button type="button"
+            class="btn btn-secondary btn-lg btn-block"
+            (click)="onAddMultiSelectElement()"
+            disabled>
+      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+      <span class="sr-only">Add</span> Multi Select
+    </button>
+  </li>
+</ul>
