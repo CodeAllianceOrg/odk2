@@ -6,7 +6,7 @@
     {
       "url": "http://localhost:4200/",
       "actions": [
-        "wait for element div.box to be added"
+        "wait for element app-tabs to be added"
       ]
     }
   ]
