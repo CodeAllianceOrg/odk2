@@ -9,43 +9,37 @@ import {
 } from './app.po';
 
 describe('site App', () => {
-    let page: AppPage;
+  let page: AppPage;
 
-    beforeEach(() => {
-        page = new AppPage();
-    });
+  beforeEach(() => {
+    page = new AppPage();
+  });
 });
 
 describe('header', () => {
+  let page: AppPage;
+  let header: Header;
 
-    let page: AppPage;
-    let header: Header;
+  beforeEach(() => {
+    page = new AppPage();
+    header = new Header();
+  });
 
-    beforeEach(() => {
-        page = new AppPage();
-        header = new Header();
-    });
+  it('should display the brand', async () => {
+    await page.navigateTo();
 
-    it('should display the brand', () => {
-        page.navigateTo()
-            .then(
-                () => expect(header.getBrandText()).toBeNonEmptyString()
-            );
-    });
+    await expect(header.getBrandText()).toBeNonEmptyString();
+  });
 
-    it('should display a list of links', () => {
-        page.navigateTo()
-            .then(
-                () => expect(header.getLinksText()).toBeArrayOfStrings()
-            )
-            .then(
-                () => expect(header.getLinksText()).toBeNonEmptyArray()
-            );
-    });
+  it('should display a list of links', async () => {
+    await page.navigateTo();
+
+    await expect(header.getLinksText()).toBeArrayOfStrings();
+    await expect(header.getLinksText()).toBeNonEmptyArray();
+  });
 });
 
 describe('about page', () => {
-
   let page: AboutPage;
 
   beforeEach(() => {
@@ -53,681 +47,369 @@ describe('about page', () => {
   });
 
   it('should display the app motivation, tutorial and primary authors / contacts', async () => {
-      await page.navigateTo();
+    await page.navigateTo();
 
-      await expect(page.motivation.content()).toBeNonEmptyString();
-
-      await expect(page.tutorial.content()).toBeNonEmptyString();
-
-      await expect(page.contact.content()).toBeNonEmptyString();
+    await expect(page.motivation.content()).toBeNonEmptyString();
+    await expect(page.tutorial.content()).toBeNonEmptyString();
+    await expect(page.contact.content()).toBeNonEmptyString();
   });
 });
 
 describe('editor page', () => {
+  let page: AppPage;
+  let editor: Editor;
+  let tabs: EditorTabs;
+  let elementProperties: EditorElementProperties;
+  let formElements: EditorFormElements;
+  let groups: EditorGroups;
 
-    let page: AppPage;
-    let editor: Editor;
-    let tabs: EditorTabs;
-    let elementProperties: EditorElementProperties;
-    let formElements: EditorFormElements;
-    let groups: EditorGroups;
+  beforeEach(() => {
+    editor = new Editor();
+    page = new AppPage();
+    tabs = new EditorTabs();
+    elementProperties = new EditorElementProperties();
+    formElements = new EditorFormElements();
+    groups = new EditorGroups();
+  });
 
-    beforeEach(() => {
-        editor = new Editor();
-        page = new AppPage();
-        tabs = new EditorTabs();
-        elementProperties = new EditorElementProperties();
-        formElements = new EditorFormElements();
-        groups = new EditorGroups();
+  it('should display a list of forms as tabs', async () => {
+    await page.navigateTo();
+
+    await expect(tabs.getNames()).toBeArrayOfStrings();
+    await expect(tabs.getNames()).toBeNonEmptyArray();
+  });
+
+  describe('add a new form', () => {
+
+    it('should create a new, blank form', async () => {
+      await page.navigateTo();
+
+      const initialTabsCount = await tabs.count();
+
+      await tabs.openCreateTab();
+      await editor.create.createBlankForm();
+
+      await expect(tabs.count()).toEqual(initialTabsCount + 1);
     });
 
-    it('should display a list of forms as tabs', () => {
-        page.navigateTo()
-            .then(
-                () => expect(tabs.getNames()).toBeArrayOfStrings()
-            )
-            .then(
-                () => expect(tabs.getNames()).toBeNonEmptyArray()
-            );
+    it('should upload an existing form', async () => {
+      await page.navigateTo();
+
+      const initialTabsCount = await tabs.count();
+
+      // from ./test_files/exampleForm.xlsx
+      const numGroups = 2;
+      const numQuestions = 6;
+
+      await tabs.openCreateTab();
+      await editor.create.uploadExistingForm();
+
+      await expect(tabs.count()).toEqual(initialTabsCount + 1);
+
+      // navigate to the last tab
+      await tabs.openTab(initialTabsCount - 1);
+
+      await expect(groups.count()).toEqual(numGroups);
+      await expect(groups.elements.count()).toEqual(numQuestions);
+    });
+  });
+
+  describe('controls', () => {
+    it('should manage the form name', async () => {
+      await page.navigateTo();
+
+      const name = 'Example Name';
+
+      await editor.formName.edit(name);
+
+      await expect(editor.formName.get()).toEqual(name);
+      await expect(tabs.currentTab.getName()).toEqual(name);
     });
 
-    describe('add a new form', () => {
-        it('should display a tab to add a new form', () => {
-            page.navigateTo()
-                .then(
-                    () => tabs.openCreateTab()
-                );
-        });
+    describe('form elements', () => {
+      it('should display the title', async () => {
+        await page.navigateTo();
 
-        it('should create a new, blank form', () => {
-            let initialTabsCount;
+        await expect(formElements.getTitleText()).toBeNonEmptyString();
+      });
 
-            page.navigateTo()
-                .then(
-                    () => tabs.count()
-                )
-                .then(
-                    count => {
-                        initialTabsCount = count;
-                        return tabs.openCreateTab();
-                    }
-                )
-                .then(
-                    () => editor.create.createBlankForm()
-                )
-                .then(
-                    () => expect(tabs.count()).toEqual(initialTabsCount + 1)
-                );
-        });
+      it('should display a list of form elements', async () => {
+        await page.navigateTo();
 
-        it('should upload an existing form', () => {
-            let initialTabsCount;
+        await expect(formElements.getAllText()).toBeArrayOfStrings();
+        await expect(formElements.getAllText()).toBeNonEmptyArray();
+      });
 
-            // from ./test_files/exampleForm.xlsx
-            const numGroups = 2;
-            const numQuestions = 6;
+      it('should disable the form elements when there is no group selected', async () => {
+        await page.navigateTo();
 
-            page.navigateTo()
-                .then(
-                    () => tabs.count()
-                )
-                .then(
-                    count => {
-                        initialTabsCount = count;
-                        return tabs.openCreateTab();
-                    }
-                )
-                .then(
-                    () => editor.create.uploadExistingForm()
-                )
-                .then(
-                    () => expect(tabs.count()).toEqual(initialTabsCount + 1)
-                )
-                .then(
-                    // navigate to the last tab
-                    () => tabs.openTab(initialTabsCount - 1)
-                )
-                .then(
-                    () => expect(groups.count()).toEqual(numGroups)
-                )
-                .then(
-                    () => expect(groups.elements.count()).toEqual(numQuestions)
-                );
-        });
+        await expect(groups.getSelectedGroup().isPresent()).toBeFalse();
+        await expect(formElements.disabled()).toBeTrue();
+      });
+
+      it('should add a text element', async () => {
+        await page.navigateTo();
+
+        await groups.addGroup();
+        await groups.selectGroup(0);
+        await formElements.addTextElement();
+        await expect(groups.elements.count()).toBeGreaterThan(0);
+        await expect(groups.elements.text.get(0, 0).isPresent()).toBeTrue();
+      });
     });
 
-    describe('controls', () => {
-        it('should manage the form name', () => {
-            const name = 'Example Name';
-            page.navigateTo()
-                .then(
-                    () => editor.formName.edit(name)
-                )
-                .then(
-                    () => expect(editor.formName.get()).toEqual(name)
-                )
-                .then(
-                    () => expect(tabs.currentTab.getName()).toEqual(name)
-                );
-        });
+    describe('element properties', () => {
+      it('should display the title', async () => {
+        await page.navigateTo();
 
-        describe('form elements', () => {
-            it('should display the title', () => {
-                page.navigateTo()
-                    .then(
-                        () => expect(formElements.getTitleText()).toBeNonEmptyString()
-                    );
-            });
+        await expect(elementProperties.getTitleText()).toBeNonEmptyString();
+      });
 
-            it('should display a list of form elements', () => {
-                page.navigateTo()
-                    .then(
-                        () => expect(formElements.getAllText()).toBeArrayOfStrings()
-                    )
-                    .then(
-                        () => expect(formElements.getAllText()).toBeNonEmptyArray()
-                    );
-            });
+      it('should not display controls when the selected item is removed', async () => {
+        await page.navigateTo();
 
-            it('should disable the form elements when there is no group selected', () => {
-                page.navigateTo()
-                    .then(
-                        () => expect(groups.getSelectedGroup().isPresent()).toBeFalse()
-                    )
-                    .then(
-                        () => expect(formElements.disabled()).toBeTrue()
-                    );
-            });
+        const count = await groups.count();
 
-            it('should add a text element', () => {
-                page.navigateTo()
-                    .then(
-                        () => groups.addGroup()
-                    )
-                    .then(
-                        () => groups.selectGroup(0)
-                    )
-                    .then(
-                        () => formElements.addTextElement()
-                    )
-                    .then(
-                        () => expect(groups.elements.count()).toBeGreaterThan(0)
-                    )
-                    .then(
-                        () => expect(groups.elements.text.get(0, 0).isPresent()).toBeTrue()
-                    );
-            });
+        if (count === 0) {
+          await groups.addGroup();
+        }
 
-            xit('should add a numeric element', () => {
-                page.navigateTo()
-                    .then(
-                        () => groups.addGroup()
-                    )
-                    .then(
-                        () => groups.selectGroup(0)
-                    )
-                    .then(
-                        () => formElements.addNumericElement()
-                    )
-                    .then(
-                        () => expect(groups.elements.count()).toBeGreaterThan(0)
-                    )
-                    .then(
-                        () => expect(groups.elements.numeric.get(0, 0).isPresent()).toBeTrue()
-                    );
-            });
+        await groups.selectGroup(0);
+        await groups.controls.delete(0);
 
-            xit('should add a gps element', () => {
-                page.navigateTo()
-                    .then(
-                        () => groups.addGroup()
-                    )
-                    .then(
-                        () => groups.selectGroup(0)
-                    )
-                    .then(
-                        () => formElements.addGPSElement()
-                    )
-                    .then(
-                        () => expect(groups.elements.count()).toBeGreaterThan(0)
-                    )
-                    .then(
-                        () => expect(groups.elements.gps.get(0, 0).isPresent()).toBeTrue()
-                    );
-            });
+        await expect(elementProperties.controls.element().isPresent()).toBeFalse();
+      });
 
-            xit('should add a combo box element', () => {
-                page.navigateTo()
-                    .then(
-                        () => groups.addGroup()
-                    )
-                    .then(
-                        () => groups.selectGroup(0)
-                    )
-                    .then(
-                        () => formElements.addComboBoxElement()
-                    )
-                    .then(
-                        () => expect(groups.elements.count()).toBeGreaterThan(0)
-                    )
-                    .then(
-                        () => expect(groups.elements.comboBox.get(0, 0).isPresent()).toBeTrue()
-                    );
-            });
+      it('should manage a group\'s properties: name', async () => {
+        await page.navigateTo();
 
-            xit('should add a multi select element', () => {
-                page.navigateTo()
-                    .then(
-                        () => groups.addGroup()
-                    )
-                    .then(
-                        () => groups.selectGroup(0)
-                    )
-                    .then(
-                        () => formElements.addMultiSelectElement()
-                    )
-                    .then(
-                        () => expect(groups.elements.count()).toBeGreaterThan(0)
-                    )
-                    .then(
-                        () => expect(groups.elements.multiSelect.get(0, 0).isPresent()).toBeTrue()
-                    );
-            });
-        });
+        const name = 'Test Name';
 
-        describe('element properties', () => {
-            it('should display the title', () => {
-                page.navigateTo()
-                    .then(
-                        () => expect(elementProperties.getTitleText()).toBeNonEmptyString()
-                    );
-            });
+        await groups.addGroup();
+        await groups.selectGroup(0);
 
-            it('should not display controls when the selected item is removed', () => {
-                page.navigateTo()
-                    .then(
-                        () => groups.count()
-                    )
-                    .then(
-                        count => {
-                            if (count > 0) {
-                                return groups.selectGroup(0);
-                            } else {
-                                return groups.addGroup()
-                                    .then(
-                                        () => groups.selectGroup(0)
-                                    );
-                            }
-                        }
-                    )
-                    .then(
-                        () => groups.controls.delete(0)
-                    )
-                    .then(
-                        () => expect(elementProperties.controls.element().isPresent()).toBeFalse()
-                    );
-            });
+        await elementProperties.controls.name.edit(name);
+        await expect(groups.controls.name.get(0)).toEqual(name);
+      });
 
-            it('should manage a group\'s properties: name', () => {
+      it('should manage a question\'s properties: name', async () => {
+        await page.navigateTo();
 
-                // element properties should sync the name of the group
+        const name = 'Test Name';
 
-                const name = 'Test Name';
+        await groups.addGroup();
+        await groups.selectGroup(0);
 
-                page.navigateTo()
-                    .then(
-                        () => groups.addGroup()
-                    )
-                    .then(
-                        () => groups.selectGroup(0)
-                    )
-                    .then(
-                        () => expect(elementProperties.controls.name.get()).toBeNonEmptyString()
-                    )
-                    .then(
-                        () => expect(elementProperties.controls.name.edit(name))
-                    )
-                    .then(
-                        () => expect(groups.controls.name.get(0)).toEqual(name)
-                    );
-            });
+        await formElements.addTextElement();
 
-            it('should manage a question\'s properties: name', () => {
+        await elementProperties.controls.name.edit(name);
+        await expect(groups.elements.text.name.get(0, 0)).toEqual(name);
+      });
 
-                const name = 'Test Name';
+      it('should manage a question\'s properties: required', async () => {
+        await page.navigateTo();
 
-                page.navigateTo()
-                    .then(
-                        () => groups.addGroup()
-                    )
-                    .then(
-                        () => groups.selectGroup(0)
-                    )
-                    .then(
-                        () => formElements.addTextElement()
-                    )
-                    .then(
-                        () => expect(elementProperties.controls.name.edit(name))
-                    )
-                    .then(
-                        () => expect(groups.elements.text.name.get(0, 0)).toEqual(name)
-                    );
-            });
+        await groups.addGroup();
+        await groups.selectGroup(0);
 
-            it('should manage a question\'s properties: required', () => {
-                page.navigateTo()
-                    .then(
-                        () => groups.addGroup()
-                    )
-                    .then(
-                        () => groups.selectGroup(0)
-                    )
-                    .then(
-                        () => formElements.addTextElement()
-                    )
-                    .then(
-                        () => expect(groups.elements.controls.required.get(0, 0)).toBeTruthy()
-                    )
-                    .then(
-                        () => elementProperties.controls.required.edit()
-                    )
-                    .then(
-                        () => expect(groups.elements.controls.required.get(0, 0)).toBeFalsy()
-                    );
-            });
+        await formElements.addTextElement();
 
-            it('should manage a group\'s properties: display', () => {
-                const baseDisplay = 'Base Display';
+        await expect(groups.elements.controls.required.get(0, 0)).toBeTruthy();
 
-                page.navigateTo()
-                    .then(
-                        () => groups.addGroup()
-                    )
-                    .then(
-                        () => groups.selectGroup(0)
-                    )
-                    .then(
-                        () => elementProperties.controls.display.base.edit(baseDisplay)
-                    )
-                    .then(
-                        () => groups.addGroup()
-                    )
-                    .then(
-                        () => groups.selectGroup(0)
-                    )
-                    .then(
-                        () => expect(elementProperties.controls.display.base.get()).toEqual(baseDisplay)
-                    );
-            });
+        await elementProperties.controls.required.edit();
 
-            it('should manage a group\'s properties: display (es)', () => {
-                const display = 'español';
+        await expect(groups.elements.controls.required.get(0, 0)).toBeFalsy();
+      });
 
-                page.navigateTo()
-                    .then(
-                        () => groups.addGroup()
-                    )
-                    .then(
-                        () => groups.selectGroup(0)
-                    )
-                    .then(
-                        () => elementProperties.controls.display.edit('es', display)
-                    )
-                    .then(
-                        () => groups.addGroup()
-                    )
-                    .then(
-                        () => groups.selectGroup(0)
-                    )
-                    .then(
-                        () => expect(elementProperties.controls.display.get('es')).toEqual(display)
-                    );
-            });
-        });
+      it('should manage a group\'s properties: display', async () => {
+        await page.navigateTo();
 
-        describe('groups', () => {
-            it('should display the title', () => {
-                page.navigateTo()
-                    .then(
-                        () => expect(groups.getTitleText()).toBeNonEmptyString()
-                    );
-            });
+        const baseDisplay = 'Base Display';
 
-            it('should add a group', () => {
-                let initialCount;
+        await groups.addGroup();
+        await groups.selectGroup(0);
+        await elementProperties.controls.display.base.edit(baseDisplay);
+        await groups.addGroup();
+        await groups.selectGroup(0);
 
-                page.navigateTo()
-                    .then(
-                        () => groups.count()
-                    )
-                    .then(
-                        count => {
-                            initialCount = count;
-                            return groups.addGroup();
-                        }
-                    )
-                    .then(
-                        () => expect(groups.count()).toEqual(initialCount + 1)
-                    );
-            });
+        await expect(elementProperties.controls.display.base.get()).toEqual(baseDisplay);
+      });
 
-            it('should select a newly added group', () => {
-                page.navigateTo()
-                    .then(
-                        () => groups.addGroup()
-                    )
-                    .then(
-                        () => expect(groups.getSelectedGroup().isPresent()).toBeTrue()
-                    );
-            });
+      it('should manage a group\'s properties: display (es)', async () => {
+        await page.navigateTo();
 
-            it('should select a newly added question', () => {
-                page.navigateTo()
-                    .then(
-                        () => groups.addGroup()
-                    )
-                    .then(
-                        () => groups.selectGroup(0)
-                    )
-                    .then(
-                        () => formElements.addTextElement()
-                    )
-                    .then(
-                        () => expect(groups.elements.getSelected().isPresent()).toBeTrue()
-                    );
-            });
+        const display = 'español';
 
-            it('should persist group selections between forms', () => {
-                page.navigateTo()
-                    .then(
-                        () => groups.addGroup()
-                    )
-                    .then(
-                        () => tabs.openCreateTab()
-                    )
-                    .then(
-                        () => editor.create.createBlankForm()
-                    )
-                    .then(
-                        () => tabs.count()
-                    )
-                    .then(
-                        // open the next to last tab, last tab is create tab
-                        count => tabs.openTab(count - 2)
-                    )
-                    .then(
-                        // add a group to the new form, it will be selected
-                        () => groups.addGroup()
-                    )
-                    .then(
-                        () => tabs.openTab(0)
-                    )
-                    .then(
-                        // upon navigating back to the original form,
-                        // we should find the original group still selected
-                        () => expect(groups.getSelectedGroup().isPresent()).toBeTrue()
-                    );
-            });
+        await groups.addGroup();
+        await groups.selectGroup(0);
+        await elementProperties.controls.display.edit('es', display);
+        await groups.addGroup();
+        await groups.selectGroup(0);
 
-            it('should add questions (generic)', () => {
-                let initialCount;
-
-                page.navigateTo()
-                    .then(
-                        () => groups.addGroup()
-                    )
-                    .then(
-                        () => groups.selectGroup(0)
-                    )
-                    .then(
-                        () => groups.elements.count()
-                    )
-                    .then(
-                        count => {
-                            initialCount = count;
-                            return formElements.addTextElement();
-                        }
-                    )
-                    .then(
-                        () => expect(groups.elements.count()).toEqual(initialCount + 1)
-                    );
-            });
-
-            it('should rearrange groups', () => {
-                let groupUnderTest;
-
-                page.navigateTo()
-                    .then(
-                        () => groups.count()
-                    )
-                    .then(
-                        count => {
-                            if (count > 0) {
-                                return groups.getGroupId(0);
-                            }
-
-                            return groups
-                                .addGroup()
-                                .then(
-                                    () => groups.getGroupId(0)
-                                );
-                        }
-                    )
-                    .then(
-                        groupId => {
-                            // have one group on the board. let's lock in the first and
-                            // add another group
-
-                            groupUnderTest = groupId;
-
-                            return groups.addGroup();
-                        }
-                    )
-                    .then(
-                        () => {
-                            // great, have two groups. let's move the first one to the bottom
-                            return groups.controls.shift.down(0);
-                        }
-                    )
-                    .then(
-                        () => {
-                            // expect that the last group should have the same id as the
-                            // groupUnderTest, if it was correctly shifted down
-
-                            return expect(groups.getGroupId(1)).toEqual(groupUnderTest);
-                        }
-                    )
-                    .then(
-                        () => {
-                            // now shift the group back up
-                            return groups.controls.shift.up(1);
-                        }
-                    )
-                    .then(
-                        () => {
-                            // and expect that the first group is the group under test!
-
-                            return expect(groups.getGroupId(0)).toEqual(groupUnderTest);
-                        }
-                    );
-            });
-
-            it('should delete a group', () => {
-                let initialCount;
-
-                page.navigateTo()
-                    .then(
-                        () => groups.count()
-                    )
-                    .then(
-                        count => {
-
-                            initialCount = count;
-
-                            if (count > 0) {
-                                return groups.selectGroup(0);
-                            } else {
-                                initialCount += 1;
-
-                                return groups.addGroup()
-                                    .then(
-                                        () => groups.selectGroup(0)
-                                    );
-                            }
-                        }
-                    )
-                    .then(
-                        () => groups.controls.delete(0)
-                    )
-                    .then(
-                        () => expect(groups.count()).toEqual(initialCount - 1)
-                    );
-            });
-        });
+        await expect(elementProperties.controls.display.get('es')).toEqual(display);
+      });
     });
 
-    describe('questions', () => {
+    describe('groups', () => {
+      it('should display the title', async () => {
+        await page.navigateTo();
 
-        it('should rearrange questions', () => {
-            let questionUnderTest;
+        await expect(groups.getTitleText()).toBeNonEmptyString();
+      });
 
-            page.navigateTo()
-                .then(
-                    () => groups.addGroup()
-                )
-                .then(
-                    () => groups.selectGroup(0)
-                )
-                .then(
-                    () => formElements.addTextElement()
-                )
-                .then(
-                    () => formElements.addTextElement()
-                )
-                .then(
-                    // have two text elements in the first group. let's lock in the first
-                    // and then shift it down
-                    () => groups.elements.getId(0, 0)
-                )
-                .then(
-                    questionId => {
-                        questionUnderTest = questionId;
+      it('should add a group', async () => {
+        await page.navigateTo();
 
-                        return groups.elements.controls.shift.down(0, 0);
-                    }
-                )
-                .then(
-                    () => {
-                        // expect that the last question should have the same id as the
-                        // questionUnderTest, if it was correctly shifted down
+        const initialCount = await groups.count();
+        await groups.addGroup();
 
-                        return expect(groups.elements.getId(0, 1)).toEqual(questionUnderTest);
-                    }
-                )
-                .then(
-                    () => {
-                        // now shift the group back up
-                        return groups.elements.controls.shift.up(0, 1);
-                    }
-                )
-                .then(
-                    () => {
-                        // and expect that the first question is the group under test!
+        await expect(groups.count()).toEqual(initialCount + 1);
+      });
 
-                        return expect(groups.elements.getId(0, 0)).toEqual(questionUnderTest);
-                    }
-                );
-        });
+      it('should select a newly added group', async () => {
+        await page.navigateTo();
 
-        it('should delete a question', () => {
-            page.navigateTo()
-                .then(
-                    () => groups.addGroup()
-                )
-                .then(
-                    () => groups.selectGroup(0)
-                )
-                .then(
-                    () => formElements.addTextElement()
-                )
-                .then(
-                    () => expect(groups.elements.count()).toEqual(1)
-                )
-                .then(
-                    () => groups.elements.delete(0, 0)
-                )
-                .then(
-                    () => expect(groups.elements.count()).toEqual(0)
-                );
-        });
+        await groups.addGroup();
+
+        await expect(groups.getSelectedGroup().isPresent()).toBeTrue();
+      });
+
+      it('should select a newly added question', async () => {
+        await page.navigateTo();
+
+        await groups.addGroup();
+        await groups.selectGroup(0);
+        await formElements.addTextElement();
+
+        await expect(groups.elements.getSelected().isPresent()).toBeTrue();
+      });
+
+      it('should persist group selections between forms', async () => {
+        await page.navigateTo();
+
+        await groups.addGroup();
+        await tabs.openCreateTab();
+        await editor.create.createBlankForm();
+
+        // open the next to last tab, last tab is create tab
+        await tabs.openTab(-2);
+
+        // add a group to the new form, it will be selected
+        await groups.addGroup();
+        await tabs.openTab(0);
+
+        // upon navigating back to the original form,
+        // we should find the original group still selected
+        await expect(groups.getSelectedGroup().isPresent()).toBeTrue();
+      });
+
+      it('should add questions (generic)', async () => {
+        await page.navigateTo();
+
+        await groups.addGroup();
+        await groups.selectGroup(0);
+        const initialCount = await groups.elements.count();
+        await formElements.addTextElement();
+
+        await expect(groups.elements.count()).toEqual(initialCount + 1);
+      });
+
+      it('should rearrange groups', async () => {
+        await page.navigateTo();
+
+        const count = await groups.count();
+
+        if (count === 0) {
+          await groups.addGroup();
+          await groups.getGroupId(0);
+        }
+
+        // have one group on the board. let's lock in the first and
+        // add another group
+        const groupUnderTest = await groups.getGroupId(0);
+        await groups.addGroup();
+
+        // great, have two groups. let's move the first one to the bottom
+        await groups.controls.shift.down(0);
+
+        // expect that the last group should have the same id as the
+        // groupUnderTest, if it was correctly shifted down
+        await expect(groups.getGroupId(1)).toEqual(groupUnderTest);
+
+        // now shift the group back up
+        await groups.controls.shift.up(1);
+
+        // and expect that the first group is the group under test!
+        await expect(groups.getGroupId(0)).toEqual(groupUnderTest);
+      });
+
+      it('should delete a group', async () => {
+        await page.navigateTo();
+
+        let initialCount = await groups.count();
+
+        if (initialCount > 0) {
+          await groups.selectGroup(0);
+        } else {
+          initialCount += 1;
+
+          await groups.addGroup();
+          await groups.selectGroup(0);
+        }
+
+        await groups.controls.delete(0);
+
+        await expect(groups.count()).toEqual(initialCount - 1);
+      });
+    });
+  });
+
+  describe('questions', () => {
+
+    it('should rearrange questions', async () => {
+      await page.navigateTo();
+
+      await groups.addGroup();
+      await groups.selectGroup(0);
+      await formElements.addTextElement();
+      await formElements.addTextElement();
+
+      // have two text elements in the first group. let's lock in the first
+      // and then shift it down
+      const questionUnderTest = await groups.elements.getId(0, 0);
+      await groups.elements.controls.shift.down(0, 0);
+
+      // expect that the last question should have the same id as the
+      // questionUnderTest, if it was correctly shifted down
+      await expect(groups.elements.getId(0, 1)).toEqual(questionUnderTest);
+
+      // now shift the group back up
+      await groups.elements.controls.shift.up(0, 1);
+
+      // and expect that the first question is the group under test!
+      await expect(groups.elements.getId(0, 0)).toEqual(questionUnderTest);
     });
 
-    describe('export the survey', () => {
-        it('should display a button to export the form', () => {
-            page.navigateTo()
-                .then(
-                    () => editor.openExportDialog()
-                );
-        });
+    it('should delete a question', async () => {
+      await page.navigateTo();
+
+      await groups.addGroup();
+      await groups.selectGroup(0);
+      await formElements.addTextElement();
+
+      await expect(groups.elements.count()).toEqual(1);
+
+      await groups.elements.delete(0, 0);
+
+      await expect(groups.elements.count()).toEqual(0);
     });
+  });
+
+  describe('export the survey', () => {
+    it('should display a button to export the form', async () => {
+      await page.navigateTo();
+
+      await editor.openExportDialog();
+    });
+  });
 });
